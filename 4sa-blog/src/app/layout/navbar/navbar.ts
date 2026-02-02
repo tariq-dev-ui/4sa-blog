@@ -1,6 +1,20 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
+export interface NavMenuItem {
+  labelKey: string;
+  path: string;
+  icon?: string;
+  children?: { labelKey: string; path: string }[];
+}
 
 @Component({
   selector: 'app-navbar',
@@ -9,11 +23,52 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
   styleUrl: './navbar.scss',
 })
 export class Navbar {
-  readonly translate = inject(TranslateService);
+  @ViewChild('menuContainer') menuContainerRef!: ElementRef<HTMLElement>;
 
-  /** اسم اللغة الحالية للعرض بجانب الزر */
+  readonly translate = inject(TranslateService);
+  readonly isMenuOpen = signal(false);
+
+  readonly menuItems: NavMenuItem[] = [
+    { labelKey: 'nav.menuHome', path: '/', icon: 'bi-house' },
+    {
+      labelKey: 'nav.menuPosts',
+      path: '/posts',
+      icon: 'bi-newspaper',
+      children: [
+        { labelKey: 'nav.menuAllPosts', path: '/posts' },
+        { labelKey: 'nav.menuLatest', path: '/posts' },
+      ],
+    },
+    { labelKey: 'nav.menuCategories', path: '/categories', icon: 'bi-folder' },
+    { labelKey: 'nav.menuAbout', path: '/about', icon: 'bi-info-circle' },
+    { labelKey: 'nav.menuContact', path: '/contact', icon: 'bi-envelope' },
+    { labelKey: 'nav.menuArchive', path: '/archive', icon: 'bi-archive' },
+    { labelKey: 'nav.menuTags', path: '/tags', icon: 'bi-tags' },
+    { labelKey: 'nav.menuNews', path: '/news', icon: 'bi-megaphone' },
+    { labelKey: 'nav.menuReviews', path: '/reviews', icon: 'bi-star' },
+    { labelKey: 'nav.menuLinks', path: '/links', icon: 'bi-link-45deg' },
+  ];
+
   get currentLangLabel(): string {
     return this.translate.currentLang === 'ar' ? 'العربية' : 'English';
+  }
+
+  toggleMenu(): void {
+    this.isMenuOpen.update((v) => !v);
+  }
+
+  closeMenu(): void {
+    this.isMenuOpen.set(false);
+  }
+
+  /** إغلاق القائمة عند الضغط خارجها */
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event): void {
+    if (!this.isMenuOpen()) return;
+    const el = this.menuContainerRef?.nativeElement;
+    if (el && !el.contains(event.target as Node)) {
+      this.closeMenu();
+    }
   }
 
   toggleLang(): void {

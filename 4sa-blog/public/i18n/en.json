@@ -2,7 +2,20 @@
   "nav": {
     "brand": "4SA Blog",
     "searchPlaceholder": "Search...",
-    "switchLang": "Switch language"
+    "switchLang": "Switch language",
+    "menu": "Menu",
+    "menuHome": "Home",
+    "menuPosts": "Posts",
+    "menuCategories": "Categories",
+    "menuAbout": "About Us",
+    "menuContact": "Contact",
+    "menuArchive": "Archive",
+    "menuTags": "Tags",
+    "menuNews": "News",
+    "menuReviews": "Reviews",
+    "menuLinks": "Quick Links",
+    "menuAllPosts": "All posts",
+    "menuLatest": "Latest posts"
   },
   "footer": {
     "copyright": "All rights reserved."

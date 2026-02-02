@@ -2,7 +2,20 @@
   "nav": {
     "brand": "4SA Blog",
     "searchPlaceholder": "بحث...",
-    "switchLang": "تبديل اللغة"
+    "switchLang": "تبديل اللغة",
+    "menu": "القائمة",
+    "menuHome": "الرئيسية",
+    "menuPosts": "المقالات",
+    "menuCategories": "التصنيفات",
+    "menuAbout": "من نحن",
+    "menuContact": "اتصل بنا",
+    "menuArchive": "الأرشيف",
+    "menuTags": "الوسوم",
+    "menuNews": "الأخبار",
+    "menuReviews": "المراجعات",
+    "menuLinks": "روابط سريعة",
+    "menuAllPosts": "جميع المقالات",
+    "menuLatest": "أحدث المقالات"
   },
   "footer": {
     "copyright": "جميع الحقوق محفوظة."

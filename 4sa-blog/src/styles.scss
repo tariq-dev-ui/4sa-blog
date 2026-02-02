@@ -1,1 +1,179 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================
+   نظام الألوان - 4SA Blog
+   ============================================ */
+
+:root {
+  /* الألوان الأساسية */
+  --color-primary: #09637E;
+  --color-primary-rgb: 9, 99, 126;
+  --color-primary-contrast: #ffffff;
+
+  --color-secondary: #0A97AC;
+  --color-secondary-rgb: 10, 151, 172;
+  --color-secondary-contrast: #ffffff;
+
+  --color-light: #66B2C5;
+  --color-light-rgb: 102, 178, 197;
+  --color-light-contrast: #064D5A;
+
+  --color-dark: #064D5A;
+  --color-dark-rgb: 6, 77, 90;
+  --color-dark-contrast: #ffffff;
+
+  --color-warning: #F2A541;
+  --color-warning-rgb: 242, 165, 65;
+  --color-warning-contrast: #064D5A;
+
+  --color-success: #4DB380;
+  --color-success-rgb: 77, 179, 128;
+  --color-success-contrast: #ffffff;
+
+  --color-background: #E6F0F2;
+  --color-background-rgb: 230, 240, 242;
+
+  /* ألوان النص */
+  --text-primary: var(--color-dark);
+  --text-on-primary: var(--color-primary-contrast);
+  --text-on-dark: var(--color-dark-contrast);
+  --text-muted: var(--color-dark);
+
+  /* ظلال وشفافية */
+  --shadow-sm: 0 1px 2px rgba(var(--color-dark-rgb), 0.08);
+  --shadow-md: 0 4px 6px rgba(var(--color-dark-rgb), 0.1);
+  --shadow-lg: 0 10px 15px rgba(var(--color-dark-rgb), 0.12);
+}
+
+/* ============================================
+   تطبيق عام
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--color-background);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   فئات مساعدة - أزرار
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+  }
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+
+  &:hover {
+    background-color: var(--color-secondary);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-contrast);
+
+  &:hover {
+    background-color: var(--color-light);
+    color: var(--color-light-contrast);
+  }
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+  }
+}
+
+/* ============================================
+   فئات مساعدة - تنبيهات
+   ============================================ */
+
+.alert {
+  padding: 1rem 1.25rem;
+  border-radius: 0.375rem;
+  border-inline-start: 4px solid;
+  margin: 0.5rem 0;
+}
+
+.alert-warning {
+  background-color: rgba(var(--color-warning-rgb), 0.15);
+  border-color: var(--color-warning);
+  color: var(--color-dark);
+}
+
+.alert-success {
+  background-color: rgba(var(--color-success-rgb), 0.15);
+  border-color: var(--color-success);
+  color: var(--color-dark);
+}
+
+.alert-error {
+  background-color: rgba(var(--color-warning-rgb), 0.2);
+  border-color: var(--color-warning);
+  color: var(--color-dark);
+}
+
+/* ============================================
+   بطاقات (خلفية فاتحة)
+   ============================================ */
+
+.card {
+  background-color: var(--color-light);
+  color: var(--color-light-contrast);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-md);
+}
+
+/* روابط ثانوية */
+a.link-secondary {
+  color: var(--color-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,143 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--color-background);
+  box-sizing: border-box;
+}
+
+.banner-row {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr; /* الرئيسي أعرض، الثاني أضيق قليلاً */
+  gap: 0.75rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 240px; /* ارتفاع موحد للبنرين، العرض يحدده 2fr و 1fr */
+}
+
+.banner-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-md);
+  background-color: var(--color-light);
+}
+
+.banner-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.banner-link:hover .banner-image {
+  transform: scale(1.05);
+}
+
+/* غلاف الصورة - لمعة متزامنة مع تغيير الصورة (التبديل عند الذروة) */
+$banner-glimmer-duration: 0.32s;
+
+.banner-img-wrap {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+/* لمعة احترافية: تصل الذروة عند 50% ثم تختفي؛ التبديل يحدث في TS عند 160ms (نصف المدة) */
+.banner-img-wrap.glimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  pointer-events: none;
+  animation: banner-glimmer $banner-glimmer-duration ease-in-out forwards;
+}
+@keyframes banner-glimmer {
+  0% { opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+/* شاشات متوسطة */
+@media (max-width: 992px) {
+  .banner-row {
+    height: 200px;
+    gap: 0.5rem;
+    padding: 0 0.25rem;
+  }
+}
+
+/* شاشات صغيرة - نفس الصف مع تصغير */
+@media (max-width: 576px) {
+  .banner {
+    padding: 0.5rem;
+  }
+
+  .banner-row {
+    height: 160px;
+    grid-template-columns: 2.2fr 1fr;
+    gap: 0.35rem;
+  }
+}
+
+/* أسهم التنقل - داخل كل بنر، دائرة بخلفية مموهة */
+.banner-item .banner-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.banner-item .banner-arrow:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%) scale(1.05);
+}
+.banner-item .banner-arrow i {
+  font-size: 0.65rem;
+  display: inline-block;
+}
+/* عكس اتجاه أيقونات الأسهم (مناسبة لاتجاه RTL) */
+.banner-item .banner-prev .bi-chevron-left,
+.banner-item .banner-next .bi-chevron-right {
+  transform: scaleX(-1);
+}
+.banner-item .banner-prev {
+  inset-inline-start: 0.75rem;
+}
+.banner-item .banner-next {
+  inset-inline-end: 0.75rem;
+}
+

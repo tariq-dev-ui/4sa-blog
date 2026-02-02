@@ -1,0 +1,81 @@
+<section
+  class="banner"
+  aria-label="بنر عرضي"
+  (mouseenter)="onBannerMouseEnter()"
+  (mouseleave)="onBannerMouseLeave()"
+>
+  <div class="banner-row">
+    <!-- البنر الرئيسي (يسار) - تحكم منفصل -->
+    <div class="banner-item">
+      <a
+        [href]="displayLeft().link || '#'"
+        class="banner-link"
+        [attr.aria-label]="displayLeft().title"
+      >
+        <span class="banner-img-wrap" [class.glimmer]="isFadingLeft()">
+          <img
+            [src]="displayLeft().image"
+            [alt]="displayLeft().title || ''"
+            class="banner-image"
+            loading="lazy"
+            fetchpriority="high"
+          />
+        </span>
+      </a>
+      @if (hasMultipleLeft()) {
+        <button
+          type="button"
+          class="banner-arrow banner-prev"
+          aria-label="السابق - بنر رئيسي"
+          (click)="prevLeft(); $event.preventDefault(); $event.stopPropagation()"
+        >
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button
+          type="button"
+          class="banner-arrow banner-next"
+          aria-label="التالي - بنر رئيسي"
+          (click)="nextLeft(); $event.preventDefault(); $event.stopPropagation()"
+        >
+          <i class="bi bi-chevron-right" aria-hidden="true"></i>
+        </button>
+      }
+    </div>
+    <!-- البنر الثاني (يمين) - تحكم منفصل -->
+    <div class="banner-item">
+      <a
+        [href]="displayRight().link || '#'"
+        class="banner-link"
+        [attr.aria-label]="displayRight().title"
+      >
+        <span class="banner-img-wrap" [class.glimmer]="isFadingRight()">
+          <img
+            [src]="displayRight().image"
+            [alt]="displayRight().title || ''"
+            class="banner-image"
+            loading="lazy"
+            fetchpriority="high"
+          />
+        </span>
+      </a>
+      @if (hasMultipleRight()) {
+        <button
+          type="button"
+          class="banner-arrow banner-prev"
+          aria-label="السابق - بنر ثاني"
+          (click)="prevRight(); $event.preventDefault(); $event.stopPropagation()"
+        >
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button
+          type="button"
+          class="banner-arrow banner-next"
+          aria-label="التالي - بنر ثاني"
+          (click)="nextRight(); $event.preventDefault(); $event.stopPropagation()"
+        >
+          <i class="bi bi-chevron-right" aria-hidden="true"></i>
+        </button>
+      }
+    </div>
+  </div>
+</section>

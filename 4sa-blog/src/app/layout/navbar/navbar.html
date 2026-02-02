@@ -1,12 +1,12 @@
 <nav class="navbar">
-  <a routerLink="/" class="brand"><i class="fa-solid fa-book-open"></i> {{ 'nav.brand' | translate }}</a>
+  <a routerLink="/" class="brand"><i class="bi bi-journal-book nav-icon" aria-hidden="true"></i> {{ 'nav.brand' | translate }}</a>
   <ul class="nav-links">
-    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="fa-solid fa-house"></i> {{ 'nav.home' | translate }}</a></li>
-    <li><a routerLink="/posts" routerLinkActive="active"><i class="fa-solid fa-newspaper"></i> {{ 'nav.posts' | translate }}</a></li>
-    <li><a routerLink="/categories" routerLinkActive="active"><i class="fa-solid fa-folder"></i> {{ 'nav.categories' | translate }}</a></li>
+    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="bi bi-house nav-icon" aria-hidden="true"></i> {{ 'nav.home' | translate }}</a></li>
+    <li><a routerLink="/posts" routerLinkActive="active"><i class="bi bi-newspaper nav-icon" aria-hidden="true"></i> {{ 'nav.posts' | translate }}</a></li>
+    <li><a routerLink="/categories" routerLinkActive="active"><i class="bi bi-folder nav-icon" aria-hidden="true"></i> {{ 'nav.categories' | translate }}</a></li>
     <li>
       <button type="button" class="lang-toggle" (click)="toggleLang()" [attr.aria-label]="'nav.switchLang' | translate" [title]="'nav.switchLang' | translate">
-        <i class="fa-solid fa-globe" aria-hidden="true"></i>
+        <i class="bi bi-globe2" aria-hidden="true"></i>
       </button>
     </li>
   </ul>

@@ -1,5 +1,10 @@
 <nav class="navbar">
-  <div #menuContainer class="menu-container">
+  <div
+    #menuContainer
+    class="menu-container"
+    (mouseenter)="openMenu()"
+    (mouseleave)="closeMenu()"
+  >
     <button
       type="button"
       class="menu-toggle"

@@ -57,6 +57,10 @@ export class Navbar {
     this.isMenuOpen.update((v) => !v);
   }
 
+  openMenu(): void {
+    this.isMenuOpen.set(true);
+  }
+
   closeMenu(): void {
     this.isMenuOpen.set(false);
   }

@@ -17,6 +17,9 @@
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.25rem;
   font-weight: 600;
   color: inherit;
@@ -38,7 +41,9 @@
 }
 
 .nav-links a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   padding: 0.5rem 0.75rem;
   color: var(--color-primary-contrast);
   text-decoration: none;

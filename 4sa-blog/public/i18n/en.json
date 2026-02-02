@@ -1,4 +1,19 @@
 {
+  "sections": {
+    "title": "Sections",
+    "prev": "Previous sections",
+    "next": "Next sections",
+    "food": "Food",
+    "hotels": "Hotels",
+    "perfumes": "Perfumes",
+    "fashion": "Fashion",
+    "electronics": "Electronics",
+    "beauty": "Beauty & Care",
+    "kids": "Kids",
+    "madeInSaudi": "Made in Saudi Arabia",
+    "healthFitness": "Health & Fitness",
+    "allCategories": "All Categories"
+  },
   "nav": {
     "brand": "4SA Blog",
     "searchPlaceholder": "Search...",

@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'posts', component: Posts, title: 'المقالات' },
   { path: 'posts/:id', component: PostDetails, title: 'تفاصيل المقال' },
   { path: 'categories', component: Categories, title: 'التصنيفات' },
+  { path: 'categories/:slug', component: Categories, title: 'التصنيفات' },
   { path: '**', redirectTo: '' },
 ];
 

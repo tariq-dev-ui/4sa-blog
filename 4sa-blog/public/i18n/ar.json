@@ -1,4 +1,19 @@
 {
+  "sections": {
+    "title": "الأقسام",
+    "prev": "الأقسام السابقة",
+    "next": "الأقسام التالية",
+    "food": "طعام",
+    "hotels": "فنادق",
+    "perfumes": "عطور",
+    "fashion": "الأزياء و الموضة",
+    "electronics": "إلكترونيات",
+    "beauty": "الجمال و العناية",
+    "kids": "الطفل",
+    "madeInSaudi": "صنع بالسعودية",
+    "healthFitness": "صحة ولياقة",
+    "allCategories": "كل الفئات"
+  },
   "nav": {
     "brand": "4SA Blog",
     "searchPlaceholder": "بحث...",

@@ -3,12 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Banner } from './layout/banner/banner';
+import { CategoriesSidebar } from './layout/categories-sidebar/categories-sidebar';
 import { Footer } from './layout/footer/footer';
 import { Navbar } from './layout/navbar/navbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Banner, Footer],
+  imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, Footer],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -87,7 +87,7 @@ $banner-glimmer-duration: 0.32s;
   }
 }
 
-/* شاشات صغيرة - نفس الصف مع تصغير */
+/* شاشات صغيرة - نفس الصف مع تصغير + تدرج على البنر */
 @media (max-width: 576px) {
   .banner {
     padding: 0.5rem;
@@ -97,6 +97,20 @@ $banner-glimmer-duration: 0.32s;
     height: 160px;
     grid-template-columns: 2.2fr 1fr;
     gap: 0.35rem;
+  }
+
+  /* تدرج لوني فوق البنر الرئيسي (العنصر الأول) على الشاشات الصغيرة */
+  .banner-item:first-child .banner-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(230, 240, 242, 1) 0%,
+      rgba(0, 0, 0, 1) 77%
+    );
+    pointer-events: none;
+    opacity: 0.5; /* الصورة تظهر من تحت التدرج */
   }
 }
 

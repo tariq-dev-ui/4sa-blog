@@ -4,6 +4,7 @@
   color: var(--color-primary-contrast);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   padding: 0 0.75rem; /* نفس هامش البنر أفقيًا */
+  --navbar-height: 3.5rem; /* لمواءمة موضع الدروب داون */
 }
 
 .navbar {
@@ -14,6 +15,8 @@
   padding: 0.625rem 0.75rem; /* نفس هامش البنر للتوافق */
   max-width: 1200px;
   margin: 0 auto;
+  min-height: var(--navbar-height);
+  box-sizing: border-box;
 }
 
 .menu-toggle {
@@ -100,28 +103,32 @@
   to { opacity: 1; }
 }
 
-/* لوحة القائمة المنسدلة: مستطيل عرضي (بالعرض) وليس بالطول */
+/* لوحة القائمة المنسدلة: بعرض الشاشة بالكامل تحت النافبار مباشرة */
 .dropdown-panel {
-  position: absolute;
-  top: calc(100% + 0.35rem);
-  inset-inline-start: 0;
-  min-width: 380px; /* عرض كافٍ ليكون المستطيل عرضياً */
-  width: max-content;
-  max-width: 90vw;
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 0;
   background: #fff;
   color: #064d5a;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(9, 99, 126, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(9, 99, 126, 0.12);
+  border-radius: 0;
+  box-shadow: 0 4px 12px rgba(9, 99, 126, 0.15);
+  border: none;
+  border-top: 1px solid rgba(9, 99, 126, 0.12);
+  border-bottom: 1px solid rgba(9, 99, 126, 0.1);
   z-index: 1000;
   overflow: visible;
   animation: dropdownPanelIn 0.22s ease-out;
+  box-sizing: border-box;
 }
 
 @keyframes dropdownPanelIn {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -129,16 +136,21 @@
   }
 }
 
-/* القائمة المنسدلة: عرضية (بالعرض) في كل الشاشات */
+/* القائمة المنسدلة: صف أفقي بعرض اللوحة مع توسيط المحتوى */
 .dropdown-list {
   list-style: none;
   margin: 0;
-  padding: 0.4rem 0.25rem;
+  padding: 0.6rem 0.75rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0;
+  justify-content: center;
+  gap: 0.15rem 0.5rem;
+  box-sizing: border-box;
 }
 
 .dropdown-item-wrap {
@@ -170,10 +182,12 @@
   font-family: inherit;
   white-space: nowrap;
   border-radius: 6px;
+  box-sizing: border-box;
 
   .bi:first-child {
     font-size: 1.05rem;
     opacity: 0.85;
+    flex-shrink: 0;
   }
 }
 
@@ -208,6 +222,7 @@ a.dropdown-item:hover {
   padding: 0.25rem 0;
   background: #fff;
   min-width: 140px;
+  max-width: min(280px, 85vw);
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(9, 99, 126, 0.15);
   border: 1px solid rgba(9, 99, 126, 0.1);
@@ -217,6 +232,7 @@ a.dropdown-item:hover {
   inset-inline-start: 0;
   margin-top: 0.15rem;
   z-index: 10;
+  box-sizing: border-box;
 }
 
 .dropdown-item-wrap.has-children:hover .dropdown-sublist {
@@ -364,40 +380,58 @@ a.dropdown-item:hover {
   font-size: 1.1rem;
 }
 
-/* شاشات متوسطة: نفس التنسيق مع زيادة ارتفاع اللوحة (لا سايد بار) */
+/* شاشات متوسطة (≤992px) */
 @media (max-width: 992px) {
   .dropdown-backdrop {
     background: rgba(0, 0, 0, 0.25);
   }
 
-  .dropdown-panel {
-    min-width: min(320px, 90vw);
-    max-width: min(95vw, 600px);
-    width: max-content;
-  }
-
   .dropdown-list {
-    flex-direction: row; /* عرضية (بالعرض) وليست بالطول */
-    flex-wrap: wrap;
-    padding: 0.5rem 0.35rem;
-    gap: 0.15rem 0;
+    padding: 0.5rem 0.75rem;
+    gap: 0.15rem 0.25rem;
   }
 
   .dropdown-item,
   .dropdown-parent {
-    padding: 0.6rem 0.75rem;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.9rem;
   }
 
   .dropdown-divider {
     width: 1px;
-    height: 1.5rem;
+    height: 1.4rem;
+    margin: 0 0.1rem;
+  }
+
+  .dropdown-sublist {
+    min-width: 130px;
+    max-width: min(260px, 80vw);
   }
 }
 
-/* أجهزة صغيرة: نفس التخطيط العرضي مع عرض كافٍ ولف للصفوف */
+/* شاشات صغيرة (≤768px) */
+@media (max-width: 768px) {
+  .dropdown-list {
+    padding: 0.5rem 0.5rem;
+    gap: 0.2rem 0.2rem;
+  }
+
+  .dropdown-item,
+  .dropdown-parent {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.875rem;
+  }
+
+  .dropdown-divider {
+    height: 1.25rem;
+  }
+}
+
+/* أجهزة صغيرة جداً (≤576px) */
 @media (max-width: 576px) {
   :host {
-    padding: 0 0.5rem; /* مواءمة البنر على الشاشات الصغيرة */
+    padding: 0 0.5rem;
+    --navbar-height: 3.25rem;
   }
 
   .navbar {
@@ -418,30 +452,45 @@ a.dropdown-item:hover {
     font-size: 0.95rem;
   }
 
-  .dropdown-panel {
-    min-width: min(300px, calc(100vw - 1rem));
-    max-width: calc(100vw - 1rem);
-    width: max-content;
-  }
-
   .dropdown-list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 0.5rem 0.35rem;
-    gap: 0.2rem 0;
+    padding: 0.45rem 0.5rem;
+    gap: 0.15rem 0.2rem;
   }
 
   .dropdown-item,
   .dropdown-parent {
-    padding: 0.5rem 0.6rem;
-    font-size: 0.875rem;
+    padding: 0.5rem 0.55rem;
+    font-size: 0.8125rem;
+    min-height: 2.25rem;
     white-space: nowrap;
   }
 
   .dropdown-divider {
     width: 1px;
-    height: 1.25rem;
-    margin: 0 0.1rem;
+    height: 1.15rem;
+    margin: 0 0.08rem;
+  }
+
+  .dropdown-sublist {
+    min-width: 120px;
+    max-width: min(240px, calc(100vw - 2rem));
+  }
+
+  .dropdown-subitem a {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* شاشات صغيرة للغاية (≤400px) */
+@media (max-width: 400px) {
+  .dropdown-list {
+    padding: 0.4rem 0.4rem;
+  }
+
+  .dropdown-item,
+  .dropdown-parent {
+    padding: 0.45rem 0.5rem;
+    font-size: 0.75rem;
   }
 }

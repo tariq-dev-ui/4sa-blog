@@ -1,4 +1,6 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/4sa-blog/browser",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]

@@ -18,36 +18,35 @@
   position: relative;
 }
 
-/* أسهم التنقل بين الأقسام */
+/* أسهم التنقل: سهم صغير بدون خلفية */
 .drawer-arrow {
   flex-shrink: 0;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 50%;
-  background: #fff;
-  color: var(--color-primary, #09637e);
-  box-shadow: 0 2px 8px rgba(9, 99, 126, 0.15);
+  border-radius: 0;
+  background: transparent;
+  color: rgba(9, 99, 126, 0.6);
+  box-shadow: none;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease;
   z-index: 2;
 
   i {
-    font-size: 1.125rem;
+    font-size: 0.75rem;
     line-height: 1;
   }
 
   &:hover:not(:disabled) {
-    background: var(--color-primary, #09637e);
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(9, 99, 126, 0.25);
+    color: var(--color-primary, #09637e);
+    background: transparent;
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary, #09637e);
+    outline: 1px solid var(--color-primary, #09637e);
     outline-offset: 2px;
   }
 
@@ -192,11 +191,11 @@
   }
 
   .drawer-arrow {
-    width: 2rem;
-    height: 2rem;
+    width: 1rem;
+    height: 1rem;
 
     i {
-      font-size: 1rem;
+      font-size: 0.65rem;
     }
   }
 

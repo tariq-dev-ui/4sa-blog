@@ -1,8 +1,81 @@
 /* ============================================
+   خطوط الموقع - Qatar 2022 Arabic
+   المجلد: /fonts/qatar-2022-arabic/
+   ============================================ */
+
+@font-face {
+  font-family: 'Qatar2022 Arabic';
+  src: url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Heavy.eot');
+  src: local('Qatar2022 Arabic Heavy'), local('Qatar2022Arabic-Heavy'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Heavy.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Heavy.woff2') format('woff2'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Heavy.woff') format('woff'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Heavy.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Qatar2022 Arabic';
+  src: url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Bold.eot');
+  src: local('Qatar2022 Arabic Bold'), local('Qatar2022Arabic-Bold'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Bold.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Bold.woff2') format('woff2'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Bold.woff') format('woff'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Qatar2022 Arabic';
+  src: url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Thin.eot');
+  src: local('Qatar2022 Arabic Thin'), local('Qatar2022Arabic-Thin'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Thin.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Thin.woff2') format('woff2'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Thin.woff') format('woff'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Qatar2022 Arabic Book';
+  src: url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Book.eot');
+  src: local('Qatar2022 Arabic Book'), local('Qatar2022Arabic-Book'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Book.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Book.woff2') format('woff2'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Book.woff') format('woff'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Qatar2022 Arabic';
+  src: url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Medium.eot');
+  src: local('Qatar2022 Arabic Medium'), local('Qatar2022Arabic-Medium'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Medium.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Medium.woff2') format('woff2'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Medium.woff') format('woff'),
+    url('/fonts/qatar-2022-arabic/Qatar2022Arabic-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
    نظام الألوان - 4SA Blog
    ============================================ */
 
 :root {
+  /* خط الموقع */
+  --font-family-base: 'Qatar2022 Arabic', 'Qatar2022 Arabic Book', system-ui, sans-serif;
+  --font-family-heading: 'Qatar2022 Arabic', system-ui, sans-serif;
   /* الألوان الأساسية */
   --color-primary: #09637E;
   --color-primary-rgb: 9, 99, 126;
@@ -59,12 +132,17 @@ html {
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-family-base);
   background-color: var(--color-background);
   color: var(--text-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 700;
 }
 
 /* ============================================

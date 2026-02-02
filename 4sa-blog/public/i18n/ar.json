@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "brand": "4SA Blog",
+    "home": "الرئيسية",
+    "posts": "المقالات",
+    "categories": "التصنيفات",
+    "switchLang": "تبديل إلى الإنجليزية"
+  },
+  "footer": {
+    "copyright": "جميع الحقوق محفوظة."
+  }
+}

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { Footer } from './layout/footer/footer';
 import { Navbar } from './layout/navbar/navbar';
@@ -10,4 +11,16 @@ import { Navbar } from './layout/navbar/navbar';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {}
+export class App implements OnInit {
+  private readonly translate = inject(TranslateService);
+
+  ngOnInit(): void {
+    const applyDir = (lang: string) => {
+      const dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.dir = dir;
+      document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+    };
+    this.translate.onLangChange.subscribe((e) => applyDir(e.lang));
+    applyDir(this.translate.currentLang || this.translate.defaultLang || 'ar');
+  }
+}

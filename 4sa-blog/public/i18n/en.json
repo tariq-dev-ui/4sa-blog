@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "brand": "4SA Blog",
+    "home": "Home",
+    "posts": "Posts",
+    "categories": "Categories",
+    "switchLang": "Switch to Arabic"
+  },
+  "footer": {
+    "copyright": "All rights reserved."
+  }
+}

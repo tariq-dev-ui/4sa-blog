@@ -39,9 +39,44 @@
   }
 }
 
+/* غلاف الأيقونات للأنيميشن */
+.menu-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .menu-icon {
+  position: absolute;
   font-size: 1.5rem;
   line-height: 1;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+/* أيقونة القائمة (☰): تظهر عند الإغلاق */
+.menu-icon-list {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.menu-toggle.menu-open .menu-icon-list {
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+/* أيقونة الإغلاق (✕): تظهر عند الفتح */
+.menu-icon-close {
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+.menu-toggle.menu-open .menu-icon-close {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* حاوية الزر + القائمة المنسدلة */

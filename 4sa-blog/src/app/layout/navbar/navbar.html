@@ -3,12 +3,16 @@
     <button
       type="button"
       class="menu-toggle"
+      [class.menu-open]="isMenuOpen()"
       (click)="toggleMenu()"
       [attr.aria-expanded]="isMenuOpen()"
       [attr.aria-label]="'nav.menu' | translate"
       [title]="'nav.menu' | translate"
     >
-      <i class="bi bi-list menu-icon" aria-hidden="true"></i>
+      <span class="menu-icon-wrap">
+        <i class="bi bi-list menu-icon menu-icon-list" aria-hidden="true"></i>
+        <i class="bi bi-x-lg menu-icon menu-icon-close" aria-hidden="true"></i>
+      </span>
     </button>
 
     @if (isMenuOpen()) {

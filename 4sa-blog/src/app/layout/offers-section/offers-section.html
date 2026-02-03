@@ -1,0 +1,43 @@
+<section class="offers-section" aria-labelledby="offers-main-title">
+  <div class="offers-section-inner">
+    <header class="offers-header">
+      <h2 id="offers-main-title" class="offers-main-title">{{ mainTitle() }}</h2>
+      <p class="offers-sub-title">{{ subTitle() }}</p>
+    </header>
+
+    <div class="offers-cards-wrap">
+      <div class="offers-cards-row" role="list">
+        @for (offer of offers(); track offer.id) {
+          <article class="offer-card" role="listitem">
+            @if (offer.isNew) {
+              <span class="offer-badge" aria-label="عرض جديد">
+                <i class="bi bi-star-fill" aria-hidden="true"></i>
+                <span>جديد</span>
+              </span>
+            }
+            <button type="button" class="offer-info-btn" aria-label="معلومات العرض">
+              <i class="bi bi-info-lg" aria-hidden="true"></i>
+            </button>
+
+            <div class="offer-store">
+              @if (offer.storeLogoUrl) {
+                <img [src]="offer.storeLogoUrl" [alt]="offer.storeName" class="offer-store-logo" width="80" height="32" />
+              } @else {
+                <span class="offer-store-name">{{ offer.storeName }}</span>
+              }
+            </div>
+
+            <div class="offer-content">
+              <p class="offer-title">{{ offer.offerTitle }}</p>
+              <p class="offer-subtext">{{ offer.offerSubtext }}</p>
+            </div>
+
+            <button type="button" class="offer-cta">
+              {{ offer.buttonText }}
+            </button>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>

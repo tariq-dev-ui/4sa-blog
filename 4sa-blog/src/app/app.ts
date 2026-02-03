@@ -6,10 +6,11 @@ import { Banner } from './layout/banner/banner';
 import { CategoriesSidebar } from './layout/categories-sidebar/categories-sidebar';
 import { Footer } from './layout/footer/footer';
 import { Navbar } from './layout/navbar/navbar';
+import { OffersSection } from './layout/offers-section/offers-section';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, Footer],
+  imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, OffersSection, Footer],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

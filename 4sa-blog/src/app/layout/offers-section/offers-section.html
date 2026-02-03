@@ -44,9 +44,6 @@
                   <span>{{ 'offers.newBadge' | translate }}</span>
                 </span>
               }
-              <button type="button" class="offer-info-btn" [attr.aria-label]="'offers.infoAria' | translate" [attr.title]="'offers.infoTitle' | translate">
-                <i class="bi bi-info-lg" aria-hidden="true"></i>
-              </button>
             </div>
 
             <div class="offer-card-body">
@@ -55,21 +52,26 @@
                 <p class="offer-type-label">{{ offer.offerTypeLabel }}</p>
               </div>
 
-              @if (offer.offerType === 'coupon') {
-                <button
-                  type="button"
-                  class="offer-cta"
-                  [class.offer-cta-copied]="copiedOfferId() === offer.id"
-                  (click)="onCopyCode(offer)"
-                  [attr.aria-label]="(copiedOfferId() === offer.id ? 'offers.copiedCode' : 'offers.copyCode') | translate"
-                >
-                  {{ getButtonLabel(offer) }}
+              <div class="offer-actions-row">
+                @if (offer.offerType === 'coupon') {
+                  <button
+                    type="button"
+                    class="offer-cta"
+                    [class.offer-cta-copied]="copiedOfferId() === offer.id"
+                    (click)="onCopyCode(offer)"
+                    [attr.aria-label]="(copiedOfferId() === offer.id ? 'offers.copiedCode' : 'offers.copyCode') | translate"
+                  >
+                    {{ getButtonLabel(offer) }}
+                  </button>
+                } @else {
+                  <a [href]="offer.storeUrl || '#'" target="_blank" rel="noopener noreferrer" class="offer-cta offer-cta-link">
+                    {{ getButtonLabel(offer) }}
+                  </a>
+                }
+                <button type="button" class="offer-info-btn" [attr.aria-label]="'offers.viewAria' | translate" [attr.title]="'offers.viewTitle' | translate">
+                  <i class="bi bi-eye" aria-hidden="true"></i>
                 </button>
-              } @else {
-                <a [href]="offer.storeUrl || '#'" target="_blank" rel="noopener noreferrer" class="offer-cta offer-cta-link">
-                  {{ getButtonLabel(offer) }}
-                </a>
-              }
+              </div>
             </div>
           </article>
           }

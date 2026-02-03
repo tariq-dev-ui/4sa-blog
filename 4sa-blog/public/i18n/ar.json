@@ -19,7 +19,9 @@
     "newBadge": "جديد",
     "newBadgeAria": "عرض جديد",
     "infoAria": "معلومات العرض",
-    "infoTitle": "تفاصيل إضافية"
+    "infoTitle": "تفاصيل إضافية",
+    "viewAria": "عرض العرض",
+    "viewTitle": "عرض"
   },
   "sections": {
     "title": "الأقسام",

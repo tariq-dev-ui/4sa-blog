@@ -3,15 +3,16 @@
   background-color: var(--color-dark);
   color: var(--color-dark-contrast);
   margin-top: auto;
-  padding: 0 0.75rem; /* نفس هامش البنر أفقيًا */
+  padding: 0 0.5rem;
 }
 
 .footer {
-  padding: 1.5rem 0;
+  padding: 0.35rem 0;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  font-size: 0.9375rem;
+  font-size: 0.7rem;
+  line-height: 1.35;
 }
 
 .footer a {
@@ -31,6 +32,11 @@
 
 @media (max-width: 576px) {
   :host {
-    padding: 0 0.5rem; /* مواءمة البنر على الشاشات الصغيرة */
+    padding: 0 0.35rem;
+  }
+
+  .footer {
+    padding: 0.25rem 0;
+    font-size: 0.65rem;
   }
 }

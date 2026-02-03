@@ -184,8 +184,8 @@ export class OffersSection implements AfterViewInit, OnDestroy {
       return;
     }
     if (isRtl) {
-      this.canScrollPrev.set(scrollLeft > -maxScroll + 2);
-      this.canScrollNext.set(scrollLeft < -2);
+      this.canScrollPrev.set(scrollLeft < -2);
+      this.canScrollNext.set(scrollLeft > -maxScroll + 2);
     } else {
       this.canScrollPrev.set(scrollLeft > 2);
       this.canScrollNext.set(scrollLeft < maxScroll - 2);

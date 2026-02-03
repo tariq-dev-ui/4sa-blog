@@ -19,7 +19,9 @@
     "newBadge": "New",
     "newBadgeAria": "New offer",
     "infoAria": "Offer details",
-    "infoTitle": "More details"
+    "infoTitle": "More details",
+    "viewAria": "View offer",
+    "viewTitle": "View"
   },
   "sections": {
     "title": "Sections",

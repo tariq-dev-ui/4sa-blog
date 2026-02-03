@@ -5,39 +5,81 @@
       <p class="offers-sub-title">{{ subTitle() }}</p>
     </header>
 
-    <div class="offers-cards-wrap">
-      <div class="offers-cards-row" role="list">
-        @for (offer of offers(); track offer.id) {
+    <div class="offers-carousel">
+      <button
+        type="button"
+        class="offer-arrow offer-arrow-prev"
+        [class.hidden]="!canScrollPrev()"
+        (click)="scrollPrev()"
+        aria-label="العروض السابقة"
+      >
+        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+      </button>
+      <div
+        class="offers-cards-wrap"
+        #cardsWrap
+        (scroll)="updateScrollState()"
+        (mouseenter)="onCardsWrapMouseEnter()"
+        (mouseleave)="onCardsWrapMouseLeave()"
+      >
+        <div class="offers-cards-row" role="list">
+          @for (offer of offers(); track offer.id) {
           <article class="offer-card" role="listitem">
-            @if (offer.isNew) {
-              <span class="offer-badge" aria-label="عرض جديد">
-                <i class="bi bi-star-fill" aria-hidden="true"></i>
-                <span>جديد</span>
-              </span>
-            }
-            <button type="button" class="offer-info-btn" aria-label="معلومات العرض">
-              <i class="bi bi-info-lg" aria-hidden="true"></i>
-            </button>
-
-            <div class="offer-store">
+            <div class="offer-card-image">
               @if (offer.storeLogoUrl) {
-                <img [src]="offer.storeLogoUrl" [alt]="offer.storeName" class="offer-store-logo" width="80" height="32" />
+                <img [src]="offer.storeLogoUrl" [alt]="offer.storeName" class="offer-card-image-img" loading="lazy" />
               } @else {
-                <span class="offer-store-name">{{ offer.storeName }}</span>
+                <span class="offer-card-image-fallback">{{ offer.storeName }}</span>
               }
             </div>
-
-            <div class="offer-content">
-              <p class="offer-title">{{ offer.offerTitle }}</p>
-              <p class="offer-subtext">{{ offer.offerSubtext }}</p>
+            <div class="offer-card-top">
+              @if (offer.isNew) {
+                <span class="offer-badge" aria-label="عرض جديد">
+                  <i class="bi bi-star-fill" aria-hidden="true"></i>
+                  <span>جديد</span>
+                </span>
+              }
+              <button type="button" class="offer-info-btn" aria-label="معلومات العرض" title="تفاصيل إضافية">
+                <i class="bi bi-info-lg" aria-hidden="true"></i>
+              </button>
             </div>
 
-            <button type="button" class="offer-cta">
-              {{ offer.buttonText }}
-            </button>
+            <div class="offer-card-body">
+              <div class="offer-content">
+                <p class="offer-title">{{ offer.offerTitle }}</p>
+                <p class="offer-type-label">{{ offer.offerTypeLabel }}</p>
+              </div>
+
+              @if (offer.offerType === 'coupon') {
+                <button
+                  type="button"
+                  class="offer-cta"
+                  [class.offer-cta-copied]="copiedOfferId() === offer.id"
+                  (click)="onCopyCode(offer)"
+                  [attr.aria-label]="copiedOfferId() === offer.id ? 'تم نسخ الكود' : 'انسخ الكود'"
+                >
+                  {{ getButtonLabel(offer) }}
+                </button>
+              } @else {
+                <a [href]="offer.storeUrl || '#'" target="_blank" rel="noopener noreferrer" class="offer-cta offer-cta-link">
+                  {{ getButtonLabel(offer) }}
+                </a>
+              }
+            </div>
           </article>
-        }
+          }
+        </div>
       </div>
+      <button
+        type="button"
+        class="offer-arrow offer-arrow-next"
+        [class.hidden]="!canScrollNext()"
+        (click)="scrollNext()"
+        aria-label="العروض التالية"
+      >
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </button>
     </div>
+
   </div>
 </section>

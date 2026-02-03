@@ -1,4 +1,26 @@
 {
+  "banner": {
+    "ariaLabel": "Promotional banner",
+    "prevMain": "Previous - main banner",
+    "nextMain": "Next - main banner",
+    "prevSecond": "Previous - second banner",
+    "nextSecond": "Next - second banner"
+  },
+  "offers": {
+    "mainTitle": "Savings: Ramadan 2026 coupons & discounts",
+    "subTitle": "Get ready for Ramadan with top offers from Amazon, Noon, Jarir, Extra and more",
+    "viewAll": "View all",
+    "viewAllAria": "View all offers",
+    "prev": "Previous offers",
+    "next": "Next offers",
+    "goToOffer": "Go to offer",
+    "copyCode": "Copy code",
+    "copiedCode": "Code copied",
+    "newBadge": "New",
+    "newBadgeAria": "New offer",
+    "infoAria": "Offer details",
+    "infoTitle": "More details"
+  },
   "sections": {
     "title": "Sections",
     "prev": "Previous sections",
@@ -16,6 +38,8 @@
   },
   "nav": {
     "brand": "4SA Blog",
+    "langAr": "العربية",
+    "langEn": "English",
     "searchPlaceholder": "Search...",
     "switchLang": "Switch language",
     "menu": "Menu",

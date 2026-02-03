@@ -1,8 +1,13 @@
 <section class="offers-section" aria-labelledby="offers-main-title">
   <div class="offers-section-inner">
     <header class="offers-header">
-      <h2 id="offers-main-title" class="offers-main-title">{{ mainTitle() }}</h2>
-      <p class="offers-sub-title">{{ subTitle() }}</p>
+      <div class="offers-header-row">
+        <h2 id="offers-main-title" class="offers-main-title">{{ mainTitle() ?? ('offers.mainTitle' | translate) }}</h2>
+        <a [href]="viewAllUrl()" class="offers-view-all" [attr.aria-label]="'offers.viewAllAria' | translate">
+          {{ 'offers.viewAll' | translate }}
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </a>
+      </div>
     </header>
 
     <div class="offers-carousel">
@@ -11,7 +16,7 @@
         class="offer-arrow offer-arrow-prev"
         [class.hidden]="!canScrollPrev()"
         (click)="scrollPrev()"
-        aria-label="العروض السابقة"
+        [attr.aria-label]="'offers.prev' | translate"
       >
         <i class="bi bi-chevron-left" aria-hidden="true"></i>
       </button>
@@ -34,12 +39,12 @@
             </div>
             <div class="offer-card-top">
               @if (offer.isNew) {
-                <span class="offer-badge" aria-label="عرض جديد">
+                <span class="offer-badge" [attr.aria-label]="'offers.newBadgeAria' | translate">
                   <i class="bi bi-star-fill" aria-hidden="true"></i>
-                  <span>جديد</span>
+                  <span>{{ 'offers.newBadge' | translate }}</span>
                 </span>
               }
-              <button type="button" class="offer-info-btn" aria-label="معلومات العرض" title="تفاصيل إضافية">
+              <button type="button" class="offer-info-btn" [attr.aria-label]="'offers.infoAria' | translate" [attr.title]="'offers.infoTitle' | translate">
                 <i class="bi bi-info-lg" aria-hidden="true"></i>
               </button>
             </div>
@@ -56,7 +61,7 @@
                   class="offer-cta"
                   [class.offer-cta-copied]="copiedOfferId() === offer.id"
                   (click)="onCopyCode(offer)"
-                  [attr.aria-label]="copiedOfferId() === offer.id ? 'تم نسخ الكود' : 'انسخ الكود'"
+                  [attr.aria-label]="(copiedOfferId() === offer.id ? 'offers.copiedCode' : 'offers.copyCode') | translate"
                 >
                   {{ getButtonLabel(offer) }}
                 </button>
@@ -75,7 +80,7 @@
         class="offer-arrow offer-arrow-next"
         [class.hidden]="!canScrollNext()"
         (click)="scrollNext()"
-        aria-label="العروض التالية"
+        [attr.aria-label]="'offers.next' | translate"
       >
         <i class="bi bi-chevron-right" aria-hidden="true"></i>
       </button>

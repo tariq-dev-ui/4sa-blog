@@ -50,7 +50,9 @@ export class Navbar {
   ];
 
   get currentLangLabel(): string {
-    return this.translate.currentLang === 'ar' ? 'العربية' : 'English';
+    return this.translate.currentLang === 'ar'
+      ? this.translate.instant('nav.langAr')
+      : this.translate.instant('nav.langEn');
   }
 
   toggleMenu(): void {

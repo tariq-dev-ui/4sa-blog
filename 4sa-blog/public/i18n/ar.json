@@ -1,4 +1,26 @@
 {
+  "banner": {
+    "ariaLabel": "بنر عرضي",
+    "prevMain": "السابق - بنر رئيسي",
+    "nextMain": "التالي - بنر رئيسي",
+    "prevSecond": "السابق - بنر ثاني",
+    "nextSecond": "التالي - بنر ثاني"
+  },
+  "offers": {
+    "mainTitle": "الموفّر: كوبونات وخصومات رمضان 2026",
+    "subTitle": "استعد لرمضان بأقوى العروض من Amazon و Noon و Jarir و Extra وغيرها",
+    "viewAll": "عرض الكل",
+    "viewAllAria": "عرض كل العروض",
+    "prev": "العروض السابقة",
+    "next": "العروض التالية",
+    "goToOffer": "اذهب للعرض",
+    "copyCode": "انسخ الكود",
+    "copiedCode": "تم نسخ الكود",
+    "newBadge": "جديد",
+    "newBadgeAria": "عرض جديد",
+    "infoAria": "معلومات العرض",
+    "infoTitle": "تفاصيل إضافية"
+  },
   "sections": {
     "title": "الأقسام",
     "prev": "الأقسام السابقة",
@@ -16,6 +38,8 @@
   },
   "nav": {
     "brand": "4SA Blog",
+    "langAr": "العربية",
+    "langEn": "English",
     "searchPlaceholder": "بحث...",
     "switchLang": "تبديل اللغة",
     "menu": "القائمة",

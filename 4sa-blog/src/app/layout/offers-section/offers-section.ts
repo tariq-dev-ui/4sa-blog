@@ -3,11 +3,13 @@ import {
   Component,
   ElementRef,
   HostListener,
+  inject,
   input,
   OnDestroy,
   signal,
   ViewChild,
 } from '@angular/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 export type OfferType = 'direct' | 'coupon';
 
@@ -92,17 +94,22 @@ const DEFAULT_OFFERS: OfferCard[] = [
 @Component({
   selector: 'app-offers-section',
   standalone: true,
+  imports: [TranslatePipe],
   templateUrl: './offers-section.html',
   styleUrl: './offers-section.scss',
 })
 export class OffersSection implements AfterViewInit, OnDestroy {
   @ViewChild('cardsWrap') cardsWrapRef!: ElementRef<HTMLElement>;
 
-  readonly mainTitle = input<string>('الموفّر: كوبونات وخصومات رمضان 2026');
-  readonly subTitle = input<string>(
-    'استعد لرمضان بأقوى العروض من Amazon و Noon و Jarir و Extra وغيرها'
-  );
+  private readonly translate = inject(TranslateService);
+
+  /** إن وُجد يُستخدم بدلاً من ترجمة offers.mainTitle */
+  readonly mainTitle = input<string | undefined>(undefined);
+  /** إن وُجد يُستخدم بدلاً من ترجمة offers.subTitle */
+  readonly subTitle = input<string | undefined>(undefined);
   readonly offers = input<OfferCard[]>(DEFAULT_OFFERS);
+  /** رابط "عرض الكل" (إن لم يُحدد يُستخدم #) */
+  readonly viewAllUrl = input<string>('#');
 
   /** معرف العرض الذي تم نسخ كوده (الزر يعرض "تم نسخ الكود") */
   readonly copiedOfferId = signal<string | null>(null);
@@ -118,8 +125,10 @@ export class OffersSection implements AfterViewInit, OnDestroy {
   private readonly copyFeedbackMs = 2500;
 
   getButtonLabel(offer: OfferCard): string {
-    if (offer.offerType === 'direct') return 'اذهب للعرض';
-    return this.copiedOfferId() === offer.id ? 'تم نسخ الكود' : 'انسخ الكود';
+    if (offer.offerType === 'direct') return this.translate.instant('offers.goToOffer');
+    return this.copiedOfferId() === offer.id
+      ? this.translate.instant('offers.copiedCode')
+      : this.translate.instant('offers.copyCode');
   }
 
   onCopyCode(offer: OfferCard): void {

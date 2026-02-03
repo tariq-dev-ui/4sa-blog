@@ -5,6 +5,7 @@ import {
   signal,
   computed,
 } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface BannerItem {
   image: string;
@@ -14,7 +15,7 @@ export interface BannerItem {
 
 @Component({
   selector: 'app-banner',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './banner.html',
   styleUrl: './banner.scss',
 })

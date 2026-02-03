@@ -143,11 +143,13 @@ $banner-glimmer-duration: 0.32s;
   font-size: 0.65rem;
   display: inline-block;
 }
-/* عكس اتجاه أيقونات الأسهم (مناسبة لاتجاه RTL) */
-.banner-item .banner-prev .bi-chevron-left,
-.banner-item .banner-next .bi-chevron-right {
+
+/* عكس اتجاه أيقونات الأسهم في RTL فقط (في LTR تبقى الاتجاهات صحيحة) */
+:host-context([dir="rtl"]) .banner-item .banner-prev .bi-chevron-left,
+:host-context([dir="rtl"]) .banner-item .banner-next .bi-chevron-right {
   transform: scaleX(-1);
 }
+
 .banner-item .banner-prev {
   inset-inline-start: 0.75rem;
 }

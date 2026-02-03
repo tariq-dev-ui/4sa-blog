@@ -1,6 +1,6 @@
 <section
   class="banner"
-  aria-label="بنر عرضي"
+  [attr.aria-label]="'banner.ariaLabel' | translate"
   (mouseenter)="onBannerMouseEnter()"
   (mouseleave)="onBannerMouseLeave()"
 >
@@ -26,7 +26,7 @@
         <button
           type="button"
           class="banner-arrow banner-prev"
-          aria-label="السابق - بنر رئيسي"
+          [attr.aria-label]="'banner.prevMain' | translate"
           (click)="prevLeft(); $event.preventDefault(); $event.stopPropagation()"
         >
           <i class="bi bi-chevron-left" aria-hidden="true"></i>
@@ -34,7 +34,7 @@
         <button
           type="button"
           class="banner-arrow banner-next"
-          aria-label="التالي - بنر رئيسي"
+          [attr.aria-label]="'banner.nextMain' | translate"
           (click)="nextLeft(); $event.preventDefault(); $event.stopPropagation()"
         >
           <i class="bi bi-chevron-right" aria-hidden="true"></i>
@@ -62,7 +62,7 @@
         <button
           type="button"
           class="banner-arrow banner-prev"
-          aria-label="السابق - بنر ثاني"
+          [attr.aria-label]="'banner.prevSecond' | translate"
           (click)="prevRight(); $event.preventDefault(); $event.stopPropagation()"
         >
           <i class="bi bi-chevron-left" aria-hidden="true"></i>
@@ -70,7 +70,7 @@
         <button
           type="button"
           class="banner-arrow banner-next"
-          aria-label="التالي - بنر ثاني"
+          [attr.aria-label]="'banner.nextSecond' | translate"
           (click)="nextRight(); $event.preventDefault(); $event.stopPropagation()"
         >
           <i class="bi bi-chevron-right" aria-hidden="true"></i>

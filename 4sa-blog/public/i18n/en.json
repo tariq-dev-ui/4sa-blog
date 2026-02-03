@@ -60,5 +60,11 @@
   },
   "footer": {
     "copyright": "All rights reserved."
+  },
+  "modal": {
+    "title": "Offer details",
+    "close": "Close",
+    "goToStore": "Go to store",
+    "discount": "Discount"
   }
 }

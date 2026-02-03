@@ -1,0 +1,54 @@
+@if (isOpen() && offer()) {
+  <div
+    class="offer-modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'modal.title' | translate"
+    (click)="onBackdropClick($event)"
+  >
+    <div class="offer-modal-box" (click)="$event.stopPropagation()">
+      <button
+        type="button"
+        class="offer-modal-close"
+        [attr.aria-label]="'modal.close' | translate"
+        (click)="close()"
+      >
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+
+      <div class="offer-modal-image">
+        @if (offer()!.storeLogoUrl) {
+          <img [src]="offer()!.storeLogoUrl" [alt]="offer()!.storeName" class="offer-modal-img" loading="lazy" />
+        } @else {
+          <span class="offer-modal-store-name">{{ offer()!.storeName }}</span>
+        }
+      </div>
+
+      <div class="offer-modal-body">
+        <h3 class="offer-modal-title">{{ offer()!.offerTitle }}</h3>
+        <p class="offer-modal-type">{{ offer()!.offerTypeLabel }}</p>
+        @if (offer()!.discount) {
+          <p class="offer-modal-discount">
+            <span class="offer-modal-discount-label">{{ 'modal.discount' | translate }}</span>
+            <span class="offer-modal-discount-value">{{ offer()!.discount }}</span>
+          </p>
+        }
+
+        <div class="offer-modal-actions">
+          @if (offer()!.offerType === 'coupon' && offer()!.couponCode) {
+            <button type="button" class="offer-modal-btn offer-modal-btn-primary" (click)="copyCode(offer()!.couponCode!)">
+              <i class="bi bi-clipboard" aria-hidden="true"></i>
+              {{ 'offers.copyCode' | translate }}
+            </button>
+          }
+          @if (offer()!.storeUrl) {
+            <a [href]="offer()!.storeUrl" target="_blank" rel="noopener noreferrer" class="offer-modal-btn offer-modal-btn-secondary">
+              <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+              {{ 'modal.goToStore' | translate }}
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

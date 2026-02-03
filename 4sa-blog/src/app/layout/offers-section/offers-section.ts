@@ -10,6 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { OfferDetailModal } from '../../shared/offer-detail-modal/offer-detail-modal';
 
 export type OfferType = 'direct' | 'coupon';
 
@@ -24,6 +25,8 @@ export interface OfferCard {
   offerType: OfferType;
   /** كود الكوبون إن وُجد (للعروض من نوع coupon) */
   couponCode?: string;
+  /** نسبة الخصم أو نص مختصر (للنافذة المنبثقة) */
+  discount?: string;
   isNew: boolean;
 }
 
@@ -44,6 +47,7 @@ const DEFAULT_OFFERS: OfferCard[] = [
     offerTitle: 'عروض رمضان حتى 80% خصم',
     offerTypeLabel: 'الخصم يطبّق تلقائياً في المتجر',
     offerType: 'direct',
+    discount: '80%',
     isNew: true,
   },
   {
@@ -54,6 +58,7 @@ const DEFAULT_OFFERS: OfferCard[] = [
     offerTitle: 'تجهيزات رمضان حتى 70% خصم + 15% كاش باك',
     offerTypeLabel: 'الخصم يطبّق تلقائياً في المتجر',
     offerType: 'direct',
+    discount: '70%',
     isNew: true,
   },
   {
@@ -65,6 +70,7 @@ const DEFAULT_OFFERS: OfferCard[] = [
     offerTypeLabel: 'كوبون خصم + كاش باك',
     offerType: 'coupon',
     couponCode: 'RAMADAN30',
+    discount: '30%',
     isNew: true,
   },
   {
@@ -76,6 +82,7 @@ const DEFAULT_OFFERS: OfferCard[] = [
     offerTypeLabel: 'كود خصم رمضان 2026',
     offerType: 'coupon',
     couponCode: 'JARIR50',
+    discount: '50%',
     isNew: true,
   },
   {
@@ -87,6 +94,7 @@ const DEFAULT_OFFERS: OfferCard[] = [
     offerTypeLabel: 'صالح على أول طلب فقط',
     offerType: 'coupon',
     couponCode: 'EXTRA20',
+    discount: '20%',
     isNew: false,
   },
 ];
@@ -94,7 +102,7 @@ const DEFAULT_OFFERS: OfferCard[] = [
 @Component({
   selector: 'app-offers-section',
   standalone: true,
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, OfferDetailModal],
   templateUrl: './offers-section.html',
   styleUrl: './offers-section.scss',
 })
@@ -117,6 +125,8 @@ export class OffersSection implements AfterViewInit, OnDestroy {
   readonly canScrollPrev = signal(false);
   /** إظهار سهم التالي */
   readonly canScrollNext = signal(false);
+  /** العرض المحدد لعرضه في النافذة المنبثقة */
+  readonly selectedOfferForModal = signal<OfferCard | null>(null);
 
   private copyResetTimeout: ReturnType<typeof setTimeout> | null = null;
   private autoSlideInterval: ReturnType<typeof setInterval> | null = null;
@@ -155,6 +165,14 @@ export class OffersSection implements AfterViewInit, OnDestroy {
     if (offer.offerType === 'direct' && offer.storeUrl) {
       window.open(offer.storeUrl, '_blank', 'noopener,noreferrer');
     }
+  }
+
+  openOfferModal(offer: OfferCard): void {
+    this.selectedOfferForModal.set(offer);
+  }
+
+  closeOfferModal(): void {
+    this.selectedOfferForModal.set(null);
   }
 
   ngAfterViewInit(): void {

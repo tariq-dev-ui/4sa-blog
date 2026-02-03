@@ -68,7 +68,7 @@
                     {{ getButtonLabel(offer) }}
                   </a>
                 }
-                <button type="button" class="offer-info-btn" [attr.aria-label]="'offers.viewAria' | translate" [attr.title]="'offers.viewTitle' | translate">
+                <button type="button" class="offer-info-btn" [attr.aria-label]="'offers.viewAria' | translate" [attr.title]="'offers.viewTitle' | translate" (click)="openOfferModal(offer)">
                   <i class="bi bi-eye" aria-hidden="true"></i>
                 </button>
               </div>
@@ -88,5 +88,10 @@
       </button>
     </div>
 
+    <app-offer-detail-modal
+      [isOpen]="!!selectedOfferForModal()"
+      [offer]="selectedOfferForModal()"
+      (closed)="closeOfferModal()"
+    />
   </div>
 </section>

@@ -113,11 +113,17 @@ export class OffersSection implements AfterViewInit, OnDestroy {
 
   /** إن وُجد يُستخدم بدلاً من ترجمة offers.mainTitle */
   readonly mainTitle = input<string | undefined>(undefined);
+  /** مفتاح ترجمة للعنوان (مثل strip.title) — إن وُجد يُستخدم بدل mainTitle */
+  readonly sectionTitleKey = input<string | undefined>(undefined);
   /** إن وُجد يُستخدم بدلاً من ترجمة offers.subTitle */
   readonly subTitle = input<string | undefined>(undefined);
   readonly offers = input<OfferCard[]>(DEFAULT_OFFERS);
   /** رابط "عرض الكل" (إن لم يُحدد يُستخدم #) */
   readonly viewAllUrl = input<string>('#');
+  /** إظهار الخلفية (صورة + طبقة). عند false يُستخدم القسم بدون خلفية */
+  readonly showBackground = input<boolean>(true);
+  /** معرّف عنوان القسم (لإمكانية الوصول). يُستخدم لتمييز القسم الثاني */
+  readonly titleId = input<string>('offers-main-title');
 
   /** معرف العرض الذي تم نسخ كوده (الزر يعرض "تم نسخ الكود") */
   readonly copiedOfferId = signal<string | null>(null);

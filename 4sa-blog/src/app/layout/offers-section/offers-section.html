@@ -1,8 +1,8 @@
-<section class="offers-section" aria-labelledby="offers-main-title">
+<section class="offers-section" [class.offers-section--no-bg]="!showBackground()" [attr.aria-labelledby]="titleId()">
   <div class="offers-section-inner">
     <header class="offers-header">
       <div class="offers-header-row">
-        <h2 id="offers-main-title" class="offers-main-title">{{ mainTitle() ?? ('offers.mainTitle' | translate) }}</h2>
+        <h2 [id]="titleId()" class="offers-main-title">{{ sectionTitleKey() ? (sectionTitleKey() | translate) : (mainTitle() ?? ('offers.mainTitle' | translate)) }}</h2>
         <a [href]="viewAllUrl()" class="offers-view-all" [attr.aria-label]="'offers.viewAllAria' | translate">
           {{ 'offers.viewAll' | translate }}
           <i class="bi bi-chevron-left" aria-hidden="true"></i>

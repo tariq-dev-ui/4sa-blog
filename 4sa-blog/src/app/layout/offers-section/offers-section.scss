@@ -47,6 +47,12 @@ $pattern-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
     pointer-events: none;
     z-index: 0.5;
   }
+
+  /* بدون خلفية (للقسم الثاني تحت العروض) */
+  &.offers-section--no-bg::before,
+  &.offers-section--no-bg::after {
+    display: none;
+  }
 }
 
 .offers-section-inner {
@@ -476,25 +482,25 @@ $pattern-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
    ============================================ */
 @media (max-width: 576px) {
   .offers-section {
-    padding: 1.25rem 0.5rem 7rem;
+    padding: 0.875rem 0.5rem 0.875rem;
   }
 
   .offers-header {
-    margin-bottom: 0.875rem;
+    margin-bottom: 0.6rem;
     padding-inline: 0.25rem;
   }
 
   .offers-header-row {
-    gap: 0.4rem;
+    gap: 0.35rem;
   }
 
   .offers-main-title {
-    font-size: clamp(0.85rem, 4vw, 1.1rem);
+    font-size: clamp(0.8rem, 3.5vw, 1rem);
   }
 
   .offers-view-all {
-    padding: 0.35rem 0.6rem;
-    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
   }
 
   .offer-arrow {
@@ -507,25 +513,60 @@ $pattern-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
   }
 
   .offers-cards-wrap {
-    --fade-width: 20px;
+    --fade-width: 16px;
+    padding: 0.35rem 0.2rem;
   }
 
   .offers-cards-row {
-    gap: 1rem;
-    padding: 0 0.75rem;
+    gap: 0.75rem;
+    padding: 0 0.5rem;
   }
 
   .offer-card {
-    border-radius: 16px;
+    border-radius: 14px;
+    min-height: 240px;
+  }
+
+  .offer-card-image {
+    height: 56px;
+    min-height: 56px;
   }
 
   .offer-card-body {
-    padding: 0.9rem 0.9rem 1rem;
+    padding: 0.6rem 0.7rem 0.75rem;
+  }
+
+  .offer-content {
+    margin-bottom: 0.6rem;
+  }
+
+  .offer-title {
+    font-size: 0.8125rem;
+  }
+
+  .offer-type-label {
+    font-size: 0.75rem;
+  }
+
+  .offer-actions-row {
+    gap: 0.3rem;
+  }
+
+  .offer-actions-row .offer-cta,
+  .offer-actions-row .offer-cta-link {
+    min-height: 2.25rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8125rem;
+  }
+
+  .offer-actions-row .offer-info-btn {
+    width: 2.25rem;
+    min-height: 2.25rem;
   }
 
   .offer-cta,
   .offer-cta-link {
-    border-radius: 14px;
+    border-radius: 10px;
   }
 }
 

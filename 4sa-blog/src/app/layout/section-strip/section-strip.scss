@@ -1,0 +1,111 @@
+/* قسم عام بنفس تصميم قسم العروض بدون خلفية */
+:host {
+  display: block;
+  width: 100%;
+}
+
+.section-strip {
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem 0.75rem 1.25rem;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.section-strip-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-strip-header {
+  text-align: start;
+  margin-bottom: 1rem;
+  padding-inline: 0.5rem;
+}
+
+.section-strip-header-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  min-width: 0;
+}
+
+.section-strip-title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(0.9rem, 2.8vw, 1.75rem);
+  font-weight: 700;
+  color: var(--text-primary, var(--color-dark));
+  margin: 0;
+  line-height: 1.3;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.section-strip-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.7rem;
+  font-family: var(--font-family-heading);
+  font-size: clamp(0.8rem, 2vw, 0.9375rem);
+  font-weight: 700;
+  color: var(--color-primary);
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  flex-shrink: 0;
+
+  i {
+    font-size: clamp(0.75rem, 1.8vw, 1rem);
+  }
+
+  :host-context([dir="ltr"]) & i {
+    transform: scaleX(-1);
+  }
+
+  &:hover {
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+    transform: scale(1.02);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.section-strip-body {
+  min-width: 0;
+}
+
+@media (max-width: 576px) {
+  .section-strip {
+    padding: 0.875rem 0.5rem 0.875rem;
+  }
+
+  .section-strip-header {
+    margin-bottom: 0.6rem;
+    padding-inline: 0.25rem;
+  }
+
+  .section-strip-header-row {
+    gap: 0.35rem;
+  }
+
+  .section-strip-title {
+    font-size: clamp(0.8rem, 3.5vw, 1rem);
+  }
+
+  .section-strip-view-all {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+  }
+}

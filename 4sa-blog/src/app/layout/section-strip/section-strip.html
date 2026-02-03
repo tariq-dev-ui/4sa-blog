@@ -1,0 +1,18 @@
+<section class="section-strip" [attr.aria-labelledby]="titleId()">
+  <div class="section-strip-inner">
+    <header class="section-strip-header">
+      <div class="section-strip-header-row">
+        @if (mainTitle()) {
+          <h2 [id]="titleId()" class="section-strip-title">{{ mainTitle() | translate }}</h2>
+        }
+        <a [href]="viewAllUrl()" class="section-strip-view-all" [attr.aria-label]="viewAllLabel() ?? ('offers.viewAllAria' | translate)">
+          {{ viewAllLabel() ?? ('offers.viewAll' | translate) }}
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </a>
+      </div>
+    </header>
+    <div class="section-strip-body">
+      <ng-content />
+    </div>
+  </div>
+</section>

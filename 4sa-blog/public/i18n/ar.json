@@ -23,6 +23,17 @@
     "viewAria": "عرض العرض",
     "viewTitle": "عرض"
   },
+  "stores": {
+    "title": "المتاجر",
+    "viewAll": "عرض الكل",
+    "viewAllAria": "عرض كل المتاجر",
+    "prev": "المتاجر السابقة",
+    "next": "المتاجر التالية",
+    "copyCode": "انسخ الكود",
+    "copied": "تم النسخ",
+    "visitStore": "زيارة المتجر",
+    "visitStoreAria": "زيارة متجر {{name}}"
+  },
   "sections": {
     "title": "الأقسام",
     "prev": "الأقسام السابقة",

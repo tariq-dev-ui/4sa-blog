@@ -23,6 +23,17 @@
     "viewAria": "View offer",
     "viewTitle": "View"
   },
+  "stores": {
+    "title": "Stores",
+    "viewAll": "View all",
+    "viewAllAria": "View all stores",
+    "prev": "Previous stores",
+    "next": "Next stores",
+    "copyCode": "Copy code",
+    "copied": "Copied",
+    "visitStore": "Visit store",
+    "visitStoreAria": "Visit {{name}}"
+  },
   "sections": {
     "title": "Sections",
     "prev": "Previous sections",

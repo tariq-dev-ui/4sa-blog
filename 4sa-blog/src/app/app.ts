@@ -9,10 +9,11 @@ import { MainSidebar } from './layout/main-sidebar/main-sidebar';
 import { Navbar } from './layout/navbar/navbar';
 import { ArticlesSection } from './layout/articles-section/articles-section';
 import { OffersSection } from './layout/offers-section/offers-section';
+import { StoresStrip } from './layout/stores-strip/stores-strip';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, MainSidebar, OffersSection, ArticlesSection, Footer],
+  imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, StoresStrip, MainSidebar, OffersSection, ArticlesSection, Footer],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -1,0 +1,87 @@
+<section class="stores-strip" [attr.aria-labelledby]="titleId()">
+  <div class="stores-strip-inner">
+    <header class="stores-header">
+      <div class="stores-header-row">
+        <h2 [id]="titleId()" class="stores-title">{{ 'stores.title' | translate }}</h2>
+        <div class="stores-header-arrows">
+          <button
+            type="button"
+            class="stores-arrow stores-arrow-prev"
+            [class.stores-arrow--disabled]="!canScrollPrev()"
+            [attr.aria-disabled]="!canScrollPrev()"
+            (click)="scrollPrev()"
+            [attr.aria-label]="'stores.prev' | translate"
+          >
+            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+          </button>
+          <button
+            type="button"
+            class="stores-arrow stores-arrow-next"
+            [class.stores-arrow--disabled]="!canScrollNext()"
+            [attr.aria-disabled]="!canScrollNext()"
+            (click)="scrollNext()"
+            [attr.aria-label]="'stores.next' | translate"
+          >
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+        <a [href]="viewAllUrl()" class="stores-view-all" [attr.aria-label]="'stores.viewAllAria' | translate">
+          {{ 'stores.viewAll' | translate }}
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </a>
+      </div>
+    </header>
+
+    <div
+      class="stores-strip-carousel"
+      (mouseenter)="onStripMouseEnter()"
+      (mouseleave)="onStripMouseLeave()"
+    >
+      <div
+        class="stores-strip-wrap"
+        #stripWrap
+        (scroll)="updateScrollState()"
+      >
+        <div class="stores-strip-row" role="list">
+          @for (store of stores(); track store.id) {
+            <article class="store-card" role="listitem">
+              <div class="store-card-inner">
+                <div class="store-card-logo">
+                  @if (store.logoUrl) {
+                    <img [src]="store.logoUrl" [alt]="store.storeName" class="store-card-logo-img" loading="lazy" />
+                  } @else {
+                    <span class="store-card-logo-fallback">{{ store.storeName }}</span>
+                  }
+                </div>
+                <span class="store-name">{{ store.storeName }}</span>
+                <p class="store-desc">{{ store.description }}</p>
+                <div class="store-code-row">
+                  <span class="store-code">{{ store.code }}</span>
+                  <button
+                    type="button"
+                    class="store-copy-btn"
+                    [class.store-copy-btn--copied]="copiedId() === store.id"
+                    (click)="onCopyCode(store)"
+                    [attr.aria-label]="(copiedId() === store.id ? 'stores.copied' : 'stores.copyCode') | translate"
+                  >
+                    @if (copiedId() === store.id) {
+                      <i class="bi bi-check-lg" aria-hidden="true"></i>
+                      <span>{{ 'stores.copied' | translate }}</span>
+                    } @else {
+                      <i class="bi bi-clipboard" aria-hidden="true"></i>
+                      <span>{{ 'stores.copyCode' | translate }}</span>
+                    }
+                  </button>
+                </div>
+                <a [href]="store.storeUrl || '#'" target="_blank" rel="noopener noreferrer" class="store-visit-link" [attr.aria-label]="'stores.visitStoreAria' | translate: { name: store.storeName }">
+                  {{ 'stores.visitStore' | translate }}
+                  <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

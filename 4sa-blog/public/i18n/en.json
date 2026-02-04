@@ -108,6 +108,13 @@
     "catTech": "Tech",
     "catLifestyle": "Lifestyle"
   },
+  "majorStores": {
+    "title": "Major stores",
+    "featuredBadge": "Featured store of the month",
+    "coupons": "coupons",
+    "offers": "offers",
+    "offersAvailable": "offers available"
+  },
   "strip": {
     "title": "4SA: More"
   },

@@ -1,0 +1,260 @@
+/* ============================================
+   قسم متاجر كبرى
+   بطاقة متجر مميز (صورة مستطيلة) + شبكة بطاقات ثلاث صفوف
+   ============================================ */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.major-stores {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 0.75rem 1.5rem;
+  background: var(--color-background);
+  box-sizing: border-box;
+}
+
+.major-stores__title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1rem, 2.8vw, 1.5rem);
+  font-weight: 700;
+  color: var(--text-primary, var(--color-dark));
+  margin: 0 0 1rem;
+  padding-inline: 0.25rem;
+  line-height: 1.3;
+}
+
+/* تخطيط: بطاقة مميزة | شبكة بطاقات */
+.major-stores__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .major-stores__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- بطاقة المتجر المميز (صورة مستطيلة) ---------- */
+.featured-store {
+  background: var(--color-primary-contrast);
+  border: 2px dashed rgba(var(--color-primary-rgb), 0.25);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+}
+
+.featured-store__image-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 160px;
+  max-height: 200px;
+  background: linear-gradient(180deg, var(--color-background) 0%, rgba(var(--color-primary-rgb), 0.08) 100%);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.featured-store__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.featured-store__body {
+  padding: 1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.featured-store__badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary-contrast);
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+  padding: 0.35rem 0.65rem;
+  border-radius: 0 0 10px 0;
+  width: fit-content;
+  box-shadow: var(--shadow-sm);
+}
+
+:host-context([dir="rtl"]) .featured-store__badge {
+  border-radius: 0 0 0 10px;
+}
+
+.featured-store__name {
+  font-family: var(--font-family-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary, var(--color-dark));
+  margin: 0;
+  line-height: 1.3;
+}
+
+.featured-store__stats {
+  font-size: 0.875rem;
+  color: var(--color-dark);
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.featured-store__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-family-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-primary-contrast);
+  background: var(--color-primary);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+
+  i {
+    font-size: 0.9rem;
+  }
+
+  &:hover {
+    background: var(--color-dark);
+    transform: scale(1.02);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* ---------- شبكة بطاقات المتاجر (ثلاث صفوف) ---------- */
+.stores-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .stores-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .stores-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.store-card {
+  background: var(--color-primary-contrast);
+  border: 2px dashed rgba(var(--color-primary-rgb), 0.2);
+  border-radius: 14px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+}
+
+.store-card__logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-bottom: 0.5rem;
+}
+
+.store-card__logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.store-card__logo-fallback {
+  font-family: var(--font-family-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.store-card__name {
+  font-family: var(--font-family-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary, var(--color-dark));
+  margin: 0 0 0.25rem;
+  line-height: 1.3;
+}
+
+.store-card__stats {
+  font-size: 0.75rem;
+  color: var(--color-dark);
+  opacity: 0.85;
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+}
+
+.store-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  margin-top: auto;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.4);
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  i {
+    font-size: 0.8rem;
+  }
+
+  &:hover {
+    background: rgba(var(--color-primary-rgb), 0.08);
+    color: var(--color-dark);
+    border-color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}

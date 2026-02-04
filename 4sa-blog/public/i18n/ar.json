@@ -108,6 +108,13 @@
     "catTech": "تقنية",
     "catLifestyle": "أسلوب حياة"
   },
+  "majorStores": {
+    "title": "متاجر كبرى",
+    "featuredBadge": "المتجر المميز لهذا الشهر",
+    "coupons": "كوبونات",
+    "offers": "عروض",
+    "offersAvailable": "عروض متاحة"
+  },
   "strip": {
     "title": "فور سعودي: المزيد"
   },

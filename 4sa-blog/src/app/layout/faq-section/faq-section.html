@@ -1,0 +1,40 @@
+<section class="faq-section" role="region" aria-labelledby="faq-section-title">
+  <h2 id="faq-section-title" class="faq-section__title">{{ 'faq.title' | translate }}</h2>
+  <div class="faq-accordion" role="list">
+    @for (item of items; track item.id) {
+      <div
+        class="faq-item"
+        [class.faq-item--open]="isOpen(item.id)"
+        role="listitem"
+      >
+        <h3 class="faq-item__heading">
+          <button
+            type="button"
+            class="faq-item__trigger"
+            [id]="'faq-trigger-' + item.id"
+            [attr.aria-expanded]="isOpen(item.id)"
+            [attr.aria-controls]="'faq-panel-' + item.id"
+            (click)="toggle(item.id)"
+          >
+            <span class="faq-item__question">{{ item.questionKey | translate }}</span>
+            <span class="faq-item__icon" aria-hidden="true">
+              <i class="bi bi-chevron-down"></i>
+            </span>
+          </button>
+        </h3>
+        <div
+          class="faq-item__panel"
+          [class.faq-item__panel--open]="isOpen(item.id)"
+          [id]="'faq-panel-' + item.id"
+          role="region"
+          [attr.aria-labelledby]="'faq-trigger-' + item.id"
+          [attr.aria-hidden]="!isOpen(item.id)"
+        >
+          <div class="faq-item__content">
+            <p class="faq-item__answer">{{ item.answerKey | translate }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

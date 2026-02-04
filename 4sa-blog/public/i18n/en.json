@@ -7,6 +7,21 @@
     "p4": "4SA is the best site for exclusive coupons and offers, plus the strongest deals from major e-stores across the Gulf, Middle East and Arab world.",
     "p5": "Enjoy extra discounts on everything you buy from the e-stores we cover in Saudi Arabia, UAE, Kuwait, Egypt and the Arab world."
   },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1": "How do I use a discount code?",
+    "a1": "Choose the store you want to buy from, copy the discount code shown, then paste it in the «Discount code» or «Coupon» field when completing your order on the checkout page. Make sure the code is applied before clicking place order.",
+    "q2": "Why doesn't the discount code work?",
+    "a2": "The code may have expired, apply only to certain product categories, or require a minimum order. Check the terms on the offer page. If the issue continues, contact us and we'll update or replace the code.",
+    "q3": "Are 4SA codes free?",
+    "a3": "Yes, all codes and offers on 4SA are completely free. We do not charge any fees or require a paid subscription to use the coupons.",
+    "q4": "How many stores do you cover?",
+    "a4": "We cover hundreds of e-stores in Saudi Arabia, UAE, Kuwait, Egypt and the Gulf and Middle East, including Amazon, Noon, Jarir, Extra and other global and local brands.",
+    "q5": "How do I report a code that doesn't work?",
+    "a5": "You can contact us by email or through our social channels (Telegram, Facebook, Instagram) listed on the site. We'll review your report and update the list as soon as possible.",
+    "q6": "Can I suggest a new store?",
+    "a6": "Yes, we welcome suggestions. Send us the store name and links if you have them, and we'll work on adding it and providing discount codes when available."
+  },
   "banner": {
     "ariaLabel": "Promotional banner",
     "prevMain": "Previous - main banner",

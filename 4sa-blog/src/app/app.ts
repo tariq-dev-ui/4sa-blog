@@ -9,12 +9,13 @@ import { MainSidebar } from './layout/main-sidebar/main-sidebar';
 import { Navbar } from './layout/navbar/navbar';
 import { ArticlesSection } from './layout/articles-section/articles-section';
 import { OffersSection } from './layout/offers-section/offers-section';
+import { FaqSection } from './layout/faq-section/faq-section';
 import { SiteIntro } from './layout/site-intro/site-intro';
 import { StoresStrip } from './layout/stores-strip/stores-strip';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, StoresStrip, MainSidebar, SiteIntro, OffersSection, ArticlesSection, Footer],
+  imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, StoresStrip, MainSidebar, SiteIntro, OffersSection, ArticlesSection, FaqSection, Footer],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

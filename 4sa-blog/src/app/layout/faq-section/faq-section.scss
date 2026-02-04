@@ -12,9 +12,9 @@
 }
 
 .faq-accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -23,15 +23,10 @@
 .faq-item {
   border: 1px solid var(--faq-border, #e2e8f0);
   border-radius: var(--faq-item-radius, 10px);
-  margin-bottom: 0.5rem;
   overflow: hidden;
   background: var(--faq-item-bg, #fff);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 
   &:hover {
     border-color: var(--faq-border-hover, #cbd5e1);
@@ -139,6 +134,11 @@
 }
 
 @media (min-width: 768px) {
+  .faq-accordion {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
   .faq-section__title {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;

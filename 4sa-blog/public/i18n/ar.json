@@ -113,7 +113,8 @@
     "featuredBadge": "المتجر المميز لهذا الشهر",
     "coupons": "كوبونات",
     "offers": "عروض",
-    "offersAvailable": "عروض متاحة"
+    "offersAvailable": "عروض متاحة",
+    "page": "الصفحة {{num}}"
   },
   "strip": {
     "title": "فور سعودي: المزيد"

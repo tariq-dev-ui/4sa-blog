@@ -1,51 +1,74 @@
 <section class="major-stores" aria-labelledby="major-stores-title">
-  <h2 id="major-stores-title" class="major-stores__title">{{ 'majorStores.title' | translate }}</h2>
+  <header class="major-stores__header">
+    <h2 id="major-stores-title" class="major-stores__title">{{ 'majorStores.title' | translate }}</h2>
+    <div class="major-stores__dots" role="tablist">
+      @for (dot of paginationDots(); track dot.index) {
+        <button
+          type="button"
+          class="major-stores__dot"
+          [class.major-stores__dot--active]="dot.active"
+          [attr.aria-label]="'majorStores.page' | translate: { num: dot.index + 1 }"
+          (click)="goToPage(dot.index)"
+        >
+          <span class="sr-only">{{ 'majorStores.page' | translate: { num: dot.index + 1 } }}</span>
+        </button>
+      }
+    </div>
+    <div class="major-stores__arrows">
+      <button
+        type="button"
+        class="major-stores__arrow major-stores__arrow--prev"
+        (click)="scrollPrev()"
+        [attr.aria-label]="'stores.prev' | translate"
+      >
+        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button
+        type="button"
+        class="major-stores__arrow major-stores__arrow--next"
+        (click)="scrollNext()"
+        [attr.aria-label]="'stores.next' | translate"
+      >
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </header>
 
   <div class="major-stores__layout">
-    <!-- بطاقة المتجر المميز: صورة مستطيلة + معلومات -->
+    <!-- الأول: البطاقة الرئيسية (المتجر المميز) تحت العنوان مباشرة -->
     <article class="featured-store">
-      <div class="featured-store__image-wrap">
-        <img
-          [src]="featuredStore().imageUrl"
-          [alt]="featuredStore().name"
-          class="featured-store__image"
-          loading="lazy"
-        />
+      <span class="featured-store__badge">{{ 'majorStores.featuredBadge' | translate }}</span>
+      <h3 class="featured-store__name">{{ featuredStore().name }}</h3>
+      <div class="featured-store__stats-box">
+        {{ featuredStore().couponsCount }} {{ 'majorStores.coupons' | translate }} | {{ featuredStore().offersCount }} {{ 'majorStores.offersAvailable' | translate }}
       </div>
-      <div class="featured-store__body">
-        <span class="featured-store__badge">{{ 'majorStores.featuredBadge' | translate }}</span>
-        <h3 class="featured-store__name">{{ featuredStore().name }}</h3>
-        <p class="featured-store__stats">
-          {{ featuredStore().couponsCount }} {{ 'majorStores.coupons' | translate }} | {{ featuredStore().offersCount }} {{ 'majorStores.offersAvailable' | translate }}
-        </p>
-        <a [href]="featuredStore().url" target="_blank" rel="noopener noreferrer" class="featured-store__cta">
-          {{ 'stores.visitStore' | translate }}
-          <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
-        </a>
-      </div>
+      <a [href]="featuredStore().url" target="_blank" rel="noopener noreferrer" class="featured-store__cta">
+        {{ 'stores.visitStore' | translate }}
+        <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+      </a>
     </article>
 
-    <!-- بطاقات المتاجر: ثلاث صفوف -->
-    <div class="stores-grid">
-      @for (store of storeCards(); track store.id) {
-        <article class="store-card">
-          <div class="store-card__logo">
-            @if (store.logoUrl) {
-              <img [src]="store.logoUrl" [alt]="store.name" class="store-card__logo-img" loading="lazy" />
-            } @else {
-              <span class="store-card__logo-fallback">{{ store.name }}</span>
-            }
-          </div>
-          <h4 class="store-card__name">{{ store.name }}</h4>
-          <p class="store-card__stats">
-            {{ store.couponsCount }} {{ 'majorStores.coupons' | translate }} | {{ store.offersCount }} {{ 'majorStores.offers' | translate }}
-          </p>
-          <a [href]="store.url || '#'" target="_blank" rel="noopener noreferrer" class="store-card__link">
-            {{ 'stores.visitStore' | translate }}
-            <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
-          </a>
-        </article>
-      }
+    <!-- الثاني: منطقة الشبكة + سهم التمرير + النقاط -->
+    <div class="stores-area">
+      <div
+        class="stores-grid-wrap"
+        #gridWrap
+        (scroll)="onGridScroll()"
+      >
+        <div class="stores-grid" role="list">
+          @for (store of storeCards(); track store.id) {
+            <article class="store-card" role="listitem" [attr.aria-label]="store.name">
+              <div class="store-card__logo">
+                @if (store.logoUrl) {
+                  <img [src]="store.logoUrl" [alt]="store.name" class="store-card__logo-img" loading="lazy" />
+                } @else {
+                  <span class="store-card__logo-fallback">{{ store.name }}</span>
+                }
+              </div>
+            </article>
+          }
+        </div>
+      </div>
     </div>
   </div>
 </section>

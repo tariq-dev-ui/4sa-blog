@@ -113,7 +113,8 @@
     "featuredBadge": "Featured store of the month",
     "coupons": "coupons",
     "offers": "offers",
-    "offersAvailable": "offers available"
+    "offersAvailable": "offers available",
+    "page": "Page {{num}}"
   },
   "strip": {
     "title": "4SA: More"

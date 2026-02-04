@@ -65,6 +65,14 @@
                   <span class="store-card__logo-fallback">{{ store.name }}</span>
                 }
               </div>
+              <span class="store-card__name">{{ store.name }}</span>
+              <div class="store-card__hover">
+                <span class="store-card__hover-count">{{ store.couponsCount }} {{ 'majorStores.coupons' | translate }}</span>
+                <a [href]="store.url || '#'" target="_blank" rel="noopener noreferrer" class="store-card__hover-btn" [attr.aria-label]="'stores.visitStoreAria' | translate: { name: store.name }">
+                  {{ 'stores.visitStore' | translate }}
+                  <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+                </a>
+              </div>
             </article>
           }
         </div>

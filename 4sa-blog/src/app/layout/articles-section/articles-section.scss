@@ -32,6 +32,13 @@
   min-width: 0;
 }
 
+.articles-header-arrows {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
 .articles-title {
   font-family: var(--font-family-heading);
   font-size: clamp(1rem, 2.8vw, 1.75rem);
@@ -109,39 +116,23 @@
     font-size: 0.9rem;
   }
 
-  &:hover:not(.hidden) {
+  &:hover:not(.articles-arrow--disabled):not(:disabled) {
     color: var(--color-dark);
   }
 
-  &.hidden {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
+  &.articles-arrow--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 }
 
-/* غلاف بارتفاع ثابت حتى لا يؤثر التمرير التلقائي على حجم الصفحة */
+/* غلاف بارتفاع ثابت + عنصر التمرير الأفقي (هنا يحدث الـ scroll) */
 .articles-grid-wrap {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
   height: 340px;
   min-height: 340px;
   width: 100%;
-}
-
-/* صف واحد أفقي قابل للتمرير - التمرير داخل الغلاف فقط */
-.articles-grid {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1.25rem;
-  list-style: none;
-  margin: 0;
-  padding: 0 1rem;
-  width: max-content;
-  min-width: 100%;
-  height: 100%;
-  box-sizing: border-box;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
@@ -171,6 +162,20 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* صف البطاقات - عرض يتجاوز الغلاف فيتم التمرير داخل الغلاف */
+.articles-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem;
+  width: max-content;
+  min-width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .article-card {
@@ -460,7 +465,7 @@
 }
 
 /* RTL: عكس اتجاه التمويه */
-:host-context([dir="rtl"]) .articles-grid {
+:host-context([dir="rtl"]) .articles-grid-wrap {
   -webkit-mask-image: linear-gradient(
     to left,
     transparent 0,

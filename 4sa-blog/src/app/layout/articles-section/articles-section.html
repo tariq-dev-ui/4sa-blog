@@ -3,6 +3,28 @@
     <header class="articles-header">
       <div class="articles-header-row">
         <h2 [id]="titleId()" class="articles-title">{{ mainTitleKey() | translate }}</h2>
+        <div class="articles-header-arrows">
+          <button
+            type="button"
+            class="articles-arrow articles-arrow-prev"
+            [class.articles-arrow--disabled]="!canScrollPrev()"
+            [attr.aria-disabled]="!canScrollPrev()"
+            (click)="scrollPrev()"
+            [attr.aria-label]="'articles.prev' | translate"
+          >
+            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+          </button>
+          <button
+            type="button"
+            class="articles-arrow articles-arrow-next"
+            [class.articles-arrow--disabled]="!canScrollNext()"
+            [attr.aria-disabled]="!canScrollNext()"
+            (click)="scrollNext()"
+            [attr.aria-label]="'articles.next' | translate"
+          >
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
         <a [href]="viewAllUrl()" class="articles-view-all" [attr.aria-label]="'articles.viewAllAria' | translate">
           {{ 'articles.viewAll' | translate }}
           <i class="bi bi-chevron-left" aria-hidden="true"></i>
@@ -15,22 +37,12 @@
       (mouseenter)="onGridMouseEnter()"
       (mouseleave)="onGridMouseLeave()"
     >
-      <button
-        type="button"
-        class="articles-arrow articles-arrow-prev"
-        [class.hidden]="!canScrollPrev()"
-        (click)="scrollPrev()"
-        [attr.aria-label]="'articles.prev' | translate"
+      <div
+        class="articles-grid-wrap"
+        #gridWrap
+        (scroll)="updateScrollState()"
       >
-        <i class="bi bi-chevron-left" aria-hidden="true"></i>
-      </button>
-      <div class="articles-grid-wrap">
-        <div
-          class="articles-grid"
-          #gridWrap
-          role="list"
-          (scroll)="updateScrollState()"
-        >
+        <div class="articles-grid" role="list">
       @for (article of articles(); track article.id) {
         <article class="article-card" role="listitem">
           <a [routerLink]="getArticleUrl(article)" class="article-card-link">
@@ -69,15 +81,6 @@
       }
         </div>
       </div>
-      <button
-        type="button"
-        class="articles-arrow articles-arrow-next"
-        [class.hidden]="!canScrollNext()"
-        (click)="scrollNext()"
-        [attr.aria-label]="'articles.next' | translate"
-      >
-        <i class="bi bi-chevron-right" aria-hidden="true"></i>
-      </button>
     </div>
   </div>
 </section>

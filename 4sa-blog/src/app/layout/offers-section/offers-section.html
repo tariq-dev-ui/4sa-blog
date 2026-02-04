@@ -3,6 +3,26 @@
     <header class="offers-header">
       <div class="offers-header-row">
         <h2 [id]="titleId()" class="offers-main-title">{{ sectionTitleKey() ? (sectionTitleKey() | translate) : (mainTitle() ?? ('offers.mainTitle' | translate)) }}</h2>
+        <div class="offers-header-arrows">
+          <button
+            type="button"
+            class="offer-arrow offer-arrow-prev"
+            [class.hidden]="!canScrollPrev()"
+            (click)="scrollPrev()"
+            [attr.aria-label]="'offers.prev' | translate"
+          >
+            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+          </button>
+          <button
+            type="button"
+            class="offer-arrow offer-arrow-next"
+            [class.hidden]="!canScrollNext()"
+            (click)="scrollNext()"
+            [attr.aria-label]="'offers.next' | translate"
+          >
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
         <a [href]="viewAllUrl()" class="offers-view-all" [attr.aria-label]="'offers.viewAllAria' | translate">
           {{ 'offers.viewAll' | translate }}
           <i class="bi bi-chevron-left" aria-hidden="true"></i>
@@ -11,15 +31,6 @@
     </header>
 
     <div class="offers-carousel">
-      <button
-        type="button"
-        class="offer-arrow offer-arrow-prev"
-        [class.hidden]="!canScrollPrev()"
-        (click)="scrollPrev()"
-        [attr.aria-label]="'offers.prev' | translate"
-      >
-        <i class="bi bi-chevron-left" aria-hidden="true"></i>
-      </button>
       <div
         class="offers-cards-wrap"
         #cardsWrap
@@ -77,15 +88,6 @@
           }
         </div>
       </div>
-      <button
-        type="button"
-        class="offer-arrow offer-arrow-next"
-        [class.hidden]="!canScrollNext()"
-        (click)="scrollNext()"
-        [attr.aria-label]="'offers.next' | translate"
-      >
-        <i class="bi bi-chevron-right" aria-hidden="true"></i>
-      </button>
     </div>
 
     <app-offer-detail-modal

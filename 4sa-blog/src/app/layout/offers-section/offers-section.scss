@@ -79,6 +79,13 @@ $pattern-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
   min-width: 0;
 }
 
+.offers-header-arrows {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
 .offers-main-title {
   font-family: var(--font-family-heading);
   font-size: clamp(0.9rem, 2.8vw, 1.75rem);

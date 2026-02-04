@@ -107,6 +107,8 @@ export class ArticlesSection implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.updateScrollState();
+    setTimeout(() => this.updateScrollState(), 150);
+    setTimeout(() => this.updateScrollState(), 500);
     this.startAutoSlide();
   }
 
@@ -140,6 +142,7 @@ export class ArticlesSection implements AfterViewInit, OnDestroy {
   }
 
   scrollPrev(): void {
+    if (!this.canScrollPrev()) return;
     const el = this.gridWrapRef?.nativeElement;
     if (!el) return;
     const step = document.documentElement.dir === 'rtl' ? this.scrollStep : -this.scrollStep;
@@ -148,6 +151,7 @@ export class ArticlesSection implements AfterViewInit, OnDestroy {
   }
 
   scrollNext(): void {
+    if (!this.canScrollNext()) return;
     const el = this.gridWrapRef?.nativeElement;
     if (!el) return;
     const step = document.documentElement.dir === 'rtl' ? -this.scrollStep : this.scrollStep;

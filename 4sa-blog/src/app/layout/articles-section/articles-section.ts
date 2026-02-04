@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, input, OnDestroy, signal, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -89,8 +89,11 @@ export class ArticlesSection implements AfterViewInit, OnDestroy {
   readonly articles = input<ArticleCard[]>(DEFAULT_ARTICLES);
   readonly titleId = input<string>('articles-section-title');
 
+  readonly canScrollPrev = signal(false);
+  readonly canScrollNext = signal(false);
+
   private autoSlideInterval: ReturnType<typeof setInterval> | null = null;
-  private readonly scrollStep = 320;
+  private readonly scrollStep = 280;
   private readonly autoSlideDelayMs = 5000;
 
   getArticleUrl(article: ArticleCard): string {
@@ -103,6 +106,7 @@ export class ArticlesSection implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    this.updateScrollState();
     this.startAutoSlide();
   }
 
@@ -111,7 +115,45 @@ export class ArticlesSection implements AfterViewInit, OnDestroy {
   }
 
   @HostListener('window:resize')
-  onResize(): void {}
+  onResize(): void {
+    this.updateScrollState();
+  }
+
+  updateScrollState(): void {
+    const el = this.gridWrapRef?.nativeElement;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    const isRtl = document.documentElement.dir === 'rtl';
+    const maxScroll = scrollWidth - clientWidth;
+    if (maxScroll <= 0) {
+      this.canScrollPrev.set(false);
+      this.canScrollNext.set(false);
+      return;
+    }
+    if (isRtl) {
+      this.canScrollPrev.set(scrollLeft < -2);
+      this.canScrollNext.set(scrollLeft > -maxScroll + 2);
+    } else {
+      this.canScrollPrev.set(scrollLeft > 2);
+      this.canScrollNext.set(scrollLeft < maxScroll - 2);
+    }
+  }
+
+  scrollPrev(): void {
+    const el = this.gridWrapRef?.nativeElement;
+    if (!el) return;
+    const step = document.documentElement.dir === 'rtl' ? this.scrollStep : -this.scrollStep;
+    el.scrollBy({ left: step, behavior: 'smooth' });
+    setTimeout(() => this.updateScrollState(), 350);
+  }
+
+  scrollNext(): void {
+    const el = this.gridWrapRef?.nativeElement;
+    if (!el) return;
+    const step = document.documentElement.dir === 'rtl' ? -this.scrollStep : this.scrollStep;
+    el.scrollBy({ left: step, behavior: 'smooth' });
+    setTimeout(() => this.updateScrollState(), 350);
+  }
 
   private startAutoSlide(): void {
     this.stopAutoSlide();
@@ -135,6 +177,7 @@ export class ArticlesSection implements AfterViewInit, OnDestroy {
           el.scrollBy({ left: this.scrollStep, behavior: 'smooth' });
         }
       }
+      setTimeout(() => this.updateScrollState(), 350);
     }, this.autoSlideDelayMs);
   }
 

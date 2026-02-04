@@ -1,12 +1,15 @@
 <app-navbar />
 <app-banner />
 <app-categories-sidebar />
-<div class="main-wrap">
-  <main>
-    <app-offers-section />
-    <app-offers-section [showBackground]="false" [sectionTitleKey]="'strip.title'" titleId="offers-strip-title" />
-    <app-articles-section />
-    <router-outlet />
-  </main>
+<div class="content-with-sidebar">
+  <app-main-sidebar />
+  <div class="main-wrap">
+    <main>
+      <app-offers-section />
+      <app-offers-section [showBackground]="false" [sectionTitleKey]="'strip.title'" titleId="offers-strip-title" />
+      <app-articles-section />
+      <router-outlet />
+    </main>
+  </div>
 </div>
 <app-footer />

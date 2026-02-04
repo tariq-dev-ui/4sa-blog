@@ -81,8 +81,49 @@
   }
 }
 
+/* كاروسيل: أسهم + غلاف التمرير */
+.articles-carousel {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  position: relative;
+}
+
+.articles-arrow {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  z-index: 2;
+
+  i {
+    font-size: 0.9rem;
+  }
+
+  &:hover:not(.hidden) {
+    color: var(--color-dark);
+  }
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
+
 /* غلاف بارتفاع ثابت حتى لا يؤثر التمرير التلقائي على حجم الصفحة */
 .articles-grid-wrap {
+  flex: 1;
+  min-width: 0;
   overflow: hidden;
   height: 340px;
   min-height: 340px;
@@ -410,6 +451,12 @@
   .article-card-cta {
     font-size: 0.75rem;
   }
+}
+
+/* RTL: عكس اتجاه أيقونات الأسهم */
+:host-context([dir="rtl"]) .articles-arrow-prev .bi-chevron-left,
+:host-context([dir="rtl"]) .articles-arrow-next .bi-chevron-right {
+  transform: scaleX(-1);
 }
 
 /* RTL: عكس اتجاه التمويه */

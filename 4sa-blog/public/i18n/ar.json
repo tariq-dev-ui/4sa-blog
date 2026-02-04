@@ -61,6 +61,17 @@
   "footer": {
     "copyright": "جميع الحقوق محفوظة."
   },
+  "articles": {
+    "mainTitle": "مقالات وتوجيهات",
+    "viewAll": "جميع المقالات",
+    "viewAllAria": "عرض جميع المقالات",
+    "readMore": "اقرأ المزيد",
+    "minRead": "دقيقة قراءة",
+    "catOffers": "عروض",
+    "catTips": "نصائح",
+    "catTech": "تقنية",
+    "catLifestyle": "أسلوب حياة"
+  },
   "strip": {
     "title": "فور سعودي: المزيد"
   },

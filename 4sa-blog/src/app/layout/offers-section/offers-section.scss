@@ -129,13 +129,15 @@ $pattern-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
   }
 }
 
-/* ---------- كاروسيل: صف واحد + أسهم + تمرير تلقائي ---------- */
+/* ---------- كاروسيل: صف واحد + أسهم + تمرير تلقائي - ارتفاع ثابت حتى لا يؤثر على حجم الشاشة ---------- */
 .offers-carousel {
   display: flex;
   align-items: center;
   gap: 0;
   width: 100%;
   position: relative;
+  min-height: 320px;
+  overflow: hidden;
 }
 
 .offer-arrow {
@@ -171,6 +173,7 @@ $pattern-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
 .offers-cards-wrap {
   flex: 1;
   min-width: 0;
+  min-height: 300px;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
@@ -483,6 +486,14 @@ $pattern-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
 @media (max-width: 576px) {
   .offers-section {
     padding: 0.875rem 0.5rem 0.875rem;
+  }
+
+  .offers-carousel {
+    min-height: 260px;
+  }
+
+  .offers-cards-wrap {
+    min-height: 250px;
   }
 
   .offers-header {

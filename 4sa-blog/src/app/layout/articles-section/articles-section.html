@@ -1,0 +1,62 @@
+<section class="articles-section" [attr.aria-labelledby]="titleId()">
+  <div class="articles-section-inner">
+    <header class="articles-header">
+      <div class="articles-header-row">
+        <h2 [id]="titleId()" class="articles-title">{{ mainTitleKey() | translate }}</h2>
+        <a [href]="viewAllUrl()" class="articles-view-all" [attr.aria-label]="'articles.viewAllAria' | translate">
+          {{ 'articles.viewAll' | translate }}
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </a>
+      </div>
+    </header>
+
+    <div
+      class="articles-grid-wrap"
+      (mouseenter)="onGridMouseEnter()"
+      (mouseleave)="onGridMouseLeave()"
+    >
+      <div
+        class="articles-grid"
+        #gridWrap
+        role="list"
+      >
+      @for (article of articles(); track article.id) {
+        <article class="article-card" role="listitem">
+          <a [routerLink]="getArticleUrl(article)" class="article-card-link">
+            <div class="article-card-image">
+              @if (article.imageUrl) {
+                <img [src]="article.imageUrl" [alt]="article.title" class="article-card-img" loading="lazy" />
+              } @else {
+                <span class="article-card-placeholder">
+                  <i class="bi bi-newspaper" aria-hidden="true"></i>
+                </span>
+              }
+              <span class="article-card-category">{{ article.categoryKey | translate }}</span>
+            </div>
+            <div class="article-card-body">
+              <h3 class="article-card-title">{{ article.title }}</h3>
+              <p class="article-card-excerpt">{{ article.excerpt }}</p>
+              <div class="article-card-meta">
+                <time [attr.datetime]="article.date" class="article-card-date">
+                  <i class="bi bi-calendar3" aria-hidden="true"></i>
+                  {{ formatDate(article.date) }}
+                </time>
+                @if (article.readTimeMinutes) {
+                  <span class="article-card-readtime">
+                    <i class="bi bi-clock" aria-hidden="true"></i>
+                    {{ article.readTimeMinutes }} {{ 'articles.minRead' | translate }}
+                  </span>
+                }
+              </div>
+              <span class="article-card-cta">
+                {{ 'articles.readMore' | translate }}
+                <i class="bi bi-arrow-left-short" aria-hidden="true"></i>
+              </span>
+            </div>
+          </a>
+        </article>
+      }
+      </div>
+    </div>
+  </div>
+</section>

@@ -61,6 +61,17 @@
   "footer": {
     "copyright": "All rights reserved."
   },
+  "articles": {
+    "mainTitle": "Articles & Guides",
+    "viewAll": "All articles",
+    "viewAllAria": "View all articles",
+    "readMore": "Read more",
+    "minRead": "min read",
+    "catOffers": "Offers",
+    "catTips": "Tips",
+    "catTech": "Tech",
+    "catLifestyle": "Lifestyle"
+  },
   "strip": {
     "title": "4SA: More"
   },

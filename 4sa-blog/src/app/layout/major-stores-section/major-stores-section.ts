@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
   signal,
   ViewChild,
 } from '@angular/core';
@@ -26,10 +27,9 @@ export interface StoreCard {
 }
 
 const CARD_WIDTH = 160;
-const CARD_HEIGHT = 181;
-const ROWS = 3;
 const GAP = 12;
 const CARDS_PER_PAGE = 12; // 4 columns × 3 rows
+const AUTO_SCROLL_INTERVAL_MS = 4000;
 
 @Component({
   selector: 'app-major-stores-section',
@@ -38,8 +38,11 @@ const CARDS_PER_PAGE = 12; // 4 columns × 3 rows
   templateUrl: './major-stores-section.html',
   styleUrl: './major-stores-section.scss',
 })
-export class MajorStoresSection implements AfterViewInit {
+export class MajorStoresSection implements AfterViewInit, OnDestroy {
   @ViewChild('gridWrap') gridWrapRef!: ElementRef<HTMLElement>;
+
+  private autoScrollTimer: ReturnType<typeof setInterval> | null = null;
+  private autoScrollPaused = false;
 
   readonly featuredStore = signal<FeaturedStore>({
     id: 'iherb',
@@ -76,6 +79,39 @@ export class MajorStoresSection implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.updatePaginationDots();
+    this.startAutoScroll();
+  }
+
+  ngOnDestroy(): void {
+    this.stopAutoScroll();
+  }
+
+  startAutoScroll(): void {
+    this.stopAutoScroll();
+    this.autoScrollTimer = setInterval(() => {
+      if (this.autoScrollPaused) return;
+      const page = this.currentPage();
+      if (page >= this.totalPages - 1) {
+        this.goToPage(0);
+      } else {
+        this.scrollNext();
+      }
+    }, AUTO_SCROLL_INTERVAL_MS);
+  }
+
+  stopAutoScroll(): void {
+    if (this.autoScrollTimer) {
+      clearInterval(this.autoScrollTimer);
+      this.autoScrollTimer = null;
+    }
+  }
+
+  onGridMouseEnter(): void {
+    this.autoScrollPaused = true;
+  }
+
+  onGridMouseLeave(): void {
+    this.autoScrollPaused = false;
   }
 
   private get totalPages(): number {

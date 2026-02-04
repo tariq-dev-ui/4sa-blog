@@ -37,15 +37,25 @@
   <div class="major-stores__layout">
     <!-- الأول: البطاقة الرئيسية (المتجر المميز) تحت العنوان مباشرة -->
     <article class="featured-store">
-      <span class="featured-store__badge">{{ 'majorStores.featuredBadge' | translate }}</span>
-      <h3 class="featured-store__name">{{ featuredStore().name }}</h3>
-      <div class="featured-store__stats-box">
-        {{ featuredStore().couponsCount }} {{ 'majorStores.coupons' | translate }} | {{ featuredStore().offersCount }} {{ 'majorStores.offersAvailable' | translate }}
+      <div class="featured-store__image-wrap">
+        <img
+          [src]="featuredStore().imageUrl"
+          [alt]="featuredStore().name"
+          class="featured-store__image"
+          loading="eager"
+        />
+        <span class="featured-store__badge">{{ 'majorStores.featuredBadge' | translate }}</span>
       </div>
-      <a [href]="featuredStore().url" target="_blank" rel="noopener noreferrer" class="featured-store__cta">
-        {{ 'stores.visitStore' | translate }}
-        <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
-      </a>
+      <div class="featured-store__body">
+        <h3 class="featured-store__name">{{ featuredStore().name }}</h3>
+        <div class="featured-store__stats-box">
+          {{ featuredStore().couponsCount }} {{ 'majorStores.coupons' | translate }} | {{ featuredStore().offersCount }} {{ 'majorStores.offersAvailable' | translate }}
+        </div>
+        <a [href]="featuredStore().url" target="_blank" rel="noopener noreferrer" class="featured-store__cta">
+          {{ 'stores.visitStore' | translate }}
+          <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+        </a>
+      </div>
     </article>
 
     <!-- الثاني: منطقة الشبكة + سهم التمرير + النقاط -->
@@ -54,6 +64,8 @@
         class="stores-grid-wrap"
         #gridWrap
         (scroll)="onGridScroll()"
+        (mouseenter)="onGridMouseEnter()"
+        (mouseleave)="onGridMouseLeave()"
       >
         <div class="stores-grid" role="list">
           @for (store of storeCards(); track store.id) {

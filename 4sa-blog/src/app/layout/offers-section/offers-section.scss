@@ -109,7 +109,7 @@ $pattern-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
   font-weight: 700;
   color: var(--color-primary, #09637e);
   background: transparent;
-  border: 2px solid var(--color-primary, #09637e);
+  border: 1px solid var(--color-primary, #09637e);
   border-radius: 12px;
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;

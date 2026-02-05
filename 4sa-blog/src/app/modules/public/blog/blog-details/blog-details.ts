@@ -2,13 +2,14 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { Breadcrumb, type BreadcrumbItem } from '../../../../shared/breadcrumb/breadcrumb';
 import { BlogSidebar } from '../../../../layout/blog-sidebar/blog-sidebar';
 import { getBlogPostById } from '../blog-data';
 
 @Component({
   selector: 'app-blog-details',
   standalone: true,
-  imports: [RouterLink, TranslatePipe, BlogSidebar],
+  imports: [RouterLink, TranslatePipe, BlogSidebar, Breadcrumb],
   templateUrl: './blog-details.html',
   styleUrl: './blog-details.scss',
 })
@@ -25,6 +26,14 @@ export class BlogDetails {
     this.route.params.subscribe((params) => {
       this.postId.set(params['id'] ?? null);
     });
+  }
+
+  breadcrumbItems(post: { title: string }): BreadcrumbItem[] {
+    return [
+      { route: '/', labelKey: 'breadcrumb.home' },
+      { route: '/blog', labelKey: 'blog.title' },
+      { label: post.title },
+    ];
   }
 
   formatDate(iso: string): string {

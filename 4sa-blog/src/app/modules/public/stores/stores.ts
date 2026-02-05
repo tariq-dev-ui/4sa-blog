@@ -1,6 +1,8 @@
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Breadcrumb } from '../../../shared/breadcrumb/breadcrumb';
+import type { BreadcrumbItem } from '../../../shared/breadcrumb/breadcrumb';
 import { StoresSidebar } from '../../../layout/stores-sidebar/stores-sidebar';
 import type { StoreCouponItem } from '../../../layout/stores-strip/stores-strip';
 
@@ -43,11 +45,16 @@ export type StoreSortBy = 'popular' | 'newest' | 'az';
 @Component({
   selector: 'app-stores',
   standalone: true,
-  imports: [RouterLink, TranslatePipe, StoresSidebar],
+  imports: [RouterLink, TranslatePipe, StoresSidebar, Breadcrumb],
   templateUrl: './stores.html',
   styleUrl: './stores.scss',
 })
 export class Stores {
+  readonly breadcrumbItems: BreadcrumbItem[] = [
+    { route: '/', labelKey: 'breadcrumb.home' },
+    { labelKey: 'storesPage.breadcrumbStores' },
+  ];
+
   private readonly storesData = signal<StorePageItem[]>(STORES_PAGE_DATA);
   readonly sortBy = signal<StoreSortBy>('popular');
   readonly sortDropdownOpen = signal(false);

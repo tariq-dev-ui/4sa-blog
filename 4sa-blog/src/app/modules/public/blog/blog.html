@@ -2,6 +2,7 @@
   <app-blog-sidebar />
   <article class="blog-page" aria-labelledby="blog-title">
   <header class="blog-hero">
+    <app-breadcrumb [items]="breadcrumbItems" />
     <h1 id="blog-title" class="blog-hero__title">{{ 'blog.title' | translate }}</h1>
     <p class="blog-hero__desc">{{ 'blog.description' | translate }}</p>
   </header>

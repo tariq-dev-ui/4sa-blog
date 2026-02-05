@@ -2,11 +2,7 @@
   <app-stores-sidebar />
   <article class="stores-page" role="main" aria-labelledby="stores-page-title">
     <header class="stores-page__hero">
-      <nav class="stores-page__breadcrumb" aria-label="{{ 'storesPage.breadcrumbAria' | translate }}">
-        <a routerLink="/" class="stores-page__breadcrumb-link">{{ 'storesPage.breadcrumbHome' | translate }}</a>
-        <span class="stores-page__breadcrumb-sep" aria-hidden="true">/</span>
-        <span class="stores-page__breadcrumb-current">{{ 'storesPage.breadcrumbStores' | translate }}</span>
-      </nav>
+      <app-breadcrumb [items]="breadcrumbItems" ariaLabelKey="storesPage.breadcrumbAria" />
       <div class="stores-page__hero-row">
         <h1 id="stores-page-title" class="stores-page__title">{{ 'storesPage.title' | translate }}</h1>
       </div>
@@ -59,38 +55,43 @@
         </div>
       </div>
       <div class="stores-page__grid" role="list">
-    @for (store of stores(); track store.id) {
-      <article class="store-tile" role="listitem">
-        <div class="store-tile__inner">
-          <div class="store-tile__logo">
-            @if (store.logoUrl) {
-              <img [src]="store.logoUrl" [alt]="store.storeName" class="store-tile__logo-img" loading="lazy" />
-            } @else {
-              <span class="store-tile__logo-fallback">{{ store.storeName }}</span>
-            }
-          </div>
-          <div class="store-tile__code-box">
-            <button
-              type="button"
-              class="store-tile__code-btn"
-              [class.store-tile__code-btn--copied]="copiedId() === store.id"
-              (click)="onCopyCode(store)"
-              [attr.aria-label]="(copiedId() === store.id ? 'stores.copied' : 'stores.copyCode') | translate"
-            >
-              <span class="store-tile__code-text">{{ store.code }}</span>
-              @if (copiedId() === store.id) {
-                <i class="bi bi-check-lg store-tile__code-icon" aria-hidden="true"></i>
-              }
-            </button>
-            <span class="store-tile__code-count" [attr.aria-label]="'storesPage.couponCountAria' | translate : { count: store.couponCount }">{{ store.couponCount }}</span>
-          </div>
-          <div class="store-tile__name-row">
-            <h2 class="store-tile__name">{{ store.storeName }}</h2>
-            <p class="store-tile__discount">{{ store.discountLabel }}</p>
-          </div>
-        </div>
-      </article>
-    }
+        @for (store of stores(); track store.id) {
+          <article class="store-card" role="listitem">
+            <div class="store-card-inner">
+              <div class="store-card-logo">
+                @if (store.logoUrl) {
+                  <img [src]="store.logoUrl" [alt]="store.storeName" class="store-card-logo-img" loading="lazy" />
+                } @else {
+                  <span class="store-card-logo-fallback">{{ store.storeName }}</span>
+                }
+              </div>
+              <span class="store-name">{{ store.storeName }}</span>
+              <p class="store-desc">{{ store.description }}</p>
+              <div class="store-code-row">
+                <span class="store-code">{{ store.code }}</span>
+                <button
+                  type="button"
+                  class="store-copy-btn"
+                  [class.store-copy-btn--copied]="copiedId() === store.id"
+                  (click)="onCopyCode(store)"
+                  [attr.aria-label]="(copiedId() === store.id ? 'stores.copied' : 'stores.copyCode') | translate"
+                >
+                  @if (copiedId() === store.id) {
+                    <i class="bi bi-check-lg" aria-hidden="true"></i>
+                    <span>{{ 'stores.copied' | translate }}</span>
+                  } @else {
+                    <i class="bi bi-clipboard" aria-hidden="true"></i>
+                    <span>{{ 'stores.copyCode' | translate }}</span>
+                  }
+                </button>
+              </div>
+              <a [href]="store.storeUrl || '#'" target="_blank" rel="noopener noreferrer" class="store-visit-link" [attr.aria-label]="'stores.visitStoreAria' | translate: { name: store.storeName }">
+                {{ 'stores.visitStore' | translate }}
+                <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+              </a>
+            </div>
+          </article>
+        }
       </div>
     </section>
   </article>

@@ -3,17 +3,23 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { BlogSidebar } from '../../../layout/blog-sidebar/blog-sidebar';
+import type { BreadcrumbItem } from '../../../shared/breadcrumb/breadcrumb';
+import { Breadcrumb } from '../../../shared/breadcrumb/breadcrumb';
 import { BLOG_POSTS } from './blog-data';
 import type { BlogPost } from './blog-data';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [RouterLink, TranslatePipe, BlogSidebar],
+  imports: [RouterLink, TranslatePipe, BlogSidebar, Breadcrumb],
   templateUrl: './blog.html',
   styleUrl: './blog.scss',
 })
 export class Blog implements AfterViewInit, OnDestroy {
+  readonly breadcrumbItems: BreadcrumbItem[] = [
+    { route: '/', labelKey: 'breadcrumb.home' },
+    { labelKey: 'blog.title' },
+  ];
   @ViewChild('blogCatsStrip') private blogCatsStripRef!: ElementRef<HTMLElement>;
 
   private catsScrollInterval: ReturnType<typeof setInterval> | null = null;

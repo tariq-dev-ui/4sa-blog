@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1100;
+  z-index: 9999;
   padding: 1rem;
   box-sizing: border-box;
   animation: offer-modal-fade-in 0.2s ease;
@@ -23,7 +23,8 @@
   max-height: 90vh;
   overflow: auto;
   background: var(--color-primary-contrast);
-  border-radius: 16px;
+  border: 2px dashed rgba(var(--color-primary-rgb), 0.3);
+  border-radius: 18px;
   box-shadow: var(--shadow-lg);
   animation: offer-modal-slide-in 0.25s ease;
 }
@@ -78,6 +79,7 @@
   justify-content: center;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
+  border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.1);
 }
 
 .offer-modal-img {

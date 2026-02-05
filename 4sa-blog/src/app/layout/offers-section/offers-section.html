@@ -1,4 +1,4 @@
-<section class="offers-section" [class.offers-section--no-bg]="!showBackground()" [attr.aria-labelledby]="titleId()">
+<section class="offers-section" [class.offers-section--no-bg]="!showBackground()" [class.offers-section--modal-open]="!!selectedOfferForModal()" [attr.aria-labelledby]="titleId()">
   <div class="offers-section-inner">
     <header class="offers-header">
       <div class="offers-header-row">

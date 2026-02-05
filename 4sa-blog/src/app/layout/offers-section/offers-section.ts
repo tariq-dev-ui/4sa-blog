@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostBinding,
   HostListener,
   inject,
   input,
@@ -133,6 +134,10 @@ export class OffersSection implements AfterViewInit, OnDestroy {
   readonly canScrollNext = signal(false);
   /** العرض المحدد لعرضه في النافذة المنبثقة */
   readonly selectedOfferForModal = signal<OfferCard | null>(null);
+
+  @HostBinding('class.offers-section-host--modal-open') get hasModalOpen(): boolean {
+    return !!this.selectedOfferForModal();
+  }
 
   private copyResetTimeout: ReturnType<typeof setTimeout> | null = null;
   private autoSlideInterval: ReturnType<typeof setInterval> | null = null;

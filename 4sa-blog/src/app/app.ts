@@ -20,14 +20,19 @@ export class App implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
 
-  /** true عندما يكون المسار الحالي صفحة المدونة */
-  readonly isBlogRoute = signal(false);
+  /** true عندما يكون المسار صفحة مستقلة (مدونة أو متاجر) — بدون بانر ولا سايدبار */
+  readonly isStandaloneRoute = signal(false);
+
+  private updateStandalone(): void {
+    const url = this.router.url.split('?')[0];
+    this.isStandaloneRoute.set(url.startsWith('/blog') || url === '/stores');
+  }
 
   ngOnInit(): void {
-    this.isBlogRoute.set(this.router.url.startsWith('/blog'));
+    this.updateStandalone();
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe(() => this.isBlogRoute.set(this.router.url.startsWith('/blog')));
+      .subscribe(() => this.updateStandalone());
 
     const applyDir = (lang: string) => {
       const dir = lang === 'ar' ? 'rtl' : 'ltr';

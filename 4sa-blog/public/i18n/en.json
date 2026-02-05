@@ -46,6 +46,20 @@
     "viewAria": "View offer",
     "viewTitle": "View"
   },
+  "storesPage": {
+    "title": "4SA – All Saudi store coupons and offers with up to 70% off",
+    "description": "Get the latest discount coupons and promo codes for top Saudi and international stores on 4SA. Save up to 70% when you shop from Noon, Amazon Saudi, Namshi, Anass, Shein, and other popular stores.",
+    "breadcrumbHome": "Home",
+    "breadcrumbStores": "All stores",
+    "breadcrumbAria": "Breadcrumb",
+    "storesCount": "{{count}} stores",
+    "sortBy": "Sort by",
+    "sortPopular": "Most popular",
+    "sortNewest": "New arrivals",
+    "sortAZ": "A - Z",
+    "sortAria": "Sort stores",
+    "couponCountAria": "{{count}} coupon(s)"
+  },
   "stores": {
     "title": "Stores",
     "viewAll": "View all",

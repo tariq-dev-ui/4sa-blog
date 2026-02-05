@@ -8,6 +8,7 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface StoreCouponItem {
@@ -46,7 +47,7 @@ const DEFAULT_STORES: StoreCouponItem[] = [
 @Component({
   selector: 'app-stores-strip',
   standalone: true,
-  imports: [TranslatePipe],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './stores-strip.html',
   styleUrl: './stores-strip.scss',
 })

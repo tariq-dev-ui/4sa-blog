@@ -8,6 +8,7 @@ import { Categories } from './categories/categories';
 import { Home } from './home/home';
 import { PostDetails } from './post-details/post-details';
 import { Posts } from './posts/posts';
+import { Stores } from './stores/stores';
 
 @NgModule({
   declarations: [],
@@ -20,6 +21,7 @@ import { Posts } from './posts/posts';
     Posts,
     PostDetails,
     Categories,
+    Stores,
   ],
 })
 export class PublicModule {}

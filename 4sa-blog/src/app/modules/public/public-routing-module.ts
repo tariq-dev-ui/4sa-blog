@@ -7,6 +7,7 @@ import { Categories } from './categories/categories';
 import { Home } from './home/home';
 import { PostDetails } from './post-details/post-details';
 import { Posts } from './posts/posts';
+import { Stores } from './stores/stores';
 
 const routes: Routes = [
   { path: '', component: Home, title: 'الرئيسية' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'posts/:id', component: PostDetails, title: 'تفاصيل المقال' },
   { path: 'categories', component: Categories, title: 'التصنيفات' },
   { path: 'categories/:slug', component: Categories, title: 'التصنيفات' },
+  { path: 'stores', component: Stores, title: 'المتاجر' },
   { path: '**', redirectTo: '' },
 ];
 

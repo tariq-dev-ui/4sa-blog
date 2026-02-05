@@ -1,0 +1,94 @@
+<div class="stores-layout">
+  <article class="stores-page" role="main" aria-labelledby="stores-page-title">
+    <header class="stores-page__hero">
+      <nav class="stores-page__breadcrumb" aria-label="{{ 'storesPage.breadcrumbAria' | translate }}">
+        <a routerLink="/" class="stores-page__breadcrumb-link">{{ 'storesPage.breadcrumbHome' | translate }}</a>
+        <span class="stores-page__breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="stores-page__breadcrumb-current">{{ 'storesPage.breadcrumbStores' | translate }}</span>
+      </nav>
+      <div class="stores-page__hero-row">
+        <h1 id="stores-page-title" class="stores-page__title">{{ 'storesPage.title' | translate }}</h1>
+      </div>
+      <div class="stores-page__hero-inner">
+        <div class="stores-page__desc-wrap">
+          <p class="stores-page__desc">{{ 'storesPage.description' | translate }}</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="stores-page__section">
+      <div class="stores-page__bar">
+        <div class="stores-page__count-box">
+          <span>{{ 'storesPage.storesCount' | translate : { count: storeCount() } }}</span>
+        </div>
+        <div class="stores-page__bar-line" aria-hidden="true"></div>
+        <div class="stores-page__sort-wrap">
+          <button
+            type="button"
+            class="stores-page__sort-btn"
+            (click)="toggleSortDropdown()"
+            [attr.aria-expanded]="sortDropdownOpen()"
+            [attr.aria-haspopup]="true"
+            [attr.aria-label]="'storesPage.sortAria' | translate"
+          >
+            <i class="bi bi-sort-down-alt" aria-hidden="true"></i>
+            <span class="stores-page__sort-label">{{ 'storesPage.sortBy' | translate }}</span>
+            <span class="stores-page__sort-value">
+              @switch (sortBy()) {
+                @case ('popular') { {{ 'storesPage.sortPopular' | translate }} }
+                @case ('newest') { {{ 'storesPage.sortNewest' | translate }} }
+                @case ('az') { {{ 'storesPage.sortAZ' | translate }} }
+              }
+            </span>
+            <i class="bi bi-chevron-down stores-page__sort-chevron" [class.stores-page__sort-chevron--open]="sortDropdownOpen()" aria-hidden="true"></i>
+          </button>
+          @if (sortDropdownOpen()) {
+            <ul class="stores-page__sort-menu" role="menu">
+              <li role="none">
+                <button type="button" role="menuitem" class="stores-page__sort-option" [class.stores-page__sort-option--active]="sortBy() === 'popular'" (click)="setSort('popular')">{{ 'storesPage.sortPopular' | translate }}</button>
+              </li>
+              <li role="none">
+                <button type="button" role="menuitem" class="stores-page__sort-option" [class.stores-page__sort-option--active]="sortBy() === 'newest'" (click)="setSort('newest')">{{ 'storesPage.sortNewest' | translate }}</button>
+              </li>
+              <li role="none">
+                <button type="button" role="menuitem" class="stores-page__sort-option" [class.stores-page__sort-option--active]="sortBy() === 'az'" (click)="setSort('az')">{{ 'storesPage.sortAZ' | translate }}</button>
+              </li>
+            </ul>
+          }
+        </div>
+      </div>
+      <div class="stores-page__grid" role="list">
+    @for (store of stores(); track store.id) {
+      <article class="store-tile" role="listitem">
+        <div class="store-tile__inner">
+          <div class="store-tile__logo">
+            @if (store.logoUrl) {
+              <img [src]="store.logoUrl" [alt]="store.storeName" class="store-tile__logo-img" loading="lazy" />
+            } @else {
+              <span class="store-tile__logo-fallback">{{ store.storeName }}</span>
+            }
+          </div>
+          <div class="store-tile__code-box">
+            <button
+              type="button"
+              class="store-tile__code-btn"
+              [class.store-tile__code-btn--copied]="copiedId() === store.id"
+              (click)="onCopyCode(store)"
+              [attr.aria-label]="(copiedId() === store.id ? 'stores.copied' : 'stores.copyCode') | translate"
+            >
+              <span class="store-tile__code-text">{{ store.code }}</span>
+              @if (copiedId() === store.id) {
+                <i class="bi bi-check-lg store-tile__code-icon" aria-hidden="true"></i>
+              }
+            </button>
+            <span class="store-tile__code-count" [attr.aria-label]="'storesPage.couponCountAria' | translate : { count: store.couponCount }">{{ store.couponCount }}</span>
+          </div>
+          <h2 class="store-tile__name">{{ store.storeName }}</h2>
+          <p class="store-tile__discount">{{ store.discountLabel }}</p>
+        </div>
+      </article>
+    }
+      </div>
+    </section>
+  </article>
+</div>

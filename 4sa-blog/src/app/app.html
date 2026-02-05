@@ -1,14 +1,14 @@
 <app-navbar />
-@if (!isBlogRoute()) {
+@if (!isStandaloneRoute()) {
   <app-banner />
   <app-categories-sidebar />
   <app-stores-strip />
 }
-<div class="content-with-sidebar" [class.content-with-sidebar--no-sidebar]="isBlogRoute()">
-  @if (!isBlogRoute()) {
+<div class="content-with-sidebar" [class.content-with-sidebar--no-sidebar]="isStandaloneRoute()">
+  @if (!isStandaloneRoute()) {
     <app-main-sidebar />
   }
-  <div class="main-wrap" [class.main-wrap--full]="isBlogRoute()">
+  <div class="main-wrap" [class.main-wrap--full]="isStandaloneRoute()">
     <main>
       <router-outlet />
     </main>

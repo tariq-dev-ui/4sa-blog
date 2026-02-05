@@ -6,12 +6,36 @@
     <p class="blog-hero__desc">{{ 'blog.description' | translate }}</p>
   </header>
 
-  <nav class="blog-cats" aria-label="{{ 'blog.categoriesLabel' | translate }}">
-    <a routerLink="/blog" class="blog-cats__pill blog-cats__pill--active">{{ 'blog.allBlogs' | translate }}</a>
-    @for (cat of categories(); track cat.key) {
-      <a [routerLink]="['/blog']" [queryParams]="{ cat: cat.slug || cat.key }" class="blog-cats__pill">{{ cat.key | translate }}</a>
-    }
-  </nav>
+  <div class="blog-cats-wrap">
+    <button
+      type="button"
+      class="blog-cats-arrow blog-cats-arrow--next"
+      (click)="scrollCats(1)"
+      [attr.aria-label]="'blog.catsNext' | translate"
+      title="{{ 'blog.catsNext' | translate }}"
+    >
+      <i class="bi bi-chevron-right" aria-hidden="true"></i>
+    </button>
+    <div class="blog-cats-viewport">
+      <nav #blogCatsStrip class="blog-cats" aria-label="{{ 'blog.categoriesLabel' | translate }}">
+        <span class="blog-cats__track">
+          <a routerLink="/blog" class="blog-cats__pill blog-cats__pill--active">{{ 'blog.allBlogs' | translate }}</a>
+          @for (cat of categories(); track cat.key) {
+            <a [routerLink]="['/blog']" [queryParams]="{ cat: cat.slug || cat.key }" class="blog-cats__pill">{{ cat.key | translate }}</a>
+          }
+        </span>
+      </nav>
+    </div>
+    <button
+      type="button"
+      class="blog-cats-arrow blog-cats-arrow--prev"
+      (click)="scrollCats(-1)"
+      [attr.aria-label]="'blog.catsPrev' | translate"
+      title="{{ 'blog.catsPrev' | translate }}"
+    >
+      <i class="bi bi-chevron-left" aria-hidden="true"></i>
+    </button>
+  </div>
 
   <section class="blog-section" aria-labelledby="blog-all-title">
     <div class="blog-section__head">

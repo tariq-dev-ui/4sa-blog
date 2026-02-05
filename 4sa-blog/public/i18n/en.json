@@ -123,6 +123,8 @@
     "title": "Blog",
     "description": "Discover articles covering a range of topics from tech trends and lifestyle tips to productivity hacks and creativity. Stay informed, inspired, and entertained with our diverse blog content!",
     "categoriesLabel": "Blog categories",
+    "catsPrev": "Previous categories",
+    "catsNext": "Next categories",
     "allBlogs": "All blogs",
     "viewAll": "View all",
     "itemPagination": "Item {{current}} of {{total}}",

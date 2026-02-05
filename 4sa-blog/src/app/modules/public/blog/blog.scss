@@ -48,16 +48,100 @@
   margin-inline: auto;
 }
 
-.blog-cats {
+.blog-cats-wrap {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.2);
 }
 
+.blog-cats-arrow {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.35);
+  border-radius: 50%;
+  background: var(--color-primary-contrast);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+    border-color: var(--color-primary);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  i {
+    font-size: 1.125rem;
+  }
+}
+
+.blog-cats-viewport {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2.5rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &::before {
+    inset-inline-start: 0;
+    background: linear-gradient(to inline-end, var(--color-background) 0%, transparent 100%);
+  }
+
+  &::after {
+    inset-inline-end: 0;
+    background: linear-gradient(to inline-start, var(--color-background) 0%, transparent 100%);
+  }
+}
+
+.blog-cats {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.blog-cats__track {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  padding-inline-end: 2rem;
+}
+
 .blog-cats__pill {
+  flex-shrink: 0;
   display: inline-block;
   padding: 0.4rem 0.85rem;
   font-size: 0.875rem;

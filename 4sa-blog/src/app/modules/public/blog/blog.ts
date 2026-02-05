@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, signal, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -37,7 +37,14 @@ const BLOG_POSTS: BlogPost[] = [
   templateUrl: './blog.html',
   styleUrl: './blog.scss',
 })
-export class Blog {
+export class Blog implements AfterViewInit, OnDestroy {
+  @ViewChild('blogCatsStrip') private blogCatsStripRef!: ElementRef<HTMLElement>;
+
+  private catsScrollInterval: ReturnType<typeof setInterval> | null = null;
+  private readonly catsScrollSpeed = 1;
+  private readonly catsScrollIntervalMs = 35;
+  private readonly catsScrollStep = 180;
+
   readonly categories = signal<{ key: string; slug?: string }[]>([
     { key: 'blog.catStores' },
     { key: 'blog.catSaving' },
@@ -66,5 +73,26 @@ export class Blog {
   formatDate(iso: string): string {
     const d = new Date(iso);
     return d.toLocaleDateString('ar-SA', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  ngAfterViewInit(): void {
+    const el = this.blogCatsStripRef?.nativeElement;
+    if (!el) return;
+    const maxScroll = () => el.scrollWidth - el.clientWidth;
+    this.catsScrollInterval = setInterval(() => {
+      el.scrollLeft += this.catsScrollSpeed;
+      if (el.scrollLeft >= maxScroll()) el.scrollLeft = 0;
+    }, this.catsScrollIntervalMs);
+  }
+
+  ngOnDestroy(): void {
+    if (this.catsScrollInterval) clearInterval(this.catsScrollInterval);
+  }
+
+  scrollCats(direction: number): void {
+    const el = this.blogCatsStripRef?.nativeElement;
+    if (!el) return;
+    const step = this.catsScrollStep * direction;
+    el.scrollBy({ left: step, behavior: 'smooth' });
   }
 }

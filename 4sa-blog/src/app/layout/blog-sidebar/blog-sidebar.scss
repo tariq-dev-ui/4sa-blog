@@ -51,8 +51,91 @@
   text-decoration: underline;
 }
 
-/* ترتيب حسب + الفئات: قائمة عمودية */
-.blog-sidebar__sort,
+/* دروب داون ترتيب حسب */
+.blog-sidebar__block--dropdown {
+  padding: 0.75rem 1rem 0.5rem;
+}
+
+.blog-sidebar__dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0;
+  font-family: var(--font-family-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary, var(--color-dark));
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: start;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.blog-sidebar__dropdown-label {
+  flex: 1;
+}
+
+.blog-sidebar__dropdown-icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: 1rem;
+  transition: transform 0.25s ease;
+
+  &.blog-sidebar__dropdown-icon--open {
+    transform: rotate(45deg);
+  }
+}
+
+.blog-sidebar__sort {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.25s ease;
+
+  &.blog-sidebar__sort--open {
+    grid-template-rows: 1fr;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(var(--color-primary-rgb), 0.15);
+  }
+}
+
+.blog-sidebar__sort-inner {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.blog-sidebar__sort .blog-sidebar__link {
+  padding: 0.5rem 0;
+}
+
+.blog-sidebar__sort .blog-sidebar__link {
+  padding: 0.5rem 0;
+}
+
+/* الفئات: قائمة عمودية */
 .blog-sidebar__categories {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -57,6 +57,9 @@ const SIDEBAR_AUTHORS: BlogSidebarAuthor[] = [
   styleUrl: './blog-sidebar.scss',
 })
 export class BlogSidebar {
+  readonly isSortDropdownOpen = signal(false);
+  readonly isCategoriesDropdownOpen = signal(false);
+
   readonly sortOptions = [
     { key: 'blogSidebar.sortRecent', value: 'recent' },
     { key: 'blog.allBlogs', value: 'all' },
@@ -65,4 +68,12 @@ export class BlogSidebar {
   readonly stores = SIDEBAR_STORES;
   readonly categories = SIDEBAR_CATEGORIES;
   readonly authors = SIDEBAR_AUTHORS;
+
+  toggleSortDropdown(): void {
+    this.isSortDropdownOpen.update((v) => !v);
+  }
+
+  toggleCategoriesDropdown(): void {
+    this.isCategoriesDropdownOpen.update((v) => !v);
+  }
 }

@@ -1,19 +1,41 @@
 <aside class="blog-sidebar" [attr.aria-label]="'blogSidebar.ariaLabel' | translate">
-  <!-- ترتيب حسب -->
-  <section class="blog-sidebar__block">
-    <h3 class="blog-sidebar__title">{{ 'blogSidebar.sortBy' | translate }}</h3>
-    <nav class="blog-sidebar__sort" aria-label="{{ 'blogSidebar.sortBy' | translate }}">
-      @for (opt of sortOptions; track opt.value) {
-        <a
-          [routerLink]="['/blog']"
-          [queryParams]="{ sort: opt.value }"
-          routerLinkActive="blog-sidebar__link--active"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="blog-sidebar__link"
-        >
-          {{ opt.key | translate }}
-        </a>
-      }
+  <!-- ترتيب حسب - دروب داون -->
+  <section class="blog-sidebar__block blog-sidebar__block--dropdown">
+    <button
+      type="button"
+      class="blog-sidebar__dropdown-trigger"
+      (click)="toggleSortDropdown()"
+      [attr.aria-expanded]="isSortDropdownOpen()"
+      [attr.aria-controls]="'blog-sort-menu'"
+      [attr.aria-label]="'blogSidebar.sortBy' | translate"
+      id="blog-sort-trigger"
+    >
+      <span class="blog-sidebar__dropdown-label">{{ 'blogSidebar.sortBy' | translate }}</span>
+      <span class="blog-sidebar__dropdown-icon" [class.blog-sidebar__dropdown-icon--open]="isSortDropdownOpen()" aria-hidden="true">
+        <i class="bi bi-plus-lg" aria-hidden="true"></i>
+      </span>
+    </button>
+    <nav
+      id="blog-sort-menu"
+      class="blog-sidebar__sort"
+      [class.blog-sidebar__sort--open]="isSortDropdownOpen()"
+      aria-label="{{ 'blogSidebar.sortBy' | translate }}"
+      [attr.aria-hidden]="!isSortDropdownOpen()"
+    >
+      <div class="blog-sidebar__sort-inner">
+        @for (opt of sortOptions; track opt.value) {
+          <a
+            [routerLink]="['/blog']"
+            [queryParams]="{ sort: opt.value }"
+            routerLinkActive="blog-sidebar__link--active"
+            [routerLinkActiveOptions]="{ exact: false }"
+            class="blog-sidebar__link"
+            (click)="isSortDropdownOpen.set(false)"
+          >
+            {{ opt.key | translate }}
+          </a>
+        }
+      </div>
     </nav>
   </section>
 
@@ -35,15 +57,36 @@
     </div>
   </section>
 
-  <!-- الفئات والأقسام -->
-  <section class="blog-sidebar__block">
-    <h3 class="blog-sidebar__title">{{ 'blogSidebar.categoriesTitle' | translate }}</h3>
-    <nav class="blog-sidebar__categories" aria-label="{{ 'blogSidebar.categoriesTitle' | translate }}">
-      @for (cat of categories; track cat.slug) {
-        <a [routerLink]="['/blog']" [queryParams]="{ cat: cat.slug }" class="blog-sidebar__link">
-          {{ cat.key | translate }}
-        </a>
-      }
+  <!-- الفئات والأقسام - دروب داون -->
+  <section class="blog-sidebar__block blog-sidebar__block--dropdown">
+    <button
+      type="button"
+      class="blog-sidebar__dropdown-trigger"
+      (click)="toggleCategoriesDropdown()"
+      [attr.aria-expanded]="isCategoriesDropdownOpen()"
+      [attr.aria-controls]="'blog-categories-menu'"
+      [attr.aria-label]="'blogSidebar.categoriesTitle' | translate"
+      id="blog-categories-trigger"
+    >
+      <span class="blog-sidebar__dropdown-label">{{ 'blogSidebar.categoriesTitle' | translate }}</span>
+      <span class="blog-sidebar__dropdown-icon" [class.blog-sidebar__dropdown-icon--open]="isCategoriesDropdownOpen()" aria-hidden="true">
+        <i class="bi bi-plus-lg" aria-hidden="true"></i>
+      </span>
+    </button>
+    <nav
+      id="blog-categories-menu"
+      class="blog-sidebar__sort"
+      [class.blog-sidebar__sort--open]="isCategoriesDropdownOpen()"
+      aria-label="{{ 'blogSidebar.categoriesTitle' | translate }}"
+      [attr.aria-hidden]="!isCategoriesDropdownOpen()"
+    >
+      <div class="blog-sidebar__sort-inner">
+        @for (cat of categories; track cat.slug) {
+          <a [routerLink]="['/blog']" [queryParams]="{ cat: cat.slug }" class="blog-sidebar__link" (click)="isCategoriesDropdownOpen.set(false)">
+            {{ cat.key | translate }}
+          </a>
+        }
+      </div>
     </nav>
   </section>
 

@@ -1,0 +1,86 @@
+<div class="blog-layout">
+  <app-blog-sidebar />
+  <article class="blog-page" aria-labelledby="blog-title">
+  <header class="blog-hero">
+    <h1 id="blog-title" class="blog-hero__title">{{ 'blog.title' | translate }}</h1>
+    <p class="blog-hero__desc">{{ 'blog.description' | translate }}</p>
+  </header>
+
+  <nav class="blog-cats" aria-label="{{ 'blog.categoriesLabel' | translate }}">
+    <a routerLink="/blog" class="blog-cats__pill blog-cats__pill--active">{{ 'blog.allBlogs' | translate }}</a>
+    @for (cat of categories(); track cat.key) {
+      <a [routerLink]="['/blog']" [queryParams]="{ cat: cat.slug || cat.key }" class="blog-cats__pill">{{ cat.key | translate }}</a>
+    }
+  </nav>
+
+  <section class="blog-section" aria-labelledby="blog-all-title">
+    <div class="blog-section__head">
+      <h2 id="blog-all-title" class="blog-section__title">{{ 'blog.allBlogs' | translate }}</h2>
+      <span class="blog-section__pagination">{{ 'blog.itemPagination' | translate: { current: 1, total: 19 } }}</span>
+      <a routerLink="/posts" class="blog-section__view-all">{{ 'blog.viewAll' | translate }}</a>
+    </div>
+    <div class="blog-grid" role="list">
+      @for (post of allPosts(); track post.id) {
+        <a [routerLink]="['/posts', post.id]" class="blog-card" role="listitem">
+          <div class="blog-card__img-wrap">
+            <img [src]="post.imageUrl" [alt]="post.title" class="blog-card__img" loading="lazy" />
+          </div>
+          <span class="blog-card__cat">{{ post.categoryKey | translate }}</span>
+          <h3 class="blog-card__title">{{ post.title }}</h3>
+          <p class="blog-card__meta">
+            <span class="blog-card__author">{{ post.author }}</span>
+            <span class="blog-card__date">{{ 'blog.publishedOn' | translate }} {{ formatDate(post.publishedDate) }}</span>
+            <span class="blog-card__date">{{ 'blog.updatedOn' | translate }} {{ formatDate(post.updatedDate) }}</span>
+          </p>
+        </a>
+      }
+    </div>
+  </section>
+
+  <section class="blog-section" aria-labelledby="blog-recent-title">
+    <div class="blog-section__head">
+      <h2 id="blog-recent-title" class="blog-section__title">{{ 'blog.recentlyAdded' | translate }}</h2>
+      <a routerLink="/posts" class="blog-section__view-all">{{ 'blog.viewAll' | translate }}</a>
+    </div>
+    <div class="blog-grid" role="list">
+      @for (post of recentPosts(); track post.id) {
+        <a [routerLink]="['/posts', post.id]" class="blog-card" role="listitem">
+          <div class="blog-card__img-wrap">
+            <img [src]="post.imageUrl" [alt]="post.title" class="blog-card__img" loading="lazy" />
+          </div>
+          <span class="blog-card__cat">{{ post.categoryKey | translate }}</span>
+          <h3 class="blog-card__title">{{ post.title }}</h3>
+          <p class="blog-card__meta">
+            <span class="blog-card__author">{{ post.author }}</span>
+            <span class="blog-card__date">{{ 'blog.publishedOn' | translate }} {{ formatDate(post.publishedDate) }}</span>
+            <span class="blog-card__date">{{ 'blog.updatedOn' | translate }} {{ formatDate(post.updatedDate) }}</span>
+          </p>
+        </a>
+      }
+    </div>
+  </section>
+
+  <section class="blog-section" aria-labelledby="blog-popular-title">
+    <div class="blog-section__head">
+      <h2 id="blog-popular-title" class="blog-section__title">{{ 'blog.mostViewed' | translate }}</h2>
+      <a routerLink="/posts" class="blog-section__view-all">{{ 'blog.viewAll' | translate }}</a>
+    </div>
+    <div class="blog-grid" role="list">
+      @for (post of mostViewedPosts(); track post.id) {
+        <a [routerLink]="['/posts', post.id]" class="blog-card" role="listitem">
+          <div class="blog-card__img-wrap">
+            <img [src]="post.imageUrl" [alt]="post.title" class="blog-card__img" loading="lazy" />
+          </div>
+          <span class="blog-card__cat">{{ post.categoryKey | translate }}</span>
+          <h3 class="blog-card__title">{{ post.title }}</h3>
+          <p class="blog-card__meta">
+            <span class="blog-card__author">{{ post.author }}</span>
+            <span class="blog-card__date">{{ 'blog.publishedOn' | translate }} {{ formatDate(post.publishedDate) }}</span>
+            <span class="blog-card__date">{{ 'blog.updatedOn' | translate }} {{ formatDate(post.updatedDate) }}</span>
+          </p>
+        </a>
+      }
+    </div>
+  </section>
+</article>
+</div>

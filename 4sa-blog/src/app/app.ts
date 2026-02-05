@@ -1,6 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { filter } from 'rxjs/operators';
 
 import { Banner } from './layout/banner/banner';
 import { CategoriesSidebar } from './layout/categories-sidebar/categories-sidebar';
@@ -17,8 +18,17 @@ import { StoresStrip } from './layout/stores-strip/stores-strip';
 })
 export class App implements OnInit {
   private readonly translate = inject(TranslateService);
+  private readonly router = inject(Router);
+
+  /** true عندما يكون المسار الحالي صفحة المدونة */
+  readonly isBlogRoute = signal(false);
 
   ngOnInit(): void {
+    this.isBlogRoute.set(this.router.url.startsWith('/blog'));
+    this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe(() => this.isBlogRoute.set(this.router.url.startsWith('/blog')));
+
     const applyDir = (lang: string) => {
       const dir = lang === 'ar' ? 'rtl' : 'ltr';
       document.documentElement.dir = dir;

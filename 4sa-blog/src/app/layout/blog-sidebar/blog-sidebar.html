@@ -1,0 +1,68 @@
+<aside class="blog-sidebar" [attr.aria-label]="'blogSidebar.ariaLabel' | translate">
+  <!-- ترتيب حسب -->
+  <section class="blog-sidebar__block">
+    <h3 class="blog-sidebar__title">{{ 'blogSidebar.sortBy' | translate }}</h3>
+    <nav class="blog-sidebar__sort" aria-label="{{ 'blogSidebar.sortBy' | translate }}">
+      @for (opt of sortOptions; track opt.value) {
+        <a
+          [routerLink]="['/blog']"
+          [queryParams]="{ sort: opt.value }"
+          routerLinkActive="blog-sidebar__link--active"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="blog-sidebar__link"
+        >
+          {{ opt.key | translate }}
+        </a>
+      }
+    </nav>
+  </section>
+
+  <!-- شعارات المتاجر -->
+  <section class="blog-sidebar__block">
+    <h3 class="blog-sidebar__title">{{ 'blogSidebar.storesTitle' | translate }}</h3>
+    <div class="blog-sidebar__stores">
+      @for (store of stores; track store.id) {
+        <a
+          [href]="store.storeUrl || '#'"
+          [attr.aria-label]="store.name"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="blog-sidebar__store"
+        >
+          <img [src]="store.logoUrl" [alt]="store.name" class="blog-sidebar__store-img" loading="lazy" />
+        </a>
+      }
+    </div>
+  </section>
+
+  <!-- الفئات والأقسام -->
+  <section class="blog-sidebar__block">
+    <h3 class="blog-sidebar__title">{{ 'blogSidebar.categoriesTitle' | translate }}</h3>
+    <nav class="blog-sidebar__categories" aria-label="{{ 'blogSidebar.categoriesTitle' | translate }}">
+      @for (cat of categories; track cat.slug) {
+        <a [routerLink]="['/blog']" [queryParams]="{ cat: cat.slug }" class="blog-sidebar__link">
+          {{ cat.key | translate }}
+        </a>
+      }
+    </nav>
+  </section>
+
+  <!-- المؤلفون -->
+  <section class="blog-sidebar__block">
+    <h3 class="blog-sidebar__title">{{ 'blogSidebar.authorsTitle' | translate }}</h3>
+    <div class="blog-sidebar__authors">
+      @for (author of authors; track author.id) {
+        <a routerLink="/blog" class="blog-sidebar__author">
+          <span class="blog-sidebar__author-avatar" aria-hidden="true">
+            @if (author.avatarUrl) {
+              <img [src]="author.avatarUrl" [alt]="author.nameKey | translate" loading="lazy" />
+            } @else {
+              <i class="bi bi-person-circle" aria-hidden="true"></i>
+            }
+          </span>
+          <span class="blog-sidebar__author-name">{{ author.nameKey | translate }}</span>
+        </a>
+      }
+    </div>
+  </section>
+</aside>

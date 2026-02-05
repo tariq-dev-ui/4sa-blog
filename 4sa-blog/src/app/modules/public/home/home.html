@@ -1,6 +1,9 @@
-<app-major-stores-section />
-<app-offers-section />
-<app-offers-section [showBackground]="false" [sectionTitleKey]="'strip.title'" titleId="offers-strip-title" />
-<app-articles-section />
-<app-site-intro />
-<app-faq-section />
+<!-- محتوى الصفحة الرئيسية فقط — لا يُعرض في المسارات الأخرى (مثل المقالات أو التصنيفات) -->
+<div class="home-content">
+  <app-major-stores-section />
+  <app-offers-section />
+  <app-offers-section [showBackground]="false" [sectionTitleKey]="'strip.title'" titleId="offers-strip-title" />
+  <app-articles-section />
+  <app-site-intro />
+  <app-faq-section />
+</div>

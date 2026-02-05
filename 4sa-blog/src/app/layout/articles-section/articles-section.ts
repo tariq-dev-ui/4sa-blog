@@ -85,7 +85,7 @@ export class ArticlesSection implements AfterViewInit, OnDestroy {
   @ViewChild('gridWrap') gridWrapRef!: ElementRef<HTMLElement>;
 
   readonly mainTitleKey = input<string>('articles.mainTitle');
-  readonly viewAllUrl = input<string>('/posts');
+  readonly viewAllUrl = input<string>('/blog');
   readonly articles = input<ArticleCard[]>(DEFAULT_ARTICLES);
   readonly titleId = input<string>('articles-section-title');
 

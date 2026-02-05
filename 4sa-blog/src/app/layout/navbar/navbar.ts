@@ -39,6 +39,7 @@ export class Navbar {
         { labelKey: 'nav.menuLatest', path: '/posts' },
       ],
     },
+    { labelKey: 'nav.menuBlog', path: '/blog', icon: 'bi-journal-text' },
     { labelKey: 'nav.menuCategories', path: '/categories', icon: 'bi-folder' },
     { labelKey: 'nav.menuAbout', path: '/about', icon: 'bi-info-circle' },
     { labelKey: 'nav.menuContact', path: '/contact', icon: 'bi-envelope' },

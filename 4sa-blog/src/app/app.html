@@ -1,10 +1,14 @@
 <app-navbar />
-<app-banner />
-<app-categories-sidebar />
-<app-stores-strip />
-<div class="content-with-sidebar">
-  <app-main-sidebar />
-  <div class="main-wrap">
+@if (!isBlogRoute()) {
+  <app-banner />
+  <app-categories-sidebar />
+  <app-stores-strip />
+}
+<div class="content-with-sidebar" [class.content-with-sidebar--no-sidebar]="isBlogRoute()">
+  @if (!isBlogRoute()) {
+    <app-main-sidebar />
+  }
+  <div class="main-wrap" [class.main-wrap--full]="isBlogRoute()">
     <main>
       <router-outlet />
     </main>

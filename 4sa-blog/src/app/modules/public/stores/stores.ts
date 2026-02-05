@@ -1,6 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { StoresSidebar } from '../../../layout/stores-sidebar/stores-sidebar';
 import type { StoreCouponItem } from '../../../layout/stores-strip/stores-strip';
 
 /** عنصر متجر في صفحة المتاجر: يضاف عدد الأكواد ونسبة الخصم المعروضة */
@@ -42,7 +43,7 @@ export type StoreSortBy = 'popular' | 'newest' | 'az';
 @Component({
   selector: 'app-stores',
   standalone: true,
-  imports: [RouterLink, TranslatePipe],
+  imports: [RouterLink, TranslatePipe, StoresSidebar],
   templateUrl: './stores.html',
   styleUrl: './stores.scss',
 })

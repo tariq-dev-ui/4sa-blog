@@ -1,4 +1,5 @@
 <div class="stores-layout">
+  <app-stores-sidebar />
   <article class="stores-page" role="main" aria-labelledby="stores-page-title">
     <header class="stores-page__hero">
       <nav class="stores-page__breadcrumb" aria-label="{{ 'storesPage.breadcrumbAria' | translate }}">
@@ -83,8 +84,10 @@
             </button>
             <span class="store-tile__code-count" [attr.aria-label]="'storesPage.couponCountAria' | translate : { count: store.couponCount }">{{ store.couponCount }}</span>
           </div>
-          <h2 class="store-tile__name">{{ store.storeName }}</h2>
-          <p class="store-tile__discount">{{ store.discountLabel }}</p>
+          <div class="store-tile__name-row">
+            <h2 class="store-tile__name">{{ store.storeName }}</h2>
+            <p class="store-tile__discount">{{ store.discountLabel }}</p>
+          </div>
         </div>
       </article>
     }

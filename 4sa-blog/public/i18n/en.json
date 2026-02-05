@@ -233,5 +233,12 @@
     "statSavers": "Monthly users on 4SA™.",
     "statDiscount": "Average discount value for 4SA™ users.",
     "footerLine": "Save money with 4SA™ Saudi Arabia."
+  },
+  "storesSidebar": {
+    "newArticle": "New article",
+    "review1": "Great, gives you discount coupons or cashback",
+    "review2": "Mashallah, try it once and you won't leave it",
+    "review3": "Excellent, has all the sites, I recommend everyone to get it, it really lowers prices. Thanks to whoever came up with the idea",
+    "review4": "Very nice app, more progress and success"
   }
 }

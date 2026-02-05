@@ -1,0 +1,80 @@
+<aside class="stores-sidebar" [attr.aria-label]="'sidebar.ariaLabel' | translate">
+  <!-- مقال جديد / المزيد من المقالات -->
+  <section class="stores-sidebar__block stores-sidebar__articles">
+    <span class="stores-sidebar__new-badge">{{ newArticleLabelKey | translate }}</span>
+    <h3 class="stores-sidebar__title">{{ 'sidebar.moreArticles' | translate }}</h3>
+    <div class="stores-sidebar__articles-list">
+      @for (art of articles; track art.slug) {
+        <a [routerLink]="['/blog', art.slug]" class="stores-sidebar__article-card">
+          <span class="stores-sidebar__article-img-wrap">
+            <img [src]="art.imageUrl" [alt]="art.titleKey | translate" class="stores-sidebar__article-img" loading="lazy" />
+          </span>
+          <span class="stores-sidebar__article-cat">{{ art.categoryKey | translate }}</span>
+          <span class="stores-sidebar__article-title">{{ art.titleKey | translate }}</span>
+        </a>
+      }
+    </div>
+    <a [routerLink]="['/blog']" class="stores-sidebar__link-more">{{ 'articles.viewAll' | translate }}</a>
+  </section>
+
+  <!-- تقييمات -->
+  <section class="stores-sidebar__block stores-sidebar__reviews">
+    <h3 class="stores-sidebar__title">{{ 'sidebar.reviewsTitle' | translate }}</h3>
+    <div class="stores-sidebar__reviews-list">
+      @for (r of reviews; track r.date + r.name) {
+        <div class="stores-sidebar__review">
+          <div class="stores-sidebar__review-avatar">
+            <i class="bi bi-person-circle" aria-hidden="true"></i>
+          </div>
+          <div class="stores-sidebar__review-body">
+            <strong class="stores-sidebar__review-name">{{ r.name }}</strong>
+            <time class="stores-sidebar__review-date">{{ r.date }}</time>
+            <p class="stores-sidebar__review-quote">{{ r.quoteKey | translate }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- خدمة العملاء -->
+  <section class="stores-sidebar__block stores-sidebar__contact">
+    <h3 class="stores-sidebar__title">{{ 'sidebar.contactTitle' | translate }}</h3>
+    <p class="stores-sidebar__contact-desc">{{ 'sidebar.contactDesc' | translate }}</p>
+    <div class="stores-sidebar__contact-links">
+      <a [href]="telegramUrl" target="_blank" rel="noopener noreferrer" class="stores-sidebar__contact-link" [attr.aria-label]="'sidebar.telegram' | translate">
+        <i class="bi bi-telegram" aria-hidden="true"></i>
+      </a>
+      <a [href]="facebookUrl" target="_blank" rel="noopener noreferrer" class="stores-sidebar__contact-link" [attr.aria-label]="'sidebar.facebook' | translate">
+        <i class="bi bi-facebook" aria-hidden="true"></i>
+      </a>
+      <a [href]="instagramUrl" target="_blank" rel="noopener noreferrer" class="stores-sidebar__contact-link" [attr.aria-label]="'sidebar.instagram' | translate">
+        <i class="bi bi-instagram" aria-hidden="true"></i>
+      </a>
+      <a [href]="contactEmail" class="stores-sidebar__contact-link" [attr.aria-label]="'sidebar.email' | translate">
+        <i class="bi bi-envelope" aria-hidden="true"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- إحصائيات -->
+  <section class="stores-sidebar__block stores-sidebar__stats">
+    <div class="stores-sidebar__stat">
+      <span class="stores-sidebar__stat-value">{{ stats.totalCodes }}</span>
+      <span class="stores-sidebar__stat-label">{{ 'sidebar.statCodes' | translate }}</span>
+    </div>
+    <div class="stores-sidebar__stat">
+      <span class="stores-sidebar__stat-value">{{ stats.totalStores | number }}</span>
+      <span class="stores-sidebar__stat-label">{{ 'sidebar.statStores' | translate }}</span>
+    </div>
+    <div class="stores-sidebar__stat">
+      <span class="stores-sidebar__stat-value">{{ stats.totalSavers | number }}</span>
+      <span class="stores-sidebar__stat-label">{{ 'sidebar.statSavers' | translate }}</span>
+    </div>
+    <div class="stores-sidebar__stat">
+      <span class="stores-sidebar__stat-value">{{ stats.averageDiscount }}</span>
+      <span class="stores-sidebar__stat-label">{{ 'sidebar.statDiscount' | translate }}</span>
+    </div>
+  </section>
+
+  <p class="stores-sidebar__footer">{{ 'sidebar.footerLine' | translate }}</p>
+</aside>

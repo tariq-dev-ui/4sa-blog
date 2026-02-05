@@ -45,7 +45,7 @@
     </div>
     <div class="blog-grid" role="list">
       @for (post of allPosts(); track post.id) {
-        <a [routerLink]="['/posts', post.id]" class="blog-card" role="listitem">
+        <a [routerLink]="['/blog', post.id]" class="blog-card" role="listitem">
           <div class="blog-card__img-wrap">
             <img [src]="post.imageUrl" [alt]="post.title" class="blog-card__img" loading="lazy" />
           </div>
@@ -75,7 +75,7 @@
     </div>
     <div class="blog-grid" role="list">
       @for (post of recentPosts(); track post.id) {
-        <a [routerLink]="['/posts', post.id]" class="blog-card" role="listitem">
+        <a [routerLink]="['/blog', post.id]" class="blog-card" role="listitem">
           <div class="blog-card__img-wrap">
             <img [src]="post.imageUrl" [alt]="post.title" class="blog-card__img" loading="lazy" />
           </div>
@@ -105,7 +105,7 @@
     </div>
     <div class="blog-grid" role="list">
       @for (post of mostViewedPosts(); track post.id) {
-        <a [routerLink]="['/posts', post.id]" class="blog-card" role="listitem">
+        <a [routerLink]="['/blog', post.id]" class="blog-card" role="listitem">
           <div class="blog-card__img-wrap">
             <img [src]="post.imageUrl" [alt]="post.title" class="blog-card__img" loading="lazy" />
           </div>

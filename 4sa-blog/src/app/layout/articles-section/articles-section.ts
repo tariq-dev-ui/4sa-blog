@@ -97,7 +97,7 @@ export class ArticlesSection implements AfterViewInit, OnDestroy {
   private readonly autoSlideDelayMs = 5000;
 
   getArticleUrl(article: ArticleCard): string {
-    return `/posts/${article.slug}`;
+    return `/blog/${article.id}`;
   }
 
   formatDate(dateStr: string): string {

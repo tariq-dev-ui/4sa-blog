@@ -1,0 +1,63 @@
+<div class="blog-details-layout">
+  <app-blog-sidebar />
+  @if (post(); as p) {
+  <article class="blog-details">
+    <header class="blog-details__header">
+      <a routerLink="/blog" class="blog-details__back">
+        <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
+        <span>{{ 'blog.backToBlog' | translate }}</span>
+      </a>
+      <span class="blog-details__cat">{{ p.categoryKey | translate }}</span>
+      <h1 class="blog-details__title">{{ p.title }}</h1>
+      <p class="blog-details__excerpt">{{ p.excerpt }}</p>
+      <div class="blog-details__meta">
+        <div class="blog-details__author-block">
+          <span class="blog-details__author-avatar" aria-hidden="true"><i class="bi bi-person-circle" aria-hidden="true"></i></span>
+          <div class="blog-details__meta-col">
+            <span class="blog-details__author">{{ p.author }}</span>
+            <div class="blog-details__dates">
+              <time class="blog-details__date"><i class="bi bi-calendar3" aria-hidden="true"></i> {{ 'blog.publishedOn' | translate }} {{ formatDate(p.publishedDate) }}</time>
+              <span class="blog-details__date"><i class="bi bi-pencil-square" aria-hidden="true"></i> {{ 'blog.updatedOn' | translate }} {{ formatDate(p.updatedDate) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <figure class="blog-details__hero">
+      <div class="blog-details__hero-img-wrap">
+        <img [src]="p.imageUrl" [alt]="p.title" class="blog-details__img" />
+      </div>
+      <div class="blog-details__hero-bar">
+        <figcaption class="blog-details__hero-bar-title">{{ p.title }}</figcaption>
+        @if (p.couponCode) {
+          <span class="blog-details__hero-bar-sep" aria-hidden="true"></span>
+          <span class="blog-details__hero-bar-code">{{ p.couponCode }}</span>
+          <button type="button" class="blog-details__hero-bar-copy" (click)="copyCoupon(p.couponCode!)" [attr.aria-label]="'offers.copyCode' | translate">
+            {{ (copied ? 'offers.copiedCode' : 'offers.copyCode') | translate }}
+          </button>
+        }
+        @if (p.storeUrl) {
+          <span class="blog-details__hero-bar-sep" aria-hidden="true"></span>
+          <a [href]="p.storeUrl" target="_blank" rel="noopener noreferrer" class="blog-details__hero-bar-store">{{ 'stores.visitStore' | translate }}</a>
+        }
+      </div>
+    </figure>
+    <div class="blog-details__body">
+      <p class="blog-details__placeholder">
+        هذا نص تجريبي لعرض تفاصيل المدونة. يمكن استبداله لاحقاً بالمحتوى الفعلي للمقال. يتضمن صفحة تفاصيل المدونة عنوان المقال، صورة بارزة، اسم المؤلف، تاريخ النشر وتاريخ آخر تحديث، ثم نص المقال الكامل.
+      </p>
+      <p class="blog-details__placeholder">
+        يمكنك إضافة عدة فقرات هنا، مع صور أو روابط حسب الحاجة. المحتوى الحالي للعرض فقط وسيتم تغييره لاحقاً عند ربط المدونة بمصدر بيانات أو لوحة تحكم.
+      </p>
+      <p class="blog-details__placeholder">
+        ننصح بتجربة التصفح والتأكد من أن التصميم يناسب المحتوى الحقيقي قبل استبدال النص. لأي استفسارات أو تعديلات إضافية على صفحة تفاصيل المدونة يمكن الرجوع إلى المطور.
+      </p>
+    </div>
+  </article>
+} @else {
+  <div class="blog-details__not-found">
+    <h2>{{ 'blog.postNotFound' | translate }}</h2>
+    <a routerLink="/blog" class="blog-details__back">{{ 'blog.backToBlog' | translate }}</a>
+  </div>
+}
+</div>

@@ -114,7 +114,9 @@
     "coupons": "كوبونات",
     "offers": "عروض",
     "offersAvailable": "عروض متاحة",
-    "page": "الصفحة {{num}}"
+    "page": "الصفحة {{num}}",
+    "viewCoupons": "الاطلاع على الكوبونات",
+    "viewCouponsAria": "الاطلاع على كوبونات {{name}}"
   },
   "strip": {
     "title": "فور سعودي: المزيد"

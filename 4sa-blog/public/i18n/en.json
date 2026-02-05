@@ -114,7 +114,9 @@
     "coupons": "coupons",
     "offers": "offers",
     "offersAvailable": "offers available",
-    "page": "Page {{num}}"
+    "page": "Page {{num}}",
+    "viewCoupons": "View coupons",
+    "viewCouponsAria": "View coupons for {{name}}"
   },
   "strip": {
     "title": "4SA: More"

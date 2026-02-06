@@ -219,17 +219,18 @@
   background: rgba(var(--color-primary-rgb), 0.1);
 }
 
-/* شبكة البطاقات — نفس تصميم strip (store-card) */
+/* شبكة البطاقات — الهاتف: عمودين، الديسكتوب: 3 */
 .stores-page__grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
   list-style: none;
   padding: 0;
   margin: 0;
+  min-width: 0;
 }
 
-/* بطاقة متجر — مطابقة لـ stores-strip */
+/* بطاقة متجر — مطابقة لـ stores-strip، تبقى داخل الشبكة */
 .store-card {
   --store-card-padding: 0.9rem 1rem;
   --store-inner-gap: 0.55rem;
@@ -237,6 +238,8 @@
   --store-visit-margin-top: 0.6rem;
 
   min-height: 165px;
+  min-width: 0;
+  overflow: hidden;
   padding: var(--store-card-padding);
   border: 1px solid rgba(var(--color-primary-rgb), 0.2);
   border-radius: 12px;
@@ -340,6 +343,11 @@
   color: var(--color-primary);
   line-height: 1.2;
   margin: 0;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .store-desc {
@@ -348,6 +356,8 @@
   opacity: 0.88;
   margin: 0;
   line-height: 1.45;
+  min-width: 0;
+  width: 100%;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -425,11 +435,6 @@
   }
 }
 
-@media (min-width: 480px) {
-  .stores-page__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
 @media (max-width: 768px) {
   .stores-layout {
@@ -443,43 +448,86 @@
     padding: 1.5rem 1rem 2.5rem;
   }
 
+  /* ثلاثة بطاقات في السطر */
   .stores-page__grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .stores-page__grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-  }
-}
 
-@media (max-width: 640px) {
-  .stores-page__grid {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* تنسيقات الهاتف — تركيز على الحجم والوضوح */
 @media (max-width: 768px) {
   .store-card {
-    --store-card-padding: 0.65rem 0.75rem;
-    --store-inner-gap: 0.45rem;
-    --store-visit-margin-top: 0.5rem;
-    min-height: 155px;
+    --store-card-padding: 0.6rem 0.75rem;
+    --store-inner-gap: 0.4rem;
+    --store-code-row-margin: 0.1rem 0 0;
+    --store-visit-margin-top: 0.45rem;
+    min-height: 145px;
   }
 
   .store-card-logo {
-    height: 42px;
-    min-height: 42px;
+    height: 38px;
+    min-height: 38px;
   }
 
   .store-name {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
+  }
+
+  .store-desc {
+    font-size: 0.6875rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .store-code {
+    font-size: 0.75rem;
+  }
+
+  .store-code-row {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .store-code-row .store-copy-btn {
+    min-height: 1.6rem;
+    padding: 0.25rem 0.4rem;
+    font-size: 0.6875rem;
+  }
+
+  .store-visit-link {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stores-page__section {
+    margin-bottom: 1.5rem;
+  }
+
+  .store-card {
+    --store-card-padding: 0.55rem 0.65rem;
+    --store-inner-gap: 0.35rem;
+    --store-visit-margin-top: 0.4rem;
+    min-height: 135px;
+  }
+
+  .store-card-logo {
+    height: 34px;
+    min-height: 34px;
+  }
+
+  .store-name {
     font-size: 0.8125rem;
+  }
+
+  .store-code-row .store-copy-btn span {
+    display: none;
+  }
+
+  .store-code-row .store-copy-btn {
+    padding: 0.3rem;
+    min-width: 2rem;
   }
 }

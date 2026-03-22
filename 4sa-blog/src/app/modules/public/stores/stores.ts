@@ -1,5 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Breadcrumb } from '../../../shared/breadcrumb/breadcrumb';
 import type { BreadcrumbItem } from '../../../shared/breadcrumb/breadcrumb';
@@ -45,11 +44,12 @@ export type StoreSortBy = 'popular' | 'newest' | 'az';
 @Component({
   selector: 'app-stores',
   standalone: true,
-  imports: [RouterLink, TranslatePipe, StoresSidebar, Breadcrumb],
+  imports: [TranslatePipe, StoresSidebar, Breadcrumb],
   templateUrl: './stores.html',
   styleUrl: './stores.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Stores {
+export class Stores implements OnDestroy {
   readonly breadcrumbItems: BreadcrumbItem[] = [
     { route: '/', labelKey: 'breadcrumb.home' },
     { labelKey: 'storesPage.breadcrumbStores' },
@@ -96,5 +96,12 @@ export class Stores {
       this.copiedId.set(null);
       this.copyResetTimeout = null;
     }, 2500);
+  }
+
+  ngOnDestroy(): void {
+    if (this.copyResetTimeout) {
+      clearTimeout(this.copyResetTimeout);
+      this.copyResetTimeout = null;
+    }
   }
 }

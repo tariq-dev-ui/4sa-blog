@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ArticlesSection } from '../../../layout/articles-section/articles-section';
 import { FaqSection } from '../../../layout/faq-section/faq-section';
 import { MajorStoresSection } from '../../../layout/major-stores-section/major-stores-section';
@@ -21,5 +21,6 @@ import { SiteIntro } from '../../../layout/site-intro/site-intro';
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {}

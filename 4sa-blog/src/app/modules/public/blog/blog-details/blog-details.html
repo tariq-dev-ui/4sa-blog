@@ -30,7 +30,7 @@
           <span class="blog-details__hero-bar-sep" aria-hidden="true"></span>
           <span class="blog-details__hero-bar-code">{{ p.couponCode }}</span>
           <button type="button" class="blog-details__hero-bar-copy" (click)="copyCoupon(p.couponCode!)" [attr.aria-label]="'offers.copyCode' | translate">
-            {{ (copied ? 'offers.copiedCode' : 'offers.copyCode') | translate }}
+            {{ (copied() ? 'offers.copiedCode' : 'offers.copyCode') | translate }}
           </button>
         }
         @if (p.storeUrl) {

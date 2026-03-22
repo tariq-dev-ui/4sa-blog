@@ -35,7 +35,7 @@
                 <ul class="dropdown-sublist">
                   @for (sub of item.children; track sub.path) {
                     <li class="dropdown-subitem">
-                      <a routerLink="{{ sub.path }}" (click)="closeMenu()">
+                      <a [routerLink]="sub.path" (click)="closeMenu()">
                         {{ sub.labelKey | translate }}
                       </a>
                     </li>
@@ -44,7 +44,7 @@
               </li>
             } @else {
               <li class="dropdown-item-wrap">
-                <a routerLink="{{ item.path }}" (click)="closeMenu()" class="dropdown-item">
+                <a [routerLink]="item.path" (click)="closeMenu()" class="dropdown-item">
                   <i class="bi" [class]="item.icon" aria-hidden="true"></i>
                   <span>{{ item.labelKey | translate }}</span>
                 </a>

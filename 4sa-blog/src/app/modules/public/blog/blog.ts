@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, signal, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnDestroy,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -14,6 +22,7 @@ import type { BlogPost } from './blog-data';
   imports: [RouterLink, TranslatePipe, BlogSidebar, Breadcrumb],
   templateUrl: './blog.html',
   styleUrl: './blog.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Blog implements AfterViewInit, OnDestroy {
   readonly breadcrumbItems: BreadcrumbItem[] = [

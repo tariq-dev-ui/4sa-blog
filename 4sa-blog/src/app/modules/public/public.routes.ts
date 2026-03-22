@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { Blog } from './blog/blog';
 import { BlogDetails } from './blog/blog-details/blog-details';
@@ -9,7 +8,7 @@ import { PostDetails } from './post-details/post-details';
 import { Posts } from './posts/posts';
 import { Stores } from './stores/stores';
 
-const routes: Routes = [
+export const PUBLIC_ROUTES: Routes = [
   { path: '', component: Home, title: 'الرئيسية' },
   { path: 'blog', component: Blog, title: 'المدونة' },
   { path: 'blog/:id', component: BlogDetails, title: 'تفاصيل المدونة' },
@@ -20,9 +19,3 @@ const routes: Routes = [
   { path: 'stores', component: Stores, title: 'المتاجر' },
   { path: '**', redirectTo: '' },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class PublicRoutingModule {}

@@ -1,6 +1,14 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  OnInit,
+  inject,
+  signal,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs/operators';
 
 import { Banner } from './layout/banner/banner';
@@ -15,10 +23,12 @@ import { StoresStrip } from './layout/stores-strip/stores-strip';
   imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, StoresStrip, MainSidebar, Footer],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   /** true عندما يكون المسار صفحة مستقلة (مدونة أو متاجر) — بدون بانر ولا سايدبار */
   readonly isStandaloneRoute = signal(false);
@@ -31,7 +41,10 @@ export class App implements OnInit {
   ngOnInit(): void {
     this.updateStandalone();
     this.router.events
-      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .pipe(
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe(() => this.updateStandalone());
 
     const applyDir = (lang: string) => {
@@ -39,7 +52,9 @@ export class App implements OnInit {
       document.documentElement.dir = dir;
       document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
     };
-    this.translate.onLangChange.subscribe((e) => applyDir(e.lang));
+    this.translate.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((e) => applyDir(e.lang));
     applyDir(this.translate.currentLang || this.translate.defaultLang || 'ar');
   }
 }

@@ -122,7 +122,8 @@
     "allCategories": "كل الفئات"
   },
   "nav": {
-    "brand": "4SA Blog",
+    "brand": "4saudi",
+    "brandLogoAlt": "فور سعودي — وفّر أكثر كل يوم",
     "langAr": "العربية",
     "langEn": "English",
     "searchPlaceholder": "بحث...",

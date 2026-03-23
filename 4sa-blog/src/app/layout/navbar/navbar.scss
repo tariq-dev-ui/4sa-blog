@@ -282,31 +282,29 @@ a.dropdown-item:hover {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: inherit;
+  flex-shrink: 0;
   text-decoration: none;
-  min-width: 0; /* يسمح بالانكماش */
-  overflow: hidden;
+  min-width: 0;
+  line-height: 0;
 
   &:hover {
-    color: inherit;
     opacity: 0.92;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.85);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
-.brand-icon {
-  font-size: 1.25em;
-  opacity: 0.95;
-  flex-shrink: 0;
-}
-
-.brand-text {
-  letter-spacing: 0.02em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.brand-logo {
+  display: block;
+  height: 2.85rem;
+  width: auto;
+  max-width: min(14rem, 54vw);
+  object-fit: contain;
+  object-position: center;
 }
 
 .navbar-center {
@@ -395,14 +393,27 @@ a.dropdown-item:hover {
   }
 }
 
+/* خطوط إيموجي صريحة — خط الموقع (Qatar 2022) لا يحتوي أعلاماً ملوّنة */
 .country-flag {
-  font-size: 1.15rem;
+  font-family:
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'Apple Color Emoji',
+    'Noto Color Emoji',
+    'Noto Sans Symbols 2',
+    sans-serif;
+  font-variant-emoji: emoji;
+  font-size: 1.25rem;
   line-height: 1;
   flex-shrink: 0;
+  display: inline-block;
+  min-width: 1.35em;
+  text-align: center;
 }
 
 .country-flag--lg {
-  font-size: 1.35rem;
+  font-size: 1.45rem;
+  min-width: 1.5em;
 }
 
 .country-toggle__label {
@@ -601,9 +612,9 @@ a.dropdown-item:hover {
     min-width: 0;
   }
 
-  .brand-text {
-    font-size: 0.9rem;
-    max-width: 6rem;
+  .brand-logo {
+    height: 2.45rem;
+    max-width: min(11rem, 46vw);
   }
 
   .lang-toggle {
@@ -668,9 +679,9 @@ a.dropdown-item:hover {
     max-width: 100px;
   }
 
-  .brand-text {
-    font-size: 0.8125rem;
-    max-width: 4.5rem;
+  .brand-logo {
+    height: 2.15rem;
+    max-width: min(9rem, 42vw);
   }
 
   .lang-toggle {

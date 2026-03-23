@@ -122,7 +122,8 @@
     "allCategories": "All Categories"
   },
   "nav": {
-    "brand": "4SA Blog",
+    "brand": "4saudi",
+    "brandLogoAlt": "4saudi — save more every day",
     "langAr": "العربية",
     "langEn": "English",
     "searchPlaceholder": "Search...",

@@ -26,7 +26,7 @@ import type { BlogPost } from './blog-data';
 })
 export class Blog implements AfterViewInit, OnDestroy {
   readonly breadcrumbItems: BreadcrumbItem[] = [
-    { route: '/', labelKey: 'breadcrumb.home' },
+    { route: '/', labelKey: 'breadcrumb.home', icon: 'home' },
     { labelKey: 'blog.title' },
   ];
   @ViewChild('blogCatsStrip') private blogCatsStripRef!: ElementRef<HTMLElement>;

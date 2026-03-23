@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from 
 import { TranslatePipe } from '@ngx-translate/core';
 import { Breadcrumb } from '../../../shared/breadcrumb/breadcrumb';
 import type { BreadcrumbItem } from '../../../shared/breadcrumb/breadcrumb';
-import { StoresSidebar } from '../../../layout/stores-sidebar/stores-sidebar';
 import type { StoreCouponItem } from '../../../layout/stores-strip/stores-strip';
 
 /** عنصر متجر في صفحة المتاجر: يضاف عدد الأكواد ونسبة الخصم المعروضة */
@@ -44,25 +43,39 @@ export type StoreSortBy = 'popular' | 'newest' | 'az';
 @Component({
   selector: 'app-stores',
   standalone: true,
-  imports: [TranslatePipe, StoresSidebar, Breadcrumb],
+  imports: [TranslatePipe, Breadcrumb],
   templateUrl: './stores.html',
   styleUrl: './stores.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Stores implements OnDestroy {
+  /** بنر هيرو صفحة المتاجر — عرض الشاشة بالكامل */
+  readonly heroBannerSrc =
+    '/img/' + encodeURIComponent('بنر رئيسي.jpeg');
+
   readonly breadcrumbItems: BreadcrumbItem[] = [
-    { route: '/', labelKey: 'breadcrumb.home' },
+    { route: '/', labelKey: 'breadcrumb.home', icon: 'home' },
     { labelKey: 'storesPage.breadcrumbStores' },
   ];
 
   private readonly storesData = signal<StorePageItem[]>(STORES_PAGE_DATA);
   readonly sortBy = signal<StoreSortBy>('popular');
   readonly sortDropdownOpen = signal(false);
+  readonly searchQuery = signal('');
   readonly copiedId = signal<string | null>(null);
   private copyResetTimeout: ReturnType<typeof setTimeout> | null = null;
 
   readonly stores = computed(() => {
-    const list = [...this.storesData()];
+    const q = this.searchQuery().trim().toLowerCase();
+    let list = [...this.storesData()];
+    if (q) {
+      list = list.filter(
+        (s) =>
+          s.storeName.toLowerCase().includes(q) ||
+          s.description.toLowerCase().includes(q) ||
+          s.code.toLowerCase().includes(q)
+      );
+    }
     const by = this.sortBy();
     if (by === 'az') {
       list.sort((a, b) => a.storeName.localeCompare(b.storeName, 'ar'));
@@ -70,7 +83,12 @@ export class Stores implements OnDestroy {
     return list;
   });
 
-  readonly storeCount = computed(() => this.storesData().length);
+  readonly storeCount = computed(() => this.stores().length);
+
+  onSearchInput(event: Event): void {
+    const el = event.target as HTMLInputElement;
+    this.searchQuery.set(el.value);
+  }
 
   setSort(value: StoreSortBy): void {
     this.sortBy.set(value);

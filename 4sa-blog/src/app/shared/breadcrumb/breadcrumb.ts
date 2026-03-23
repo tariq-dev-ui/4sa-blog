@@ -9,6 +9,8 @@ export interface BreadcrumbItem {
   label?: string;
   /** الرابط — إن وُجد يُعرض كرابط، وإلا كصفحة حالية */
   route?: string;
+  /** عند التعيين يُعرض رمز بدل النص؛ يُستخدم labelKey لـ aria-label */
+  icon?: 'home';
 }
 
 @Component({

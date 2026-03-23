@@ -1,107 +1,132 @@
-/* نفس هيكل صفحة المدونة: layout بعرض 1200 ثم محتوى */
+/* حاوية صفحة المتاجر — عرض كامل ضمن 1200px */
 .stores-layout {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
+  display: block;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 1rem;
   box-sizing: border-box;
 }
 
 .stores-page {
-  flex: 1;
-  min-width: 0;
   width: 100%;
-  padding: 1.25rem 0.75rem 2rem;
+  min-width: 0;
+  padding: 1.25rem 0 2rem;
   box-sizing: border-box;
 }
 
-/* صف الهيرو: العنوان */
-.stores-page__hero-row {
-  margin-bottom: 1.25rem;
+.stores-page__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.stores-page__title {
-  font-family: var(--font-family-heading);
-  font-size: clamp(1.35rem, 4vw, 2rem);
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-}
-
-/* هيرو — تنسيق احترافي */
+/* هيرو: مسار ثم بنر بعرض الشاشة دون هوامش جانبية على الصورة */
 .stores-page__hero {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.12);
+  position: relative;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  overflow-x: clip;
 }
 
-.stores-page__hero-inner {
-  max-width: 800px;
+.stores-page__hero-breadcrumb {
+  max-width: 1200px;
   margin-inline: auto;
+  padding-inline: clamp(0.75rem, 3vw, 1rem);
+  margin-bottom: 0.85rem;
+  box-sizing: border-box;
 }
 
-.stores-page__desc-wrap {
-  background: rgba(var(--color-primary-rgb), 0.06);
-  border: 1px solid rgba(var(--color-primary-rgb), 0.14);
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  text-align: start;
+.stores-page__hero-breadcrumb app-breadcrumb {
+  display: block;
 }
 
-.stores-page__desc {
-  font-family: var(--font-family-base);
-  font-size: 1rem;
-  line-height: 1.75;
-  color: var(--text-primary);
-  opacity: 0.92;
-  margin: 0;
+/* عرض النافذة بالكامل — بدون فراغات يمين/يسار */
+.stores-page__hero-banner {
+  width: 100vw;
+  max-width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  box-sizing: border-box;
+}
+
+.stores-page__hero-banner-img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
 }
 
 @media (min-width: 768px) {
   .stores-page__hero {
-    padding-bottom: 2.5rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .stores-page__breadcrumb {
-    margin-bottom: 0.875rem;
-  }
-
-  .stores-page__hero-row {
-    margin-bottom: 1.5rem;
-  }
-
-  .stores-page__hero-inner {
-    padding-inline: 1rem;
-  }
-
-  .stores-page__desc-wrap {
-    padding: 1.5rem 2rem;
-  }
-
-  .stores-page__desc {
-    font-size: 1.0625rem;
-    line-height: 1.8;
+    margin-bottom: 2rem;
   }
 }
 
 /* قسم الشبكة */
 .stores-page__section {
   margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(0.75rem, 3vw, 1rem);
+  box-sizing: border-box;
 }
 
-/* شريط فوق البطاقات: عدد المتاجر + خط + الفرز */
+/* شريط: عدد المتاجر + بحث + فرز */
 .stores-page__bar {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.65rem 0.85rem;
   margin-bottom: 1.25rem;
   min-height: 3rem;
+}
+
+.stores-page__search {
+  flex: 1 1 12rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0.45rem 0.75rem;
+  background: var(--color-primary-contrast);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.22);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.stores-page__search-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: var(--color-primary);
+  opacity: 0.85;
+}
+
+.stores-page__search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-family-base);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.stores-page__search-input::placeholder {
+  color: var(--text-primary);
+  opacity: 0.45;
+}
+
+.stores-page__search:focus-within {
+  border-color: rgba(var(--color-primary-rgb), 0.45);
 }
 
 .stores-page__count-box {
@@ -120,13 +145,6 @@
 
 .stores-page__count-box span {
   white-space: nowrap;
-}
-
-.stores-page__bar-line {
-  flex: 1;
-  min-width: 1rem;
-  height: 1px;
-  background: rgba(var(--color-primary-rgb), 0.25);
 }
 
 .stores-page__sort-wrap {
@@ -436,16 +454,9 @@
 }
 
 
-@media (max-width: 768px) {
-  .stores-layout {
-    flex-direction: column;
-    gap: 0;
-  }
-}
-
 @media (min-width: 768px) {
   .stores-page {
-    padding: 1.5rem 1rem 2.5rem;
+    padding: 1.5rem 0 2.5rem;
   }
 
   /* ثلاثة بطاقات في السطر */

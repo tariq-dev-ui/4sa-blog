@@ -1,9 +1,11 @@
-/* حجم ثابت حتى لا يؤثر التقلب التلقائي على تخطيط الصفحة */
+/* نسبة أبعاد البنر الرئيسي السابقة (~858×252) — تتكيف مع عرض الحاوية */
+$banner-aspect-w: 858;
+$banner-aspect-h: 252;
+
 :host {
   display: block;
   width: 100%;
   overflow: hidden;
-  min-height: 252px; /* padding + row height */
 }
 
 .banner {
@@ -16,17 +18,16 @@
 }
 
 .banner-row {
-  display: grid;
-  grid-template-columns: 2.2fr 1fr; /* الرئيسي أعرض، الثاني أضيق قليلاً */
-  gap: 0.75rem;
   max-width: 1200px;
   margin: 0 auto;
-  height: 240px; /* ارتفاع ثابت - لا يتغير مع تبديل الصور */
-  min-height: 240px;
+  width: 100%;
+  aspect-ratio: #{$banner-aspect-w} / #{$banner-aspect-h};
 }
 
 .banner-item {
   position: relative;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   border-radius: 0.5rem;
   box-shadow: var(--shadow-md);
@@ -53,9 +54,6 @@
   transform: scale(1.05);
 }
 
-/* غلاف الصورة - لمعة متزامنة مع تغيير الصورة (التبديل عند الذروة) */
-$banner-glimmer-duration: 0.32s;
-
 .banner-img-wrap {
   display: block;
   width: 100%;
@@ -63,59 +61,23 @@ $banner-glimmer-duration: 0.32s;
   position: relative;
   overflow: hidden;
 }
-/* لمعة احترافية: تصل الذروة عند 50% ثم تختفي؛ التبديل يحدث في TS عند 160ms (نصف المدة) */
-.banner-img-wrap.glimmer::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.45) 0%,
-    rgba(255, 255, 255, 0.25) 50%,
-    rgba(255, 255, 255, 0.45) 100%
-  );
-  pointer-events: none;
-  animation: banner-glimmer $banner-glimmer-duration ease-in-out forwards;
-}
-@keyframes banner-glimmer {
-  0% { opacity: 0; }
-  50% { opacity: 0.5; }
-  100% { opacity: 0; }
-}
 
-/* شاشات متوسطة */
 @media (max-width: 992px) {
-  :host {
-    min-height: 212px;
+  .banner-row {
+    max-width: 100%;
   }
 
-  .banner-row {
-    height: 200px;
-    min-height: 200px;
-    gap: 0.5rem;
-    padding: 0 0.25rem;
+  .banner {
+    padding: 0.5rem 0.75rem;
   }
 }
 
-/* شاشات صغيرة - نفس الصف مع تصغير + تدرج على البنر */
 @media (max-width: 576px) {
-  :host {
-    min-height: 168px;
-  }
-
   .banner {
     padding: 0.5rem;
   }
 
-  .banner-row {
-    height: 160px;
-    min-height: 160px;
-    grid-template-columns: 2.2fr 1fr;
-    gap: 0.35rem;
-  }
-
-  /* تدرج لوني فوق البنر الرئيسي (العنصر الأول) على الشاشات الصغيرة */
-  .banner-item:first-child .banner-img-wrap::after {
+  .banner-item .banner-img-wrap::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -125,50 +87,6 @@ $banner-glimmer-duration: 0.32s;
       rgba(0, 0, 0, 1) 77%
     );
     pointer-events: none;
-    opacity: 0.5; /* الصورة تظهر من تحت التدرج */
+    opacity: 0.5;
   }
 }
-
-/* أسهم التنقل - داخل كل بنر، دائرة بخلفية مموهة */
-.banner-item .banner-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  width: 1.75rem;
-  height: 1.75rem;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-.banner-item .banner-arrow:hover {
-  background: rgba(0, 0, 0, 0.5);
-  transform: translateY(-50%) scale(1.05);
-}
-.banner-item .banner-arrow i {
-  font-size: 0.65rem;
-  display: inline-block;
-}
-
-/* عكس اتجاه أيقونات الأسهم في RTL فقط (في LTR تبقى الاتجاهات صحيحة) */
-:host-context([dir="rtl"]) .banner-item .banner-prev .bi-chevron-left,
-:host-context([dir="rtl"]) .banner-item .banner-next .bi-chevron-right {
-  transform: scaleX(-1);
-}
-
-.banner-item .banner-prev {
-  inset-inline-start: 0.75rem;
-}
-.banner-item .banner-next {
-  inset-inline-end: 0.75rem;
-}
-

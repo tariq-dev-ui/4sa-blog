@@ -1,81 +1,24 @@
 <section
   class="banner"
   [attr.aria-label]="'banner.ariaLabel' | translate"
-  (mouseenter)="onBannerMouseEnter()"
-  (mouseleave)="onBannerMouseLeave()"
 >
   <div class="banner-row">
-    <!-- البنر الرئيسي (يسار) - تحكم منفصل -->
     <div class="banner-item">
       <a
-        [href]="displayLeft().link || '#'"
+        [href]="banner.link || '#'"
         class="banner-link"
-        [attr.aria-label]="displayLeft().title"
+        [attr.aria-label]="banner.title"
       >
-        <span class="banner-img-wrap" [class.glimmer]="isFadingLeft()">
+        <span class="banner-img-wrap">
           <img
-            [src]="displayLeft().image"
-            [alt]="displayLeft().title || ''"
+            [src]="banner.image"
+            [alt]="banner.title || ''"
             class="banner-image"
-            loading="lazy"
+            loading="eager"
             fetchpriority="high"
           />
         </span>
       </a>
-      @if (hasMultipleLeft()) {
-        <button
-          type="button"
-          class="banner-arrow banner-prev"
-          [attr.aria-label]="'banner.prevMain' | translate"
-          (click)="prevLeft(); $event.preventDefault(); $event.stopPropagation()"
-        >
-          <i class="bi bi-chevron-left" aria-hidden="true"></i>
-        </button>
-        <button
-          type="button"
-          class="banner-arrow banner-next"
-          [attr.aria-label]="'banner.nextMain' | translate"
-          (click)="nextLeft(); $event.preventDefault(); $event.stopPropagation()"
-        >
-          <i class="bi bi-chevron-right" aria-hidden="true"></i>
-        </button>
-      }
-    </div>
-    <!-- البنر الثاني (يمين) - تحكم منفصل -->
-    <div class="banner-item">
-      <a
-        [href]="displayRight().link || '#'"
-        class="banner-link"
-        [attr.aria-label]="displayRight().title"
-      >
-        <span class="banner-img-wrap" [class.glimmer]="isFadingRight()">
-          <img
-            [src]="displayRight().image"
-            [alt]="displayRight().title || ''"
-            class="banner-image"
-            loading="lazy"
-            fetchpriority="high"
-          />
-        </span>
-      </a>
-      @if (hasMultipleRight()) {
-        <button
-          type="button"
-          class="banner-arrow banner-prev"
-          [attr.aria-label]="'banner.prevSecond' | translate"
-          (click)="prevRight(); $event.preventDefault(); $event.stopPropagation()"
-        >
-          <i class="bi bi-chevron-left" aria-hidden="true"></i>
-        </button>
-        <button
-          type="button"
-          class="banner-arrow banner-next"
-          [attr.aria-label]="'banner.nextSecond' | translate"
-          (click)="nextRight(); $event.preventDefault(); $event.stopPropagation()"
-        >
-          <i class="bi bi-chevron-right" aria-hidden="true"></i>
-        </button>
-      }
     </div>
   </div>
 </section>

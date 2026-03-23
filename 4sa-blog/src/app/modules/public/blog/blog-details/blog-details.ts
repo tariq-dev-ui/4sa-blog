@@ -30,7 +30,7 @@ export class BlogDetails {
 
   breadcrumbItems(post: { title: string }): BreadcrumbItem[] {
     return [
-      { route: '/', labelKey: 'breadcrumb.home' },
+      { route: '/', labelKey: 'breadcrumb.home', icon: 'home' },
       { route: '/blog', labelKey: 'blog.title' },
       { label: post.title },
     ];

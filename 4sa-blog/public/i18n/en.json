@@ -63,7 +63,9 @@
     "sortNewest": "New arrivals",
     "sortAZ": "A - Z",
     "sortAria": "Sort stores",
-    "couponCountAria": "{{count}} coupon(s)"
+    "couponCountAria": "{{count}} coupon(s)",
+    "searchPlaceholder": "Search store, description, or code…",
+    "searchAria": "Search stores"
   },
   "stores": {
     "title": "Stores",

@@ -4,8 +4,19 @@
       <span class="breadcrumb__sep" aria-hidden="true">/</span>
     }
     @if (item.route) {
-      <a [routerLink]="item.route" class="breadcrumb__link">
-        @if (item.labelKey) {
+      <a
+        [routerLink]="item.route"
+        class="breadcrumb__link"
+        [class.breadcrumb__link--icon-only]="item.icon === 'home'"
+        [attr.aria-label]="item.icon === 'home' && item.labelKey ? (item.labelKey | translate) : null"
+      >
+        @if (item.icon === 'home') {
+          <span class="breadcrumb__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z" />
+            </svg>
+          </span>
+        } @else if (item.labelKey) {
           {{ item.labelKey | translate }}
         } @else if (item.label) {
           {{ item.label }}

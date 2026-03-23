@@ -63,7 +63,9 @@
     "sortNewest": "وصل حديثاً",
     "sortAZ": "أ - ي",
     "sortAria": "ترتيب المتاجر",
-    "couponCountAria": "{{count}} كود خصم"
+    "couponCountAria": "{{count}} كود خصم",
+    "searchPlaceholder": "ابحث عن متجر، وصف، أو كود…",
+    "searchAria": "البحث في المتاجر"
   },
   "stores": {
     "title": "المتاجر",

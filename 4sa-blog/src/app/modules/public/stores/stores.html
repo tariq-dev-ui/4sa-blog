@@ -1,16 +1,32 @@
 <div class="stores-layout">
-  <app-stores-sidebar />
-  <article class="stores-page" role="main" aria-labelledby="stores-page-title">
+  <article
+    class="stores-page"
+    role="main"
+    aria-labelledby="stores-page-title"
+    [attr.aria-describedby]="'stores-page-desc'"
+  >
     <header class="stores-page__hero">
-      <app-breadcrumb [items]="breadcrumbItems" ariaLabelKey="storesPage.breadcrumbAria" />
-      <div class="stores-page__hero-row">
-        <h1 id="stores-page-title" class="stores-page__title">{{ 'storesPage.title' | translate }}</h1>
+      <div class="stores-page__hero-breadcrumb">
+        <app-breadcrumb [items]="breadcrumbItems" ariaLabelKey="storesPage.breadcrumbAria" />
       </div>
-      <div class="stores-page__hero-inner">
-        <div class="stores-page__desc-wrap">
-          <p class="stores-page__desc">{{ 'storesPage.description' | translate }}</p>
-        </div>
+      <div class="stores-page__hero-banner">
+        <img
+          class="stores-page__hero-banner-img"
+          [src]="heroBannerSrc"
+          alt=""
+          width="858"
+          height="252"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
       </div>
+      <h1 id="stores-page-title" class="stores-page__sr-only">
+        {{ 'storesPage.title' | translate }}
+      </h1>
+      <p id="stores-page-desc" class="stores-page__sr-only">
+        {{ 'storesPage.description' | translate }}
+      </p>
     </header>
 
     <section class="stores-page__section">
@@ -18,7 +34,19 @@
         <div class="stores-page__count-box">
           <span>{{ 'storesPage.storesCount' | translate : { count: storeCount() } }}</span>
         </div>
-        <div class="stores-page__bar-line" aria-hidden="true"></div>
+        <label class="stores-page__search">
+          <i class="bi bi-search stores-page__search-icon" aria-hidden="true"></i>
+          <input
+            type="search"
+            class="stores-page__search-input"
+            [value]="searchQuery()"
+            (input)="onSearchInput($event)"
+            [attr.placeholder]="'storesPage.searchPlaceholder' | translate"
+            [attr.aria-label]="'storesPage.searchAria' | translate"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </label>
         <div class="stores-page__sort-wrap">
           <button
             type="button"

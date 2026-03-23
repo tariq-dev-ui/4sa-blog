@@ -140,7 +140,16 @@
     "menuReviews": "Reviews",
     "menuLinks": "Quick Links",
     "menuAllPosts": "All posts",
-    "menuLatest": "Latest posts"
+    "menuLatest": "Latest posts",
+    "countrySelect": "Country",
+    "countryButtonAria": "Select country, current: {{name}}",
+    "countrySA": "Saudi Arabia",
+    "countryAE": "United Arab Emirates",
+    "countryKW": "Kuwait",
+    "countryQA": "Qatar",
+    "countryBH": "Bahrain",
+    "countryOM": "Oman",
+    "countryEG": "Egypt"
   },
   "footer": {
     "copyright": "All rights reserved."

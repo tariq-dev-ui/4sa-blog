@@ -140,7 +140,16 @@
     "menuReviews": "المراجعات",
     "menuLinks": "روابط سريعة",
     "menuAllPosts": "جميع المقالات",
-    "menuLatest": "أحدث المقالات"
+    "menuLatest": "أحدث المقالات",
+    "countrySelect": "الدولة",
+    "countryButtonAria": "اختيار الدولة، المحدد حالياً: {{name}}",
+    "countrySA": "السعودية",
+    "countryAE": "الإمارات",
+    "countryKW": "الكويت",
+    "countryQA": "قطر",
+    "countryBH": "البحرين",
+    "countryOM": "عُمان",
+    "countryEG": "مصر"
   },
   "footer": {
     "copyright": "جميع الحقوق محفوظة."

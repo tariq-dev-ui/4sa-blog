@@ -76,6 +76,65 @@
     </label>
   </div>
   <div class="navbar-end">
+    <div
+      #countryContainer
+      class="country-wrap"
+    >
+      <button
+        type="button"
+        class="country-toggle"
+        id="navbar-country-btn"
+        [attr.aria-expanded]="isCountryOpen()"
+        aria-haspopup="listbox"
+        aria-controls="navbar-country-list"
+        [attr.aria-label]="
+          'nav.countryButtonAria'
+            | translate
+              : { name: (selectedCountry().labelKey | translate) }
+        "
+        (click)="toggleCountry($event)"
+      >
+        <span class="country-flag" aria-hidden="true">{{
+          selectedCountry().flag
+        }}</span>
+        <span class="country-toggle__label">{{
+          'nav.countrySelect' | translate
+        }}</span>
+        <i
+          class="bi bi-chevron-down country-chevron"
+          [class.country-chevron--open]="isCountryOpen()"
+          aria-hidden="true"
+        ></i>
+      </button>
+      @if (isCountryOpen()) {
+        <div
+          id="navbar-country-list"
+          class="country-dropdown"
+          role="listbox"
+          aria-labelledby="navbar-country-btn"
+          [style.top.px]="countryDropdownTop() ?? 0"
+          [style.right.px]="countryDropdownRight() ?? 0"
+        >
+          @for (c of countries; track c.id) {
+            <button
+              type="button"
+              class="country-option"
+              role="option"
+              [attr.aria-selected]="selectedCountryId() === c.id"
+              (click)="selectCountry(c.id)"
+            >
+              <span class="country-flag country-flag--lg" aria-hidden="true">{{
+                c.flag
+              }}</span>
+              <span class="country-option__name">{{ c.labelKey | translate }}</span>
+              @if (selectedCountryId() === c.id) {
+                <i class="bi bi-check2 country-option__check" aria-hidden="true"></i>
+              }
+            </button>
+          }
+        </div>
+      }
+    </div>
     <button
       type="button"
       class="lang-toggle"

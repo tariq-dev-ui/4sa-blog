@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   inject,
   signal,
   ViewChild,
@@ -16,6 +17,14 @@ export interface NavMenuItem {
   children?: { labelKey: string; path: string }[];
 }
 
+export interface NavbarCountry {
+  id: string;
+  labelKey: string;
+  flag: string;
+}
+
+const COUNTRY_STORAGE_KEY = '4sa-selected-country';
+
 @Component({
   selector: 'app-navbar',
   imports: [RouterLink, TranslatePipe],
@@ -24,9 +33,33 @@ export interface NavMenuItem {
 })
 export class Navbar {
   @ViewChild('menuContainer') menuContainerRef!: ElementRef<HTMLElement>;
+  @ViewChild('countryContainer') countryContainerRef!: ElementRef<HTMLElement>;
 
   readonly translate = inject(TranslateService);
   readonly isMenuOpen = signal(false);
+  readonly isCountryOpen = signal(false);
+  /** موضع القائمة (fixed) — يُحسب من زر الدولة لتجاوز قصّ overflow على الـ navbar */
+  readonly countryDropdownTop = signal<number | null>(null);
+  readonly countryDropdownRight = signal<number | null>(null);
+
+  readonly countries: NavbarCountry[] = [
+    { id: 'SA', labelKey: 'nav.countrySA', flag: '🇸🇦' },
+    { id: 'AE', labelKey: 'nav.countryAE', flag: '🇦🇪' },
+    { id: 'KW', labelKey: 'nav.countryKW', flag: '🇰🇼' },
+    { id: 'QA', labelKey: 'nav.countryQA', flag: '🇶🇦' },
+    { id: 'BH', labelKey: 'nav.countryBH', flag: '🇧🇭' },
+    { id: 'OM', labelKey: 'nav.countryOM', flag: '🇴🇲' },
+    { id: 'EG', labelKey: 'nav.countryEG', flag: '🇪🇬' },
+  ];
+
+  readonly selectedCountryId = signal<string>('SA');
+
+  readonly selectedCountry = computed(() => {
+    const id = this.selectedCountryId();
+    return (
+      this.countries.find((c) => c.id === id) ?? this.countries[0]
+    );
+  });
 
   readonly menuItems: NavMenuItem[] = [
     { labelKey: 'nav.menuHome', path: '/', icon: 'bi-house' },
@@ -50,6 +83,17 @@ export class Navbar {
     { labelKey: 'nav.menuLinks', path: '/links', icon: 'bi-link-45deg' },
   ];
 
+  constructor() {
+    try {
+      const stored = localStorage.getItem(COUNTRY_STORAGE_KEY);
+      if (stored && this.countries.some((c) => c.id === stored)) {
+        this.selectedCountryId.set(stored);
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+
   get currentLangLabel(): string {
     return this.translate.currentLang === 'ar'
       ? this.translate.instant('nav.langAr')
@@ -68,14 +112,74 @@ export class Navbar {
     this.isMenuOpen.set(false);
   }
 
-  /** إغلاق القائمة عند الضغط خارجها */
+  toggleCountry(event: Event): void {
+    event.stopPropagation();
+    let opened = false;
+    this.isCountryOpen.update((v) => {
+      opened = !v;
+      return opened;
+    });
+    if (opened) {
+      this.closeMenu();
+      this.syncCountryDropdownPosition();
+    } else {
+      this.countryDropdownTop.set(null);
+      this.countryDropdownRight.set(null);
+    }
+  }
+
+  private syncCountryDropdownPosition(): void {
+    const btn = document.getElementById('navbar-country-btn');
+    if (!btn) return;
+    const r = btn.getBoundingClientRect();
+    this.countryDropdownTop.set(r.bottom + 6);
+    this.countryDropdownRight.set(window.innerWidth - r.right);
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    if (this.isCountryOpen()) {
+      this.syncCountryDropdownPosition();
+    }
+  }
+
+  closeCountry(): void {
+    this.isCountryOpen.set(false);
+    this.countryDropdownTop.set(null);
+    this.countryDropdownRight.set(null);
+  }
+
+  selectCountry(id: string): void {
+    this.selectedCountryId.set(id);
+    try {
+      localStorage.setItem(COUNTRY_STORAGE_KEY, id);
+    } catch {
+      /* ignore */
+    }
+    this.closeCountry();
+  }
+
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event): void {
-    if (!this.isMenuOpen()) return;
-    const el = this.menuContainerRef?.nativeElement;
-    if (el && !el.contains(event.target as Node)) {
-      this.closeMenu();
+    const target = event.target as Node;
+    if (this.isMenuOpen()) {
+      const el = this.menuContainerRef?.nativeElement;
+      if (el && !el.contains(target)) {
+        this.closeMenu();
+      }
     }
+    if (this.isCountryOpen()) {
+      const el = this.countryContainerRef?.nativeElement;
+      if (el && !el.contains(target)) {
+        this.closeCountry();
+      }
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeCountry();
+    this.closeMenu();
   }
 
   toggleLang(): void {

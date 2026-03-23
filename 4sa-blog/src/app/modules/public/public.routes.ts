@@ -4,12 +4,14 @@ import { Blog } from './blog/blog';
 import { BlogDetails } from './blog/blog-details/blog-details';
 import { Categories } from './categories/categories';
 import { Home } from './home/home';
+import { OffersPage } from './offers/offers-page';
 import { PostDetails } from './post-details/post-details';
 import { Posts } from './posts/posts';
 import { Stores } from './stores/stores';
 
 export const PUBLIC_ROUTES: Routes = [
   { path: '', component: Home, title: 'الرئيسية' },
+  { path: 'offers', component: OffersPage, title: 'الكوبونات والعروض' },
   { path: 'blog', component: Blog, title: 'المدونة' },
   { path: 'blog/:id', component: BlogDetails, title: 'تفاصيل المدونة' },
   { path: 'posts', component: Posts, title: 'المقالات' },

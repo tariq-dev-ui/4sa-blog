@@ -10,100 +10,21 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
+import {
+  type OfferCard,
+  DEFAULT_OFFERS,
+} from '../../core/data/offers.data';
 import { OfferDetailModal } from '../../shared/offer-detail-modal/offer-detail-modal';
 
-export type OfferType = 'direct' | 'coupon';
-
-export interface OfferCard {
-  id: string;
-  storeName: string;
-  storeLogoUrl?: string;
-  storeUrl?: string;
-  offerTitle: string;
-  /** سطر ثانوي يوضح نوع العرض (بدون تكرار العنوان) */
-  offerTypeLabel: string;
-  offerType: OfferType;
-  /** كود الكوبون إن وُجد (للعروض من نوع coupon) */
-  couponCode?: string;
-  /** نسبة الخصم أو نص مختصر (للنافذة المنبثقة) */
-  discount?: string;
-  isNew: boolean;
-}
-
-/** صور المتاجر من public/img (مكان مؤقت حتى إضافة شعارات المتاجر الفعلية) */
-const STORE_IMAGES = [
-  '/img/بنر رئيسي.jpeg',
-  '/img/بنر صغير بجوار البنر.png',
-  '/img/صورة البنر الرئيسي.jpeg',
-  '/img/بنر الرئيسي.png',
-];
-
-const DEFAULT_OFFERS: OfferCard[] = [
-  {
-    id: '1',
-    storeName: 'Amazon',
-    storeLogoUrl: STORE_IMAGES[0],
-    storeUrl: 'https://www.amazon.sa',
-    offerTitle: 'عروض رمضان حتى 80% خصم',
-    offerTypeLabel: 'الخصم يطبّق تلقائياً في المتجر',
-    offerType: 'direct',
-    discount: '80%',
-    isNew: true,
-  },
-  {
-    id: '2',
-    storeName: 'Noon',
-    storeLogoUrl: STORE_IMAGES[1],
-    storeUrl: 'https://www.noon.com',
-    offerTitle: 'تجهيزات رمضان حتى 70% خصم + 15% كاش باك',
-    offerTypeLabel: 'الخصم يطبّق تلقائياً في المتجر',
-    offerType: 'direct',
-    discount: '70%',
-    isNew: true,
-  },
-  {
-    id: '3',
-    storeName: 'To You',
-    storeLogoUrl: STORE_IMAGES[2],
-    storeUrl: 'https://toyou.sa',
-    offerTitle: 'خصم 30% + توصيل مجاني + 30 ريال كاش باك',
-    offerTypeLabel: 'كوبون خصم + كاش باك',
-    offerType: 'coupon',
-    couponCode: 'RAMADAN30',
-    discount: '30%',
-    isNew: true,
-  },
-  {
-    id: '4',
-    storeName: 'Jarir',
-    storeLogoUrl: STORE_IMAGES[3],
-    storeUrl: 'https://www.jarir.com',
-    offerTitle: 'إلكترونيات رمضان حتى 50% خصم',
-    offerTypeLabel: 'كود خصم رمضان 2026',
-    offerType: 'coupon',
-    couponCode: 'JARIR50',
-    discount: '50%',
-    isNew: true,
-  },
-  {
-    id: '5',
-    storeName: 'Extra',
-    storeLogoUrl: STORE_IMAGES[0],
-    storeUrl: 'https://www.extra.com',
-    offerTitle: 'خصم 20% على أول طلب + توصيل مجاني',
-    offerTypeLabel: 'صالح على أول طلب فقط',
-    offerType: 'coupon',
-    couponCode: 'EXTRA20',
-    discount: '20%',
-    isNew: false,
-  },
-];
+export type { OfferCard };
 
 @Component({
   selector: 'app-offers-section',
   standalone: true,
-  imports: [TranslatePipe, OfferDetailModal],
+  imports: [TranslatePipe, OfferDetailModal, RouterLink],
   templateUrl: './offers-section.html',
   styleUrl: './offers-section.scss',
 })
@@ -112,27 +33,25 @@ export class OffersSection implements AfterViewInit, OnDestroy {
 
   private readonly translate = inject(TranslateService);
 
-  /** إن وُجد يُستخدم بدلاً من ترجمة offers.mainTitle */
   readonly mainTitle = input<string | undefined>(undefined);
-  /** مفتاح ترجمة للعنوان (مثل strip.title) — إن وُجد يُستخدم بدل mainTitle */
   readonly sectionTitleKey = input<string | undefined>(undefined);
-  /** إن وُجد يُستخدم بدلاً من ترجمة offers.subTitle */
   readonly subTitle = input<string | undefined>(undefined);
   readonly offers = input<OfferCard[]>(DEFAULT_OFFERS);
-  /** رابط "عرض الكل" (إن لم يُحدد يُستخدم #) */
-  readonly viewAllUrl = input<string>('#');
-  /** إظهار الخلفية (صورة + طبقة). عند false يُستخدم القسم بدون خلفية */
+  readonly viewAllUrl = input<string>('/offers');
   readonly showBackground = input<boolean>(true);
-  /** معرّف عنوان القسم (لإمكانية الوصول). يُستخدم لتمييز القسم الثاني */
   readonly titleId = input<string>('offers-main-title');
+  /** شريط تمرير (الرئيسية) أو شبكة (صفحة جميع العروض) */
+  readonly displayMode = input<'carousel' | 'grid'>('carousel');
+  /** إظهار رابط «عرض الكل» في الرأس */
+  readonly showViewAllLink = input<boolean>(true);
+  /** إظهار صف العنوان والأسهم (عطّله في صفحة مخصصة لها عنوان خارجي) */
+  readonly showSectionHeader = input<boolean>(true);
+  /** عند إخفاء الرأس: معرّف عنصر عنوان خارجي لـ aria-labelledby (مثل h1 الصفحة) */
+  readonly labelledByHeadingId = input<string | null>(null);
 
-  /** معرف العرض الذي تم نسخ كوده (الزر يعرض "تم نسخ الكود") */
   readonly copiedOfferId = signal<string | null>(null);
-  /** إظهار سهم السابق */
   readonly canScrollPrev = signal(false);
-  /** إظهار سهم التالي */
   readonly canScrollNext = signal(false);
-  /** العرض المحدد لعرضه في النافذة المنبثقة */
   readonly selectedOfferForModal = signal<OfferCard | null>(null);
 
   @HostBinding('class.offers-section-host--modal-open') get hasModalOpen(): boolean {
@@ -144,6 +63,11 @@ export class OffersSection implements AfterViewInit, OnDestroy {
   private readonly scrollStep = 300;
   private readonly autoSlideDelayMs = 5000;
   private readonly copyFeedbackMs = 2500;
+
+  isExternalViewAll(): boolean {
+    const u = this.viewAllUrl();
+    return u.startsWith('http://') || u.startsWith('https://') || u.startsWith('//');
+  }
 
   getButtonLabel(offer: OfferCard): string {
     if (offer.offerType === 'direct') return this.translate.instant('offers.goToOffer');
@@ -188,7 +112,9 @@ export class OffersSection implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.updateScrollState();
-    this.startAutoSlide();
+    if (this.displayMode() === 'carousel') {
+      this.startAutoSlide();
+    }
   }
 
   ngOnDestroy(): void {
@@ -198,7 +124,15 @@ export class OffersSection implements AfterViewInit, OnDestroy {
 
   @HostListener('window:resize')
   onResize(): void {
-    this.updateScrollState();
+    if (this.displayMode() === 'carousel') {
+      this.updateScrollState();
+    }
+  }
+
+  onCardsScroll(): void {
+    if (this.displayMode() === 'carousel') {
+      this.updateScrollState();
+    }
   }
 
   updateScrollState(): void {
@@ -271,10 +205,14 @@ export class OffersSection implements AfterViewInit, OnDestroy {
   }
 
   onCardsWrapMouseEnter(): void {
-    this.stopAutoSlide();
+    if (this.displayMode() === 'carousel') {
+      this.stopAutoSlide();
+    }
   }
 
   onCardsWrapMouseLeave(): void {
-    this.startAutoSlide();
+    if (this.displayMode() === 'carousel') {
+      this.startAutoSlide();
+    }
   }
 }

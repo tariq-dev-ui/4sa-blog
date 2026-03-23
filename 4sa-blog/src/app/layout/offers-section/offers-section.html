@@ -1,40 +1,61 @@
-<section class="offers-section" [class.offers-section--no-bg]="!showBackground()" [class.offers-section--modal-open]="!!selectedOfferForModal()" [attr.aria-labelledby]="titleId()">
+<section
+  class="offers-section"
+  [class.offers-section--no-bg]="!showBackground()"
+  [class.offers-section--grid]="displayMode() === 'grid'"
+  [class.offers-section--modal-open]="!!selectedOfferForModal()"
+  [attr.aria-labelledby]="showSectionHeader() ? titleId() : (labelledByHeadingId() || null)"
+  [attr.aria-label]="!showSectionHeader() && !labelledByHeadingId() ? ('offers.listRegionAria' | translate) : null"
+>
   <div class="offers-section-inner">
-    <header class="offers-header">
-      <div class="offers-header-row">
-        <h2 [id]="titleId()" class="offers-main-title">{{ sectionTitleKey() ? (sectionTitleKey() | translate) : (mainTitle() ?? ('offers.mainTitle' | translate)) }}</h2>
-        <div class="offers-header-arrows">
-          <button
-            type="button"
-            class="offer-arrow offer-arrow-prev"
-            [class.hidden]="!canScrollPrev()"
-            (click)="scrollPrev()"
-            [attr.aria-label]="'offers.prev' | translate"
-          >
-            <i class="bi bi-chevron-left" aria-hidden="true"></i>
-          </button>
-          <button
-            type="button"
-            class="offer-arrow offer-arrow-next"
-            [class.hidden]="!canScrollNext()"
-            (click)="scrollNext()"
-            [attr.aria-label]="'offers.next' | translate"
-          >
-            <i class="bi bi-chevron-right" aria-hidden="true"></i>
-          </button>
+    @if (showSectionHeader()) {
+      <header class="offers-header">
+        <div class="offers-header-row">
+          <h2 [id]="titleId()" class="offers-main-title">{{ sectionTitleKey() ? (sectionTitleKey() | translate) : (mainTitle() ?? ('offers.mainTitle' | translate)) }}</h2>
+          @if (displayMode() === 'carousel') {
+            <div class="offers-header-arrows">
+              <button
+                type="button"
+                class="offer-arrow offer-arrow-prev"
+                [class.hidden]="!canScrollPrev()"
+                (click)="scrollPrev()"
+                [attr.aria-label]="'offers.prev' | translate"
+              >
+                <i class="bi bi-chevron-left" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                class="offer-arrow offer-arrow-next"
+                [class.hidden]="!canScrollNext()"
+                (click)="scrollNext()"
+                [attr.aria-label]="'offers.next' | translate"
+              >
+                <i class="bi bi-chevron-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          }
+          @if (showViewAllLink()) {
+            @if (isExternalViewAll()) {
+              <a [href]="viewAllUrl()" class="offers-view-all" [attr.aria-label]="'offers.viewAllAria' | translate">
+                {{ 'offers.viewAll' | translate }}
+                <i class="bi bi-chevron-left" aria-hidden="true"></i>
+              </a>
+            } @else {
+              <a [routerLink]="viewAllUrl()" class="offers-view-all" [attr.aria-label]="'offers.viewAllAria' | translate">
+                {{ 'offers.viewAll' | translate }}
+                <i class="bi bi-chevron-left" aria-hidden="true"></i>
+              </a>
+            }
+          }
         </div>
-        <a [href]="viewAllUrl()" class="offers-view-all" [attr.aria-label]="'offers.viewAllAria' | translate">
-          {{ 'offers.viewAll' | translate }}
-          <i class="bi bi-chevron-left" aria-hidden="true"></i>
-        </a>
-      </div>
-    </header>
+      </header>
+    }
 
-    <div class="offers-carousel">
+    <div class="offers-carousel" [class.offers-carousel--grid]="displayMode() === 'grid'">
       <div
         class="offers-cards-wrap"
+        [class.offers-cards-wrap--grid]="displayMode() === 'grid'"
         #cardsWrap
-        (scroll)="updateScrollState()"
+        (scroll)="onCardsScroll()"
         (mouseenter)="onCardsWrapMouseEnter()"
         (mouseleave)="onCardsWrapMouseLeave()"
       >

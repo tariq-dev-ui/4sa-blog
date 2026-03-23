@@ -1,0 +1,275 @@
+<div class="stores-layout">
+  <article
+    class="stores-page offers-page"
+    role="main"
+    aria-labelledby="offers-page-title"
+    [attr.aria-describedby]="'offers-page-desc'"
+  >
+    <header class="stores-page__hero">
+      <div class="stores-page__hero-breadcrumb">
+        <app-breadcrumb [items]="breadcrumbItems" ariaLabelKey="offersPage.breadcrumbAria" />
+      </div>
+      <app-banner />
+      <h1 id="offers-page-title" class="stores-page__sr-only">
+        {{ 'offersPage.title' | translate }}
+      </h1>
+      <p id="offers-page-desc" class="stores-page__sr-only">
+        {{ 'offersPage.description' | translate }}
+      </p>
+    </header>
+
+    <section class="stores-page__section">
+      <nav class="stores-cats-nav" [attr.aria-label]="'offersPage.sidebarNavAria' | translate">
+        <header class="stores-cats-nav__head">
+          <p class="stores-cats-nav__eyebrow">{{ 'offersPage.categoriesEyebrow' | translate }}</p>
+          <p class="stores-cats-nav__headline">{{ 'offersPage.categoriesHeadline' | translate }}</p>
+        </header>
+        <ul class="stores-cats-nav__list" role="list">
+          @for (item of filterNavItems; track item.id) {
+            <li class="stores-cats-nav__item" role="none">
+              <button
+                type="button"
+                class="stores-cats-nav__btn"
+                [class.stores-cats-nav__btn--active]="selectedFilter() === item.id"
+                (click)="setFilter(item.id)"
+                [attr.aria-current]="selectedFilter() === item.id ? 'page' : null"
+              >
+                <span class="stores-cats-nav__icon-wrap">
+                  <i [class]="'bi ' + item.icon + ' stores-cats-nav__icon'" aria-hidden="true"></i>
+                </span>
+                <span class="stores-cats-nav__mid">
+                  <span class="stores-cats-nav__label">{{ item.labelKey | translate }}</span>
+                </span>
+                <span class="stores-cats-nav__badge" aria-hidden="true">{{ filterCounts()[item.id] }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <div class="stores-page__section-body">
+        <div class="stores-page__bar">
+          <div class="stores-page__count-box">
+            <span>{{ 'offersPage.offersCount' | translate : { count: offerCount() } }}</span>
+          </div>
+          <label class="stores-page__search">
+            <i class="bi bi-search stores-page__search-icon" aria-hidden="true"></i>
+            <input
+              type="search"
+              class="stores-page__search-input"
+              [value]="searchQuery()"
+              (input)="onSearchInput($event)"
+              [attr.placeholder]="'offersPage.searchPlaceholder' | translate"
+              [attr.aria-label]="'offersPage.searchAria' | translate"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </label>
+          <div class="stores-page__sort-wrap">
+            <button
+              type="button"
+              class="stores-page__sort-btn"
+              (click)="toggleSortDropdown()"
+              [attr.aria-expanded]="sortDropdownOpen()"
+              [attr.aria-haspopup]="true"
+              [attr.aria-label]="'offersPage.sortAria' | translate"
+            >
+              <i class="bi bi-sort-down-alt" aria-hidden="true"></i>
+              <span class="stores-page__sort-label">{{ 'offersPage.sortBy' | translate }}</span>
+              <span class="stores-page__sort-value">
+                @switch (sortBy()) {
+                  @case ('popular') {
+                    {{ 'offersPage.sortPopular' | translate }}
+                  }
+                  @case ('newest') {
+                    {{ 'offersPage.sortNewest' | translate }}
+                  }
+                  @case ('az') {
+                    {{ 'offersPage.sortAZ' | translate }}
+                  }
+                }
+              </span>
+              <i
+                class="bi bi-chevron-down stores-page__sort-chevron"
+                [class.stores-page__sort-chevron--open]="sortDropdownOpen()"
+                aria-hidden="true"
+              ></i>
+            </button>
+            @if (sortDropdownOpen()) {
+              <ul class="stores-page__sort-menu" role="menu">
+                <li role="none">
+                  <button
+                    type="button"
+                    role="menuitem"
+                    class="stores-page__sort-option"
+                    [class.stores-page__sort-option--active]="sortBy() === 'popular'"
+                    (click)="setSort('popular')"
+                  >
+                    {{ 'offersPage.sortPopular' | translate }}
+                  </button>
+                </li>
+                <li role="none">
+                  <button
+                    type="button"
+                    role="menuitem"
+                    class="stores-page__sort-option"
+                    [class.stores-page__sort-option--active]="sortBy() === 'newest'"
+                    (click)="setSort('newest')"
+                  >
+                    {{ 'offersPage.sortNewest' | translate }}
+                  </button>
+                </li>
+                <li role="none">
+                  <button
+                    type="button"
+                    role="menuitem"
+                    class="stores-page__sort-option"
+                    [class.stores-page__sort-option--active]="sortBy() === 'az'"
+                    (click)="setSort('az')"
+                  >
+                    {{ 'offersPage.sortAZ' | translate }}
+                  </button>
+                </li>
+              </ul>
+            }
+          </div>
+        </div>
+
+        <div class="stores-page__grid" role="list">
+          @for (offer of paginatedOffers(); track offer.id) {
+            <article class="store-card offers-page__card" role="listitem">
+              <div class="store-card-inner">
+                <div class="store-card-logo">
+                  @if (offer.storeLogoUrl) {
+                    <img
+                      [src]="offer.storeLogoUrl"
+                      [alt]="offer.storeName"
+                      class="store-card-logo-img"
+                      loading="lazy"
+                    />
+                  } @else {
+                    <span class="store-card-logo-fallback">{{ offer.storeName }}</span>
+                  }
+                </div>
+                <span class="store-name">{{ offer.storeName }}</span>
+                <p class="store-desc">{{ offer.offerTitle }}</p>
+                <p class="offers-page__type-line">{{ offer.offerTypeLabel }}</p>
+
+                @if (offer.offerType === 'coupon' && offer.couponCode) {
+                  <div class="store-code-row">
+                    <span class="store-code">{{ offer.couponCode }}</span>
+                    <button
+                      type="button"
+                      class="store-copy-btn"
+                      [class.store-copy-btn--copied]="copiedId() === offer.id"
+                      (click)="onCopyCode(offer)"
+                      [attr.aria-label]="
+                        (copiedId() === offer.id ? 'stores.copied' : 'stores.copyCode') | translate
+                      "
+                    >
+                      @if (copiedId() === offer.id) {
+                        <i class="bi bi-check-lg" aria-hidden="true"></i>
+                        <span>{{ 'stores.copied' | translate }}</span>
+                      } @else {
+                        <i class="bi bi-clipboard" aria-hidden="true"></i>
+                        <span>{{ 'stores.copyCode' | translate }}</span>
+                      }
+                    </button>
+                  </div>
+                } @else {
+                  <div class="store-code-row offers-page__code-row--direct">
+                    <span class="store-code">{{ offer.discount || '—' }}</span>
+                    <span class="offers-page__direct-label">{{ 'offersPage.directOffer' | translate }}</span>
+                  </div>
+                }
+
+                <div class="offers-page__card-footer">
+                  <a
+                    [href]="offer.storeUrl || '#'"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="store-visit-link offers-page__visit"
+                    [attr.aria-label]="'stores.visitStoreAria' | translate : { name: offer.storeName }"
+                  >
+                    {{ 'offers.goToOffer' | translate }}
+                    <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+                  </a>
+                  <button
+                    type="button"
+                    class="offers-page__info-btn"
+                    [attr.aria-label]="'offers.infoAria' | translate"
+                    [attr.title]="'offers.infoTitle' | translate"
+                    (click)="openOfferModal(offer)"
+                  >
+                    <i class="bi bi-eye" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+
+        @if (totalPages() > 1) {
+          <nav class="stores-pagination" [attr.aria-label]="'offersPage.paginationAria' | translate">
+            <div class="stores-pagination__inner">
+              <ul class="stores-pagination__list" role="list">
+                <li class="stores-pagination__item" role="none">
+                  <button
+                    type="button"
+                    class="stores-pagination__btn stores-pagination__btn--arrow"
+                    (click)="paginationPrev()"
+                    [disabled]="currentPage() <= 1"
+                    [attr.aria-label]="'offersPage.paginationPrev' | translate"
+                  >
+                    <span class="stores-pagination__chev-pair" aria-hidden="true">
+                      <i class="bi bi-chevron-right stores-pagination__chev stores-pagination__chev--rtl"></i>
+                      <i class="bi bi-chevron-left stores-pagination__chev stores-pagination__chev--ltr"></i>
+                    </span>
+                  </button>
+                </li>
+                @for (item of paginationItems(); track $index) {
+                  <li class="stores-pagination__item" role="none">
+                    @if (item === 'ellipsis') {
+                      <span class="stores-pagination__ellipsis" aria-hidden="true">...</span>
+                    } @else {
+                      <button
+                        type="button"
+                        class="stores-pagination__btn"
+                        [class.stores-pagination__btn--active]="currentPage() === item"
+                        (click)="goToPage(item)"
+                        [attr.aria-label]="'offersPage.paginationPage' | translate : { page: item }"
+                        [attr.aria-current]="currentPage() === item ? 'page' : null"
+                      >
+                        {{ item }}
+                      </button>
+                    }
+                  </li>
+                }
+                <li class="stores-pagination__item" role="none">
+                  <button
+                    type="button"
+                    class="stores-pagination__btn stores-pagination__btn--arrow"
+                    (click)="paginationNext()"
+                    [disabled]="currentPage() >= totalPages()"
+                    [attr.aria-label]="'offersPage.paginationNext' | translate"
+                  >
+                    <span class="stores-pagination__chev-pair" aria-hidden="true">
+                      <i class="bi bi-chevron-left stores-pagination__chev stores-pagination__chev--rtl"></i>
+                      <i class="bi bi-chevron-right stores-pagination__chev stores-pagination__chev--ltr"></i>
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        }
+      </div>
+    </section>
+
+    <app-offer-detail-modal
+      [isOpen]="!!selectedOfferForModal()"
+      [offer]="selectedOfferForModal()"
+      (closed)="closeOfferModal()"
+    />
+  </article>
+</div>

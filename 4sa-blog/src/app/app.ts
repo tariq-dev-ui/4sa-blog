@@ -30,12 +30,14 @@ export class App implements OnInit {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
-  /** true عندما يكون المسار صفحة مستقلة (مدونة أو متاجر) — بدون بانر ولا سايدبار */
+  /** true عندما يكون المسار صفحة مستقلة (مدونة أو متاجر أو العروض) — بدون بانر عام ولا سايدبار */
   readonly isStandaloneRoute = signal(false);
 
   private updateStandalone(): void {
     const url = this.router.url.split('?')[0];
-    this.isStandaloneRoute.set(url.startsWith('/blog') || url === '/stores');
+    this.isStandaloneRoute.set(
+      url.startsWith('/blog') || url === '/stores' || url === '/offers',
+    );
   }
 
   ngOnInit(): void {

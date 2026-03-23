@@ -69,118 +69,103 @@
   min-width: 0;
 }
 
-/* فئات المتاجر — بطاقة لاصقة، رأس بصري، صفوف بأيقونة مربعة وشارة عدد */
+/* فئات المتاجر — فهرس رسمي: مسطح، جدولي، بلا تدرجات ولا ظلال */
 .stores-cats-nav {
-  --cats-nav-pad: 0.65rem;
-  flex: 0 0 17.25rem;
+  --cats-nav-pad: 0;
+  flex: 0 0 18rem;
   max-width: 100%;
   align-self: flex-start;
   position: sticky;
   top: 0.75rem;
   z-index: 2;
   box-sizing: border-box;
-  border-radius: 16px;
+  border-radius: 2px;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(
-    160deg,
-    rgba(var(--color-primary-rgb), 0.07) 0%,
-    var(--color-primary-contrast) 38%,
-    var(--color-primary-contrast) 100%
-  );
-  border: 1px solid rgba(var(--color-primary-rgb), 0.12);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.65) inset,
-    0 12px 28px -18px rgba(0, 0, 0, 0.12);
+  background: var(--color-primary-contrast);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .stores-cats-nav__head {
-  padding: 0.85rem var(--cats-nav-pad) 0.65rem;
-  border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.1);
-  background: rgba(var(--color-primary-rgb), 0.03);
+  padding: 1rem 1rem 0.85rem;
+  margin: 0;
+  border-bottom: 3px double rgba(0, 0, 0, 0.12);
+  background: var(--color-primary-contrast);
 }
 
 .stores-cats-nav__eyebrow {
-  margin: 0 0 0.2rem;
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-  opacity: 0.75;
+  margin: 0 0 0.35rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  color: var(--text-primary, var(--color-dark));
+  opacity: 0.5;
   font-family: var(--font-family-heading);
 }
 
 .stores-cats-nav__headline {
   margin: 0;
   font-family: var(--font-family-heading);
-  font-size: 0.9375rem;
-  font-weight: 800;
-  line-height: 1.3;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.5;
   color: var(--text-primary, var(--color-dark));
-  letter-spacing: -0.02em;
 }
 
 .stores-cats-nav__list {
   list-style: none;
   margin: 0;
-  padding: var(--cats-nav-pad);
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0;
 }
 
 .stores-cats-nav__item {
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.stores-cats-nav__item:last-child {
+  border-bottom: none;
 }
 
 .stores-cats-nav__btn {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.7rem;
   width: 100%;
-  padding: 0.45rem 0.45rem 0.45rem 0.4rem;
+  padding: 0.65rem 0.85rem 0.65rem 0.75rem;
   margin: 0;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  border-inline-start: 3px solid transparent;
+  border-radius: 0;
+  background: transparent;
   font-family: var(--font-family-heading);
   font-size: 0.8125rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-primary, var(--color-dark));
   text-align: start;
   cursor: pointer;
   box-sizing: border-box;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
 }
 
 .stores-cats-nav__btn:hover:not(.stores-cats-nav__btn--active) {
-  background: rgba(var(--color-primary-rgb), 0.07);
-  border-color: rgba(var(--color-primary-rgb), 0.12);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .stores-cats-nav__btn:focus-visible {
   outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+  outline-offset: -2px;
 }
 
 .stores-cats-nav__btn--active {
-  background: linear-gradient(
-    120deg,
-    rgba(var(--color-primary-rgb), 0.2) 0%,
-    rgba(var(--color-primary-rgb), 0.08) 100%
-  );
-  border-color: rgba(var(--color-primary-rgb), 0.22);
-  color: var(--color-primary);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-    0 6px 16px -8px rgba(var(--color-primary-rgb), 0.45);
+  border-inline-start-color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.05);
+  color: var(--text-primary, var(--color-dark));
 }
 
 .stores-cats-nav__icon-wrap {
@@ -188,26 +173,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 10px;
-  background: rgba(var(--color-primary-rgb), 0.1);
-  color: var(--color-primary);
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.stores-cats-nav__btn:hover:not(:disabled) .stores-cats-nav__icon-wrap {
-  transform: scale(1.04);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: transparent;
+  color: var(--text-primary, var(--color-dark));
+  opacity: 0.72;
 }
 
 .stores-cats-nav__btn--active .stores-cats-nav__icon-wrap {
-  background: var(--color-primary);
-  color: var(--color-primary-contrast);
-  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.32);
+  border-color: rgba(var(--color-primary-rgb), 0.45);
+  background: rgba(var(--color-primary-rgb), 0.06);
+  color: var(--color-primary);
+  opacity: 1;
 }
 
 .stores-cats-nav__icon {
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1;
 }
 
@@ -217,43 +200,35 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 0.1rem;
 }
 
 .stores-cats-nav__label {
-  line-height: 1.35;
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .stores-cats-nav__badge {
   flex-shrink: 0;
-  min-width: 1.5rem;
-  padding: 0.2rem 0.45rem;
-  border-radius: 999px;
-  font-size: 0.65rem;
-  font-weight: 800;
-  line-height: 1.2;
-  text-align: center;
-  background: rgba(var(--color-primary-rgb), 0.12);
-  color: var(--color-primary);
+  min-width: 2rem;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-family-base);
+  font-size: 0.75rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  text-align: end;
+  color: var(--text-primary, var(--color-dark));
+  opacity: 0.42;
 }
 
 .stores-cats-nav__btn--active .stores-cats-nav__badge {
-  background: rgba(var(--color-primary-rgb), 0.22);
+  opacity: 0.9;
   color: var(--color-primary);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .stores-cats-nav__btn,
-  .stores-cats-nav__icon-wrap {
-    transition: none;
-  }
-
-  .stores-cats-nav__btn:hover:not(:disabled) .stores-cats-nav__icon-wrap {
-    transform: none;
-  }
 }
 
 /* في LTR نضع السايدبار بصرياً على اليمين مثل مرجع التصميم */
@@ -282,35 +257,69 @@
   .stores-cats-nav__list {
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 0.45rem;
-    padding: var(--cats-nav-pad);
+    gap: 0;
+    padding: 0;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--cats-nav-pad);
+    scroll-padding-inline: 0;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
   }
 
   .stores-cats-nav__item {
     flex: 0 0 auto;
     scroll-snap-align: start;
-    min-width: 5.75rem;
-    max-width: 7.5rem;
+    min-width: 8.5rem;
+    max-width: 10rem;
+    border-bottom: none;
+    border-inline-end: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  .stores-cats-nav__item:last-child {
+    border-inline-end: none;
   }
 
   .stores-cats-nav__btn {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 5.5rem;
-    padding: 0.55rem 0.4rem;
-    gap: 0.4rem;
+    align-items: stretch;
+    justify-content: flex-start;
+    text-align: start;
+    min-height: 5.25rem;
+    padding: 0.65rem 0.65rem 0.55rem;
+    gap: 0.45rem;
+    border-inline-start: none;
+    border-block-end: 3px solid transparent;
+  }
+
+  .stores-cats-nav__btn--active {
+    border-inline-start: none;
+    border-block-end-color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.04);
   }
 
   .stores-cats-nav__mid {
-    align-items: center;
+    align-items: stretch;
+    order: 2;
+  }
+
+  .stores-cats-nav__icon-wrap {
+    order: 1;
+    align-self: flex-start;
+  }
+
+  .stores-cats-nav__badge {
+    order: 3;
+    align-self: flex-end;
+    text-align: end;
+    font-size: 0.6875rem;
+    min-width: 0;
+    opacity: 0.5;
+  }
+
+  .stores-cats-nav__btn--active .stores-cats-nav__badge {
+    opacity: 0.95;
   }
 
   .stores-cats-nav__label {
@@ -319,11 +328,6 @@
     line-clamp: 2;
     -webkit-box-orient: vertical;
     font-size: 0.75rem;
-  }
-
-  .stores-cats-nav__badge {
-    font-size: 0.6rem;
-    min-width: 1.35rem;
   }
 }
 

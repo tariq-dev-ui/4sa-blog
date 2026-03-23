@@ -1,11 +1,26 @@
 <div class="blog-layout">
   <app-blog-sidebar />
-  <article class="blog-page" aria-labelledby="blog-title">
-  <header class="blog-hero">
-    <app-breadcrumb [items]="breadcrumbItems" />
-    <h1 id="blog-title" class="blog-hero__title">{{ 'blog.title' | translate }}</h1>
-    <p class="blog-hero__desc">{{ 'blog.description' | translate }}</p>
-  </header>
+  <article
+    class="blog-page"
+    role="main"
+    aria-labelledby="blog-title"
+    [attr.aria-describedby]="'blog-page-desc'"
+  >
+    <header class="blog-page__hero">
+      <div class="blog-page__hero-breadcrumb">
+        <app-breadcrumb
+          [items]="breadcrumbItems"
+          ariaLabelKey="blog.breadcrumbAria"
+        />
+      </div>
+      <app-banner />
+      <h1 id="blog-title" class="blog-page__sr-only">
+        {{ 'blog.title' | translate }}
+      </h1>
+      <p id="blog-page-desc" class="blog-page__sr-only">
+        {{ 'blog.description' | translate }}
+      </p>
+    </header>
 
   <div class="blog-cats-wrap">
     <button

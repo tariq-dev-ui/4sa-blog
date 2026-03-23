@@ -2,8 +2,16 @@
   <app-blog-sidebar />
   @if (post(); as p) {
   <article class="blog-details">
+    <header class="blog-page__hero">
+      <div class="blog-page__hero-breadcrumb">
+        <app-breadcrumb
+          [items]="breadcrumbItems(p)"
+          ariaLabelKey="blog.breadcrumbAria"
+        />
+      </div>
+      <app-banner />
+    </header>
     <header class="blog-details__header">
-      <app-breadcrumb [items]="breadcrumbItems(p)" />
       <span class="blog-details__cat">{{ p.categoryKey | translate }}</span>
       <h1 class="blog-details__title">{{ p.title }}</h1>
       <p class="blog-details__excerpt">{{ p.excerpt }}</p>

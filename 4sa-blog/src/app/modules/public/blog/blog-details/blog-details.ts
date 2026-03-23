@@ -3,14 +3,15 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { Breadcrumb, type BreadcrumbItem } from '../../../../shared/breadcrumb/breadcrumb';
+import { Banner } from '../../../../layout/banner/banner';
 import { BlogSidebar } from '../../../../layout/blog-sidebar/blog-sidebar';
+import { Breadcrumb, type BreadcrumbItem } from '../../../../shared/breadcrumb/breadcrumb';
 import { getBlogPostById } from '../blog-data';
 
 @Component({
   selector: 'app-blog-details',
   standalone: true,
-  imports: [RouterLink, TranslatePipe, BlogSidebar, Breadcrumb],
+  imports: [RouterLink, TranslatePipe, BlogSidebar, Breadcrumb, Banner],
   templateUrl: './blog-details.html',
   styleUrl: './blog-details.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

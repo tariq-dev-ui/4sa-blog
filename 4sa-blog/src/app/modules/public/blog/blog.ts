@@ -10,6 +10,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { Banner } from '../../../layout/banner/banner';
 import { BlogSidebar } from '../../../layout/blog-sidebar/blog-sidebar';
 import type { BreadcrumbItem } from '../../../shared/breadcrumb/breadcrumb';
 import { Breadcrumb } from '../../../shared/breadcrumb/breadcrumb';
@@ -19,7 +20,7 @@ import type { BlogPost } from './blog-data';
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [RouterLink, TranslatePipe, BlogSidebar, Breadcrumb],
+  imports: [RouterLink, TranslatePipe, BlogSidebar, Breadcrumb, Banner],
   templateUrl: './blog.html',
   styleUrl: './blog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

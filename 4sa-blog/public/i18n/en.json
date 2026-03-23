@@ -171,6 +171,7 @@
   "blog": {
     "title": "Blog",
     "description": "Discover articles covering a range of topics from tech trends and lifestyle tips to productivity hacks and creativity. Stay informed, inspired, and entertained with our diverse blog content!",
+    "breadcrumbAria": "Breadcrumb — blog",
     "categoriesLabel": "Blog categories",
     "catsPrev": "Previous categories",
     "catsNext": "Next categories",

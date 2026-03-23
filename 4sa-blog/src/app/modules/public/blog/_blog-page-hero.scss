@@ -1,0 +1,36 @@
+/* هيرو المدونة — مطابق لصفحة المتاجر: مسار ثم app-banner */
+.blog-page__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.blog-page__hero {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.blog-page__hero-breadcrumb {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(0.75rem, 3vw, 1rem);
+  margin-bottom: 0.85rem;
+  box-sizing: border-box;
+}
+
+.blog-page__hero-breadcrumb app-breadcrumb {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .blog-page__hero {
+    margin-bottom: 1.75rem;
+  }
+}

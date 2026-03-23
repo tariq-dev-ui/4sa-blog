@@ -17,9 +17,13 @@ $banner-aspect-h: 252;
   overflow: hidden;
 }
 
-.banner-row {
+.banner-shell {
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
+}
+
+.banner-row {
   width: 100%;
   aspect-ratio: #{$banner-aspect-w} / #{$banner-aspect-h};
 }
@@ -34,12 +38,36 @@ $banner-aspect-h: 252;
   background-color: var(--color-light);
 }
 
-.banner-link {
+.banner-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.banner-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.banner-slide {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   text-decoration: none;
   color: inherit;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.5s ease;
+}
+
+.banner-slide--active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
 }
 
 .banner-image {
@@ -50,7 +78,7 @@ $banner-aspect-h: 252;
   transition: transform 0.3s ease;
 }
 
-.banner-link:hover .banner-image {
+.banner-slide--active:hover .banner-image {
   transform: scale(1.05);
 }
 
@@ -62,13 +90,111 @@ $banner-aspect-h: 252;
   overflow: hidden;
 }
 
-@media (max-width: 992px) {
-  .banner-row {
-    max-width: 100%;
+/* مؤشر داخل البنر — زجاجي (glass) + دوائر / شريط للنشط */
+.banner-indicator {
+  position: absolute;
+  z-index: 2;
+  inset-inline-end: 0.65rem;
+  bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.42rem 0.85rem;
+  border-radius: 12px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 255, 255, 0.2) 55%,
+    rgba(255, 255, 255, 0.14) 100%
+  );
+  backdrop-filter: blur(16px) saturate(165%);
+  -webkit-backdrop-filter: blur(16px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.75) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.04) inset;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+@supports not (backdrop-filter: blur(12px)) {
+  .banner-indicator {
+    background: rgba(255, 255, 255, 0.93);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+}
+
+.banner-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+  flex-wrap: nowrap;
+}
+
+/* غير النشط: دائرة فارغة — واضحة على الخلفية الزجاجية */
+.banner-dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  box-sizing: border-box;
+  border: 1.5px solid rgba(30, 30, 30, 0.42);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition:
+    width 0.22s ease,
+    border-radius 0.22s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: rgba(30, 30, 30, 0.62);
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
   }
 
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+}
+
+/* النشط: شريط مؤشر */
+.banner-dot--active {
+  width: 1.2rem;
+  min-width: 1.2rem;
+  height: 7px;
+  border-radius: 3px;
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  box-shadow: 0 1px 4px rgba(var(--color-primary-rgb), 0.45);
+
+  &:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    filter: brightness(1.07);
+    box-shadow: 0 2px 8px rgba(var(--color-primary-rgb), 0.5);
+  }
+}
+
+@media (max-width: 992px) {
   .banner {
     padding: 0.5rem 0.75rem;
+  }
+
+  .banner-indicator {
+    inset-inline-end: 0.5rem;
+    bottom: 0.5rem;
+    padding: 0.34rem 0.65rem;
+    border-radius: 10px;
+  }
+
+  .banner-dots {
+    gap: 0.34rem;
   }
 }
 

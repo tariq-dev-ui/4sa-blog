@@ -30,8 +30,16 @@
   },
   "banner": {
     "ariaLabel": "Promotional banner",
-    "prevMain": "Previous - main banner",
-    "nextMain": "Next - main banner",
+    "carouselAria": "Rotating promotional banners",
+    "toolbarNavAria": "Banner carousel navigation",
+    "dotsAria": "Select banner",
+    "selectSlide": "Go to banner {{num}}",
+    "slideAlt1": "Main banner",
+    "slideAlt2": "Main banner image",
+    "slideAlt3": "Side promotional banner",
+    "slideAlt4": "Home banner",
+    "prevMain": "Previous banner",
+    "nextMain": "Next banner",
     "prevSecond": "Previous - second banner",
     "nextSecond": "Next - second banner"
   },

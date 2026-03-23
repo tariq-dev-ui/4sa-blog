@@ -30,8 +30,16 @@
   },
   "banner": {
     "ariaLabel": "بنر عرضي",
-    "prevMain": "السابق - بنر رئيسي",
-    "nextMain": "التالي - بنر رئيسي",
+    "carouselAria": "بنرات ترويجية متعاقبة",
+    "toolbarNavAria": "تنقل بين البنرات",
+    "dotsAria": "اختيار البنر",
+    "selectSlide": "الذهاب إلى البنر {{num}}",
+    "slideAlt1": "بنر رئيسي",
+    "slideAlt2": "صورة البنر الرئيسي",
+    "slideAlt3": "بنر صغير بجوار البنر",
+    "slideAlt4": "بنر الرئيسي",
+    "prevMain": "البنر السابق",
+    "nextMain": "البنر التالي",
     "prevSecond": "السابق - بنر ثاني",
     "nextSecond": "التالي - بنر ثاني"
   },

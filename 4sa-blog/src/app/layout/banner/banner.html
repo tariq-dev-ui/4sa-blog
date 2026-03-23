@@ -2,23 +2,65 @@
   class="banner"
   [attr.aria-label]="'banner.ariaLabel' | translate"
 >
-  <div class="banner-row">
-    <div class="banner-item">
-      <a
-        [href]="banner.link || '#'"
-        class="banner-link"
-        [attr.aria-label]="banner.title"
-      >
-        <span class="banner-img-wrap">
-          <img
-            [src]="banner.image"
-            [alt]="banner.title || ''"
-            class="banner-image"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </span>
-      </a>
+  <div
+    class="banner-shell"
+    role="region"
+    [attr.aria-label]="'banner.carouselAria' | translate"
+  >
+    <div class="banner-row">
+      <div class="banner-item">
+        <div class="banner-carousel">
+          <div class="banner-slides">
+            @for (item of banners; track item.image) {
+              <a
+                [href]="item.link || '#'"
+                class="banner-slide"
+                [class.banner-slide--active]="activeIndex() === $index"
+                [attr.aria-hidden]="activeIndex() !== $index"
+                [attr.tabindex]="activeIndex() === $index ? 0 : -1"
+              >
+                <span class="banner-img-wrap">
+                  <img
+                    [src]="item.image"
+                    [alt]="item.altKey | translate"
+                    class="banner-image"
+                    [loading]="$index === 0 ? 'eager' : 'lazy'"
+                    [attr.fetchpriority]="$index === 0 ? 'high' : null"
+                  />
+                </span>
+              </a>
+            }
+          </div>
+
+          @if (banners.length > 1) {
+            <nav
+              class="banner-indicator"
+              [attr.aria-label]="'banner.toolbarNavAria' | translate"
+            >
+              <div
+                class="banner-dots"
+                role="tablist"
+                [attr.aria-label]="'banner.dotsAria' | translate"
+              >
+                @for (item of banners; track item.image) {
+                  <button
+                    type="button"
+                    role="tab"
+                    class="banner-dot"
+                    [class.banner-dot--active]="activeIndex() === $index"
+                    [attr.aria-selected]="activeIndex() === $index"
+                    [attr.tabindex]="activeIndex() === $index ? 0 : -1"
+                    (click)="goTo($index)"
+                    [attr.aria-label]="
+                      'banner.selectSlide' | translate: { num: $index + 1 }
+                    "
+                  ></button>
+                }
+              </div>
+            </nav>
+          }
+        </div>
+      </div>
     </div>
   </div>
 </section>

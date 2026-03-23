@@ -1,3 +1,12 @@
+/* طبقة فوق النافبار (z-index ~1025) عند فتح المودال */
+:host.offer-modal-host--open {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  pointer-events: none;
+  display: block;
+}
+
 .offer-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -5,9 +14,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 0;
   padding: 1rem;
   box-sizing: border-box;
+  pointer-events: auto;
   animation: offer-modal-fade-in 0.2s ease;
 }
 

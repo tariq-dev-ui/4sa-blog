@@ -1,4 +1,4 @@
-import { Component, output, input } from '@angular/core';
+import { Component, HostBinding, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /** بيانات العرض لعرضها في النافذة المنبثقة (قابلة لإعادة الاستخدام في أي صفحة) */
@@ -27,6 +27,11 @@ export class OfferDetailModal {
   readonly isOpen = input<boolean>(false);
   /** بيانات العرض (عند null لا يُعرض المحتوى) */
   readonly offer = input<OfferDetailModalData | null>(null);
+
+  @HostBinding('class.offer-modal-host--open')
+  get hostOpenClass(): boolean {
+    return this.isOpen() && !!this.offer();
+  }
 
   /** يُصدَر عند طلب إغلاق النافذة (X أو النقر على الخلفية) */
   readonly closed = output<void>();

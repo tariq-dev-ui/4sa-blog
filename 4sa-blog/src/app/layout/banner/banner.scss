@@ -36,6 +36,8 @@ $banner-aspect-h: 252;
   border-radius: 0.5rem;
   box-shadow: var(--shadow-md);
   background-color: var(--color-light);
+  /* يحصر تكديس الطبقات داخل البنر ويقلل تداخلها مع عناصر ثابتة خارجها */
+  isolation: isolate;
 }
 
 .banner-carousel {

@@ -1,8 +1,60 @@
-<div class="site-intro" role="region" aria-labelledby="site-intro-title">
-  <h2 id="site-intro-title" class="site-intro__title">{{ 'intro.title' | translate }}</h2>
-  <p class="site-intro__p">{{ 'intro.p1' | translate }}</p>
-  <p class="site-intro__p">{{ 'intro.p2' | translate }}</p>
-  <p class="site-intro__p">{{ 'intro.p3' | translate }}</p>
-  <p class="site-intro__p">{{ 'intro.p4' | translate }}</p>
-  <p class="site-intro__p">{{ 'intro.p5' | translate }}</p>
+<div
+  class="site-intro"
+  role="region"
+  aria-labelledby="site-intro-title"
+  aria-describedby="site-intro-caption"
+>
+  <h2 id="site-intro-title" class="site-intro__title">
+    {{ 'intro.title' | translate }}
+  </h2>
+  <div class="site-intro__table-scroll">
+    <table class="site-intro__table">
+      <caption id="site-intro-caption" class="site-intro__caption">
+        {{ 'intro.tableCaption' | translate }}
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col" class="site-intro__th site-intro__th--store">
+            {{ 'intro.colStore' | translate }}
+          </th>
+          <th scope="col" class="site-intro__th site-intro__th--code">
+            {{ 'intro.colCode' | translate }}
+          </th>
+          <th scope="col" class="site-intro__th site-intro__th--desc">
+            {{ 'intro.colDesc' | translate }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of couponRows; track $index) {
+          <tr class="site-intro__row">
+            <td class="site-intro__td site-intro__td--store">{{ row.store }}</td>
+            <td class="site-intro__td site-intro__td--code">
+              <div
+                class="site-intro__code-box"
+                [class.site-intro__code-box--copied]="copiedRowIndex() === $index"
+              >
+                <code class="site-intro__code">{{ row.code }}</code>
+                <button
+                  type="button"
+                  class="site-intro__copy"
+                  (click)="copyCode(row.code, $index)"
+                  [attr.aria-label]="
+                    (copiedRowIndex() === $index ? 'intro.copied' : 'intro.copyCode') | translate
+                  "
+                >
+                  @if (copiedRowIndex() === $index) {
+                    <i class="bi bi-check2" aria-hidden="true"></i>
+                  } @else {
+                    <i class="bi bi-copy" aria-hidden="true"></i>
+                  }
+                </button>
+              </div>
+            </td>
+            <td class="site-intro__td site-intro__td--desc">{{ row.description }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>

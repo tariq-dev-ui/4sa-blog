@@ -67,6 +67,8 @@
     "searchPlaceholder": "Search store, description, or code…",
     "searchAria": "Search stores",
     "sidebarNavAria": "Store categories",
+    "categoriesEyebrow": "Explore",
+    "categoriesHeadline": "Pick a category",
     "catAll": "All categories",
     "catFashion": "Fashion",
     "catRestaurants": "Restaurants",
@@ -78,7 +80,11 @@
     "catFlowers": "Flowers",
     "catAbayas": "Abayas",
     "catFurniture": "Furniture",
-    "catPets": "Pets"
+    "catPets": "Pets",
+    "paginationAria": "Store list pagination",
+    "paginationPrev": "Previous page",
+    "paginationNext": "Next page",
+    "paginationPage": "Page {{page}}"
   },
   "stores": {
     "title": "Stores",

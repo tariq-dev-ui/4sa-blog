@@ -67,6 +67,8 @@
     "searchPlaceholder": "ابحث عن متجر، وصف، أو كود…",
     "searchAria": "البحث في المتاجر",
     "sidebarNavAria": "فئات المتاجر",
+    "categoriesEyebrow": "استكشف",
+    "categoriesHeadline": "اختر القسم المناسب",
     "catAll": "كل الفئات",
     "catFashion": "الأزياء",
     "catRestaurants": "مطاعم",
@@ -78,7 +80,11 @@
     "catFlowers": "ورد",
     "catAbayas": "عبايات",
     "catFurniture": "اثاث",
-    "catPets": "اليف"
+    "catPets": "اليف",
+    "paginationAria": "ترقيم صفحات المتاجر",
+    "paginationPrev": "الصفحة السابقة",
+    "paginationNext": "الصفحة التالية",
+    "paginationPage": "الصفحة {{page}}"
   },
   "stores": {
     "title": "المتاجر",

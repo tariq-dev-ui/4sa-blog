@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  computed,
+  effect,
+  signal,
+  untracked,
+} from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Banner } from '../../../layout/banner/banner';
 import { Breadcrumb } from '../../../shared/breadcrumb/breadcrumb';
@@ -62,6 +70,36 @@ const STORES_PAGE_DATA: StorePageItem[] = [
   { id: '19', storeName: 'بيت الحيوان', code: 'PET20', description: 'مستلزمات الحيوانات الأليفة', logoUrl: STORE_LOGOS[2], storeUrl: '#', couponCount: 3, discountLabel: '20%', category: 'pets' },
 ];
 
+/** أرقام الصفحات مع نقاط عند وجود فجوات — مثل 1، 2، 3، …، 17 */
+function buildStorePagination(
+  current: number,
+  total: number
+): (number | 'ellipsis')[] {
+  if (total <= 0) return [];
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  const pages = new Set<number>([
+    1,
+    total,
+    current,
+    current - 1,
+    current + 1,
+  ]);
+  for (const p of [...pages]) {
+    if (p < 1 || p > total) pages.delete(p);
+  }
+  const sorted = [...pages].sort((a, b) => a - b);
+  const out: (number | 'ellipsis')[] = [];
+  for (let i = 0; i < sorted.length; i++) {
+    if (i > 0 && sorted[i] - sorted[i - 1] > 1) {
+      out.push('ellipsis');
+    }
+    out.push(sorted[i]);
+  }
+  return out;
+}
+
 export type StoreSortBy = 'popular' | 'newest' | 'az';
 
 @Component({
@@ -73,6 +111,32 @@ export type StoreSortBy = 'popular' | 'newest' | 'az';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Stores implements OnDestroy {
+  /** عدد البطاقات لكل صفحة */
+  readonly pageSize = 6;
+
+  /** عدد المتاجر لكل فئة (من الكatalog الكامل، بلا بحث) */
+  readonly categoryCounts = computed(() => {
+    const data = this.storesData();
+    const counts: Record<StoreCategoryId, number> = {
+      all: data.length,
+      fashion: 0,
+      restaurants: 0,
+      electronics: 0,
+      delivery: 0,
+      beauty: 0,
+      kids: 0,
+      perfumes: 0,
+      flowers: 0,
+      abayas: 0,
+      furniture: 0,
+      pets: 0,
+    };
+    for (const s of data) {
+      counts[s.category] = (counts[s.category] ?? 0) + 1;
+    }
+    return counts;
+  });
+
   readonly categoryNavItems: StoreCategoryNavItem[] = [
     { id: 'all', icon: 'bi-grid-3x3-gap', labelKey: 'storesPage.catAll' },
     { id: 'fashion', icon: 'bi-bag-heart', labelKey: 'storesPage.catFashion' },
@@ -98,8 +162,21 @@ export class Stores implements OnDestroy {
   readonly sortDropdownOpen = signal(false);
   readonly searchQuery = signal('');
   readonly selectedCategory = signal<StoreCategoryId>('all');
+  readonly currentPage = signal(1);
   readonly copiedId = signal<string | null>(null);
   private copyResetTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  constructor() {
+    effect(() => {
+      this.stores();
+      untracked(() => {
+        const tp = this.totalPages();
+        if (this.currentPage() > tp) {
+          this.currentPage.set(tp);
+        }
+      });
+    });
+  }
 
   readonly stores = computed(() => {
     const q = this.searchQuery().trim().toLowerCase();
@@ -125,18 +202,56 @@ export class Stores implements OnDestroy {
 
   readonly storeCount = computed(() => this.stores().length);
 
+  readonly totalPages = computed(() => {
+    const n = this.stores().length;
+    if (n === 0) return 1;
+    return Math.max(1, Math.ceil(n / this.pageSize));
+  });
+
+  readonly paginatedStores = computed(() => {
+    const list = this.stores();
+    const tp = this.totalPages();
+    const p = Math.min(Math.max(1, this.currentPage()), tp);
+    const start = (p - 1) * this.pageSize;
+    return list.slice(start, start + this.pageSize);
+  });
+
+  readonly paginationItems = computed(() =>
+    buildStorePagination(
+      Math.min(Math.max(1, this.currentPage()), this.totalPages()),
+      this.totalPages()
+    )
+  );
+
   onSearchInput(event: Event): void {
     const el = event.target as HTMLInputElement;
     this.searchQuery.set(el.value);
+    this.currentPage.set(1);
   }
 
   setCategory(id: StoreCategoryId): void {
     this.selectedCategory.set(id);
+    this.currentPage.set(1);
   }
 
   setSort(value: StoreSortBy): void {
     this.sortBy.set(value);
     this.sortDropdownOpen.set(false);
+    this.currentPage.set(1);
+  }
+
+  goToPage(page: number): void {
+    const tp = this.totalPages();
+    this.currentPage.set(Math.min(Math.max(1, page), tp));
+  }
+
+  paginationPrev(): void {
+    this.currentPage.update((p) => Math.max(1, p - 1));
+  }
+
+  paginationNext(): void {
+    const tp = this.totalPages();
+    this.currentPage.update((p) => Math.min(tp, p + 1));
   }
 
   toggleSortDropdown(): void {

@@ -69,24 +69,65 @@
   min-width: 0;
 }
 
-/* شريط فئات عمودي — إطار أبيض، أيقونة يمين النص، شريط نشط على الحافة (inline-start = يمين في RTL) */
+/* فئات المتاجر — بطاقة لاصقة، رأس بصري، صفوف بأيقونة مربعة وشارة عدد */
 .stores-cats-nav {
-  flex: 0 0 15.75rem;
+  --cats-nav-pad: 0.65rem;
+  flex: 0 0 17.25rem;
   max-width: 100%;
-  background: var(--color-primary-contrast);
-  border: 1px solid rgba(var(--color-primary-rgb), 0.14);
-  border-radius: 12px;
+  align-self: flex-start;
+  position: sticky;
+  top: 0.75rem;
+  z-index: 2;
   box-sizing: border-box;
-  padding: 0.4rem 0;
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(
+    160deg,
+    rgba(var(--color-primary-rgb), 0.07) 0%,
+    var(--color-primary-contrast) 38%,
+    var(--color-primary-contrast) 100%
+  );
+  border: 1px solid rgba(var(--color-primary-rgb), 0.12);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 12px 28px -18px rgba(0, 0, 0, 0.12);
+}
+
+.stores-cats-nav__head {
+  padding: 0.85rem var(--cats-nav-pad) 0.65rem;
+  border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.1);
+  background: rgba(var(--color-primary-rgb), 0.03);
+}
+
+.stores-cats-nav__eyebrow {
+  margin: 0 0 0.2rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  opacity: 0.75;
+  font-family: var(--font-family-heading);
+}
+
+.stores-cats-nav__headline {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--text-primary, var(--color-dark));
+  letter-spacing: -0.02em;
 }
 
 .stores-cats-nav__list {
   list-style: none;
   margin: 0;
-  padding: 0.2rem 0;
+  padding: var(--cats-nav-pad);
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 0.35rem;
 }
 
 .stores-cats-nav__item {
@@ -98,46 +139,121 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.6rem;
   width: 100%;
-  padding: 0.55rem 0.85rem 0.55rem 0.65rem;
+  padding: 0.45rem 0.45rem 0.45rem 0.4rem;
   margin: 0;
-  border: none;
-  border-inline-start: 4px solid transparent;
-  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
   font-family: var(--font-family-heading);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-primary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-primary, var(--color-dark));
   text-align: start;
   cursor: pointer;
-  border-radius: 0;
   box-sizing: border-box;
-  transition: background 0.15s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
-.stores-cats-nav__btn:hover {
-  background: rgba(var(--color-primary-rgb), 0.06);
+.stores-cats-nav__btn:hover:not(.stores-cats-nav__btn--active) {
+  background: rgba(var(--color-primary-rgb), 0.07);
+  border-color: rgba(var(--color-primary-rgb), 0.12);
+}
+
+.stores-cats-nav__btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .stores-cats-nav__btn--active {
-  background: rgba(var(--color-primary-rgb), 0.09);
-  border-inline-start-color: var(--color-primary);
+  background: linear-gradient(
+    120deg,
+    rgba(var(--color-primary-rgb), 0.2) 0%,
+    rgba(var(--color-primary-rgb), 0.08) 100%
+  );
+  border-color: rgba(var(--color-primary-rgb), 0.22);
+  color: var(--color-primary);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    0 6px 16px -8px rgba(var(--color-primary-rgb), 0.45);
+}
+
+.stores-cats-nav__icon-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 10px;
+  background: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stores-cats-nav__btn:hover:not(:disabled) .stores-cats-nav__icon-wrap {
+  transform: scale(1.04);
+}
+
+.stores-cats-nav__btn--active .stores-cats-nav__icon-wrap {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.32);
 }
 
 .stores-cats-nav__icon {
-  flex-shrink: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1;
-  width: 1.35rem;
-  text-align: center;
-  opacity: 0.95;
+}
+
+.stores-cats-nav__mid {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.1rem;
 }
 
 .stores-cats-nav__label {
-  flex: 1;
-  min-width: 0;
   line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stores-cats-nav__badge {
+  flex-shrink: 0;
+  min-width: 1.5rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  background: rgba(var(--color-primary-rgb), 0.12);
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.stores-cats-nav__btn--active .stores-cats-nav__badge {
+  background: rgba(var(--color-primary-rgb), 0.22);
+  color: var(--color-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stores-cats-nav__btn,
+  .stores-cats-nav__icon-wrap {
+    transition: none;
+  }
+
+  .stores-cats-nav__btn:hover:not(:disabled) .stores-cats-nav__icon-wrap {
+    transform: none;
+  }
 }
 
 /* في LTR نضع السايدبار بصرياً على اليمين مثل مرجع التصميم */
@@ -158,31 +274,56 @@
   .stores-cats-nav {
     flex: none;
     width: 100%;
+    position: relative;
+    top: auto;
+    z-index: auto;
   }
 
   .stores-cats-nav__list {
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    padding: 0.35rem 0.45rem;
+    flex-wrap: nowrap;
+    gap: 0.45rem;
+    padding: var(--cats-nav-pad);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--cats-nav-pad);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
   }
 
   .stores-cats-nav__item {
-    flex: 1 1 auto;
-    min-width: calc(50% - 0.25rem);
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-width: 5.75rem;
+    max-width: 7.5rem;
   }
 
   .stores-cats-nav__btn {
-    padding: 0.5rem 0.65rem;
-    border-inline-start: none;
-    border-block-end: 3px solid transparent;
-    border-radius: 8px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 5.5rem;
+    padding: 0.55rem 0.4rem;
+    gap: 0.4rem;
   }
 
-  .stores-cats-nav__btn--active {
-    border-inline-start-color: transparent;
-    border-block-end-color: var(--color-primary);
-    background: rgba(var(--color-primary-rgb), 0.09);
+  .stores-cats-nav__mid {
+    align-items: center;
+  }
+
+  .stores-cats-nav__label {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 0.75rem;
+  }
+
+  .stores-cats-nav__badge {
+    font-size: 0.6rem;
+    min-width: 1.35rem;
   }
 }
 
@@ -355,6 +496,146 @@
   padding: 0;
   margin: 0;
   min-width: 0;
+}
+
+/* ترقيم صفحات — أسلوب رسمي مسطح: مستطيلات، أيقونات أسهم، بلا ظلال ولا انتقالات */
+.stores-pagination {
+  margin-top: 1.75rem;
+  width: 100%;
+  border-top: 1px solid rgba(var(--color-primary-rgb), 0.12);
+  padding-top: 1.1rem;
+  box-sizing: border-box;
+}
+
+.stores-pagination__inner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.stores-pagination__list {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.18);
+  border-radius: 2px;
+  background: var(--color-primary-contrast);
+  overflow: hidden;
+}
+
+.stores-pagination__item {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.stores-pagination__item + .stores-pagination__item {
+  border-inline-start: 1px solid rgba(var(--color-primary-rgb), 0.14);
+}
+
+.stores-pagination__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.35rem;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: var(--color-primary-contrast);
+  font-family: var(--font-family-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary, var(--color-dark));
+  cursor: pointer;
+  box-sizing: border-box;
+  line-height: 1;
+}
+
+.stores-pagination__btn:hover:not(:disabled):not(.stores-pagination__btn--active) {
+  background: rgba(var(--color-primary-rgb), 0.05);
+}
+
+.stores-pagination__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.stores-pagination__btn--active {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+.stores-pagination__btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.stores-pagination__btn--arrow {
+  min-width: 2.5rem;
+  padding: 0 0.5rem;
+  color: var(--color-primary);
+}
+
+.stores-pagination__chev-pair {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+}
+
+.stores-pagination__chev {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  font-size: 1rem;
+  line-height: 1;
+  width: 1em;
+  height: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stores-pagination__chev--ltr {
+  display: none;
+}
+
+:host-context([dir="ltr"]) .stores-pagination__chev--rtl {
+  display: none;
+}
+
+:host-context([dir="ltr"]) .stores-pagination__chev--ltr {
+  display: flex;
+}
+
+.stores-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.25rem;
+  font-family: var(--font-family-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-primary, var(--color-dark));
+  opacity: 0.55;
+  user-select: none;
 }
 
 /* بطاقة متجر — مطابقة لـ stores-strip، تبقى داخل الشبكة */

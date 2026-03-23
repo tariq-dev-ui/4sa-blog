@@ -23,6 +23,10 @@
         class="stores-cats-nav"
         [attr.aria-label]="'storesPage.sidebarNavAria' | translate"
       >
+        <header class="stores-cats-nav__head">
+          <p class="stores-cats-nav__eyebrow">{{ 'storesPage.categoriesEyebrow' | translate }}</p>
+          <p class="stores-cats-nav__headline">{{ 'storesPage.categoriesHeadline' | translate }}</p>
+        </header>
         <ul class="stores-cats-nav__list" role="list">
           @for (cat of categoryNavItems; track cat.id) {
             <li class="stores-cats-nav__item" role="none">
@@ -33,8 +37,13 @@
                 (click)="setCategory(cat.id)"
                 [attr.aria-current]="selectedCategory() === cat.id ? 'page' : null"
               >
-                <i [class]="'bi ' + cat.icon + ' stores-cats-nav__icon'" aria-hidden="true"></i>
-                <span class="stores-cats-nav__label">{{ cat.labelKey | translate }}</span>
+                <span class="stores-cats-nav__icon-wrap">
+                  <i [class]="'bi ' + cat.icon + ' stores-cats-nav__icon'" aria-hidden="true"></i>
+                </span>
+                <span class="stores-cats-nav__mid">
+                  <span class="stores-cats-nav__label">{{ cat.labelKey | translate }}</span>
+                </span>
+                <span class="stores-cats-nav__badge" aria-hidden="true">{{ categoryCounts()[cat.id] }}</span>
               </button>
             </li>
           }
@@ -94,7 +103,7 @@
         </div>
       </div>
       <div class="stores-page__grid" role="list">
-        @for (store of stores(); track store.id) {
+        @for (store of paginatedStores(); track store.id) {
           <article class="store-card" role="listitem">
             <div class="store-card-inner">
               <div class="store-card-logo">
@@ -132,6 +141,63 @@
           </article>
         }
       </div>
+      @if (totalPages() > 1) {
+        <nav
+          class="stores-pagination"
+          [attr.aria-label]="'storesPage.paginationAria' | translate"
+        >
+          <div class="stores-pagination__inner">
+          <ul class="stores-pagination__list" role="list">
+            <li class="stores-pagination__item" role="none">
+              <button
+                type="button"
+                class="stores-pagination__btn stores-pagination__btn--arrow"
+                (click)="paginationPrev()"
+                [disabled]="currentPage() <= 1"
+                [attr.aria-label]="'storesPage.paginationPrev' | translate"
+              >
+                <span class="stores-pagination__chev-pair" aria-hidden="true">
+                  <i class="bi bi-chevron-right stores-pagination__chev stores-pagination__chev--rtl"></i>
+                  <i class="bi bi-chevron-left stores-pagination__chev stores-pagination__chev--ltr"></i>
+                </span>
+              </button>
+            </li>
+            @for (item of paginationItems(); track $index) {
+              <li class="stores-pagination__item" role="none">
+                @if (item === 'ellipsis') {
+                  <span class="stores-pagination__ellipsis" aria-hidden="true">...</span>
+                } @else {
+                  <button
+                    type="button"
+                    class="stores-pagination__btn"
+                    [class.stores-pagination__btn--active]="currentPage() === item"
+                    (click)="goToPage(item)"
+                    [attr.aria-label]="'storesPage.paginationPage' | translate : { page: item }"
+                    [attr.aria-current]="currentPage() === item ? 'page' : null"
+                  >
+                    {{ item }}
+                  </button>
+                }
+              </li>
+            }
+            <li class="stores-pagination__item" role="none">
+              <button
+                type="button"
+                class="stores-pagination__btn stores-pagination__btn--arrow"
+                (click)="paginationNext()"
+                [disabled]="currentPage() >= totalPages()"
+                [attr.aria-label]="'storesPage.paginationNext' | translate"
+              >
+                <span class="stores-pagination__chev-pair" aria-hidden="true">
+                  <i class="bi bi-chevron-left stores-pagination__chev stores-pagination__chev--rtl"></i>
+                  <i class="bi bi-chevron-right stores-pagination__chev stores-pagination__chev--ltr"></i>
+                </span>
+              </button>
+            </li>
+          </ul>
+          </div>
+        </nav>
+      }
       </div>
     </section>
   </article>

@@ -65,7 +65,20 @@
     "sortAria": "ترتيب المتاجر",
     "couponCountAria": "{{count}} كود خصم",
     "searchPlaceholder": "ابحث عن متجر، وصف، أو كود…",
-    "searchAria": "البحث في المتاجر"
+    "searchAria": "البحث في المتاجر",
+    "sidebarNavAria": "فئات المتاجر",
+    "catAll": "كل الفئات",
+    "catFashion": "الأزياء",
+    "catRestaurants": "مطاعم",
+    "catElectronics": "الإلكترونيات",
+    "catDelivery": "توصيل",
+    "catBeauty": "جمال",
+    "catKids": "اطفال",
+    "catPerfumes": "عطور",
+    "catFlowers": "ورد",
+    "catAbayas": "عبايات",
+    "catFurniture": "اثاث",
+    "catPets": "اليف"
   },
   "stores": {
     "title": "المتاجر",

@@ -65,7 +65,20 @@
     "sortAria": "Sort stores",
     "couponCountAria": "{{count}} coupon(s)",
     "searchPlaceholder": "Search store, description, or code…",
-    "searchAria": "Search stores"
+    "searchAria": "Search stores",
+    "sidebarNavAria": "Store categories",
+    "catAll": "All categories",
+    "catFashion": "Fashion",
+    "catRestaurants": "Restaurants",
+    "catElectronics": "Electronics",
+    "catDelivery": "Delivery",
+    "catBeauty": "Beauty",
+    "catKids": "Kids",
+    "catPerfumes": "Perfumes",
+    "catFlowers": "Flowers",
+    "catAbayas": "Abayas",
+    "catFurniture": "Furniture",
+    "catPets": "Pets"
   },
   "stores": {
     "title": "Stores",

@@ -33,11 +33,6 @@
   max-width: 100%;
 }
 
-/* صفحة المتاجر: بنر بعرض الشاشة دون هوامش من padding الرئيسي */
-.main-wrap--full:has(app-stores) {
-  padding-inline: 0;
-}
-
 main {
   min-width: 0;
   padding: 0;

@@ -9,18 +9,7 @@
       <div class="stores-page__hero-breadcrumb">
         <app-breadcrumb [items]="breadcrumbItems" ariaLabelKey="storesPage.breadcrumbAria" />
       </div>
-      <div class="stores-page__hero-banner">
-        <img
-          class="stores-page__hero-banner-img"
-          [src]="heroBannerSrc"
-          alt=""
-          width="858"
-          height="252"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-        />
-      </div>
+      <app-banner />
       <h1 id="stores-page-title" class="stores-page__sr-only">
         {{ 'storesPage.title' | translate }}
       </h1>
@@ -30,6 +19,28 @@
     </header>
 
     <section class="stores-page__section">
+      <nav
+        class="stores-cats-nav"
+        [attr.aria-label]="'storesPage.sidebarNavAria' | translate"
+      >
+        <ul class="stores-cats-nav__list" role="list">
+          @for (cat of categoryNavItems; track cat.id) {
+            <li class="stores-cats-nav__item" role="none">
+              <button
+                type="button"
+                class="stores-cats-nav__btn"
+                [class.stores-cats-nav__btn--active]="selectedCategory() === cat.id"
+                (click)="setCategory(cat.id)"
+                [attr.aria-current]="selectedCategory() === cat.id ? 'page' : null"
+              >
+                <i [class]="'bi ' + cat.icon + ' stores-cats-nav__icon'" aria-hidden="true"></i>
+                <span class="stores-cats-nav__label">{{ cat.labelKey | translate }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+      </nav>
+      <div class="stores-page__section-body">
       <div class="stores-page__bar">
         <div class="stores-page__count-box">
           <span>{{ 'storesPage.storesCount' | translate : { count: storeCount() } }}</span>
@@ -120,6 +131,7 @@
             </div>
           </article>
         }
+      </div>
       </div>
     </section>
   </article>

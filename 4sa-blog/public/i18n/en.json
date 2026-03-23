@@ -134,6 +134,42 @@
     "visitStore": "Visit store",
     "visitStoreAria": "Visit {{name}}"
   },
+  "storeDetail": {
+    "page": {
+      "siteTitleSuffix": "4SA",
+      "breadcrumbAria": "Breadcrumb — store page",
+      "galleryTitle": "Store & offer images",
+      "galleryAlt": "{{name}} — image {{num}}",
+      "aboutTitle": "About the store",
+      "heroCodesTitle": "Store discount codes",
+      "goToStoreShort": "Go to store",
+      "couponTileAria": "Coupon {{code}}, {{discount}} off",
+      "couponPaginationAria": "Discount codes pagination",
+      "couponsTitle": "Copyable promo codes",
+      "visitStoreNow": "Shop now",
+      "openOfficialSite": "Official website",
+      "visitStoreFooter": "Go to store and apply discount",
+      "shopDeals": "Browse current deals",
+      "notFoundTitle": "Store not found",
+      "notFoundDesc": "There is no page for this link. You can return to the store directory.",
+      "notFoundBreadcrumb": "Not found",
+      "backToStores": "All stores"
+    },
+    "iherb": {
+      "title": "iHerb — coupons, vitamins & supplements",
+      "subtitle": "Shop supplements, herbs, beauty and sports nutrition with reliable shipping and fresh deals.",
+      "p1": "iHerb is one of the best-known global marketplaces for vitamins, herbs, beauty and sports products. Thousands of trusted brands, clear ingredient information and user reviews make it easier to pick products for you and your family.",
+      "p2": "iHerb runs regular promotions, loyalty perks and discounts on first orders or when your cart hits a minimum. On 4SA we list up-to-date codes with simple usage notes so you know what to expect at checkout.",
+      "p3": "Shipping to Saudi Arabia and the region depends on weight, carrier and destination. Always check the official shipping and customs information before you pay, especially for large supplement orders.",
+      "p4": "Whether you need vitamin D, omega-3, probiotics or hair and skin care, filters help you narrow by diet, allergies or preferences (e.g. gelatin-free). Always read dosage instructions and warnings on the product page.",
+      "p5": "Apply the codes below at checkout on the official site. If a code fails, it may be expired or not valid for your cart—try another or check back here for updates.",
+      "coupon1": "Discount on eligible orders — new and returning users",
+      "coupon2": "Extra off first order or minimum spend",
+      "coupon3": "Health & fitness — selected products",
+      "coupon4": "Seasonal code — Ramadan and campaigns",
+      "coupon5": "Vitamins & supplements — selected lines"
+    }
+  },
   "sections": {
     "title": "Sections",
     "prev": "Previous sections",

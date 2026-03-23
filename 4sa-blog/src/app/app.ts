@@ -36,7 +36,10 @@ export class App implements OnInit {
   private updateStandalone(): void {
     const url = this.router.url.split('?')[0];
     this.isStandaloneRoute.set(
-      url.startsWith('/blog') || url === '/stores' || url === '/offers',
+      url.startsWith('/blog') ||
+        url === '/stores' ||
+        url.startsWith('/stores/') ||
+        url === '/offers',
     );
   }
 

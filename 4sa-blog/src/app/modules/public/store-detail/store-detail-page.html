@@ -1,0 +1,202 @@
+<div class="stores-layout">
+  @if (store(); as s) {
+    <article
+      class="store-detail"
+      role="main"
+      aria-labelledby="store-detail-title"
+      aria-describedby="store-detail-desc"
+    >
+      <header class="store-detail__hero">
+        <div class="store-detail__hero-breadcrumb">
+          <app-breadcrumb [items]="breadcrumbItems()" ariaLabelKey="storeDetail.page.breadcrumbAria" />
+        </div>
+        <app-banner />
+
+        <section
+          class="store-detail__promo-card"
+          aria-labelledby="store-detail-promo-title"
+        >
+          <div class="store-detail__promo-head">
+            <h2 id="store-detail-promo-title" class="store-detail__promo-head-title">
+              {{ 'storeDetail.page.heroCodesTitle' | translate }}
+            </h2>
+            <span class="store-detail__promo-head-line" aria-hidden="true"></span>
+            <a
+              [href]="s.storeUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="store-detail__promo-store-link"
+              [attr.aria-label]="
+                'stores.visitStoreAria' | translate : { name: (s.titleKey | translate) }
+              "
+            >
+              {{ 'storeDetail.page.goToStoreShort' | translate }}
+              <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <div class="store-detail__promo-list" role="list">
+            @for (c of paginatedCoupons(); track c.code) {
+              <div
+                class="store-detail__promo-tile"
+                role="listitem"
+                [attr.aria-label]="
+                  'storeDetail.page.couponTileAria'
+                    | translate : { code: c.code, discount: c.discount }
+                "
+              >
+                <div class="store-detail__promo-tile-main">
+                  <span class="store-detail__promo-code">{{ c.code }}</span>
+                  <span class="store-detail__promo-discount" aria-hidden="true">{{ c.discount }}</span>
+                </div>
+                <button
+                  type="button"
+                  class="store-detail__promo-copy"
+                  [class.store-detail__promo-copy--copied]="copiedCodeId() === c.code"
+                  (click)="onCopyCode(c.code, c.code)"
+                  [attr.aria-label]="
+                    (copiedCodeId() === c.code ? 'stores.copied' : 'stores.copyCode') | translate
+                  "
+                >
+                  @if (copiedCodeId() === c.code) {
+                    <i class="bi bi-check-lg" aria-hidden="true"></i>
+                  } @else {
+                    <i class="bi bi-clipboard" aria-hidden="true"></i>
+                  }
+                </button>
+              </div>
+            }
+          </div>
+
+          @if (couponTotalPages() > 1) {
+            <nav
+              class="stores-pagination store-detail__promo-pagination"
+              [attr.aria-label]="'storeDetail.page.couponPaginationAria' | translate"
+            >
+              <div class="stores-pagination__inner">
+                <ul class="stores-pagination__list" role="list">
+                  <li class="stores-pagination__item" role="none">
+                    <button
+                      type="button"
+                      class="stores-pagination__btn stores-pagination__btn--arrow"
+                      (click)="couponPaginationPrev()"
+                      [disabled]="currentCouponPage() <= 1"
+                      [attr.aria-label]="'storesPage.paginationPrev' | translate"
+                    >
+                      <span class="stores-pagination__chev-pair" aria-hidden="true">
+                        <i class="bi bi-chevron-right stores-pagination__chev stores-pagination__chev--rtl"></i>
+                        <i class="bi bi-chevron-left stores-pagination__chev stores-pagination__chev--ltr"></i>
+                      </span>
+                    </button>
+                  </li>
+                  @for (item of couponPaginationItems(); track $index) {
+                    <li class="stores-pagination__item" role="none">
+                      @if (item === 'ellipsis') {
+                        <span class="stores-pagination__ellipsis" aria-hidden="true">...</span>
+                      } @else {
+                        <button
+                          type="button"
+                          class="stores-pagination__btn"
+                          [class.stores-pagination__btn--active]="currentCouponPage() === item"
+                          (click)="goToCouponPage(item)"
+                          [attr.aria-label]="'storesPage.paginationPage' | translate : { page: item }"
+                          [attr.aria-current]="currentCouponPage() === item ? 'page' : null"
+                        >
+                          {{ item }}
+                        </button>
+                      }
+                    </li>
+                  }
+                  <li class="stores-pagination__item" role="none">
+                    <button
+                      type="button"
+                      class="stores-pagination__btn stores-pagination__btn--arrow"
+                      (click)="couponPaginationNext()"
+                      [disabled]="currentCouponPage() >= couponTotalPages()"
+                      [attr.aria-label]="'storesPage.paginationNext' | translate"
+                    >
+                      <span class="stores-pagination__chev-pair" aria-hidden="true">
+                        <i class="bi bi-chevron-left stores-pagination__chev stores-pagination__chev--rtl"></i>
+                        <i class="bi bi-chevron-right stores-pagination__chev stores-pagination__chev--ltr"></i>
+                      </span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          }
+        </section>
+
+        <h1 id="store-detail-title" class="store-detail__sr-only">{{ s.titleKey | translate }}</h1>
+        <p id="store-detail-desc" class="store-detail__sr-only">{{ s.subtitleKey | translate }}</p>
+      </header>
+
+      <div class="store-detail__inner">
+        <section class="store-detail__section" [attr.aria-labelledby]="'store-detail-gallery-title'">
+          <h2 id="store-detail-gallery-title" class="store-detail__section-title">
+            {{ 'storeDetail.page.galleryTitle' | translate }}
+          </h2>
+          <div class="store-detail__gallery" role="list">
+            @for (src of s.galleryImageUrls; track src; let i = $index) {
+              <figure class="store-detail__gallery-item" role="listitem">
+                <img
+                  [src]="src"
+                  [alt]="
+                    'storeDetail.page.galleryAlt'
+                      | translate : { name: (s.titleKey | translate), num: i + 1 }
+                  "
+                  class="store-detail__gallery-img"
+                  loading="lazy"
+                />
+              </figure>
+            }
+          </div>
+        </section>
+
+        <section class="store-detail__section store-detail__section--prose" [attr.aria-labelledby]="'store-detail-about-title'">
+          <h2 id="store-detail-about-title" class="store-detail__section-title">
+            {{ 'storeDetail.page.aboutTitle' | translate }}
+          </h2>
+          <div class="store-detail__prose">
+            @for (key of s.paragraphKeys; track key) {
+              <p class="store-detail__para">{{ key | translate }}</p>
+            }
+          </div>
+        </section>
+
+        <footer class="store-detail__footer-ctas">
+          <a
+            [href]="s.storeUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="store-detail__btn store-detail__btn--primary store-detail__btn--block"
+          >
+            {{ 'storeDetail.page.visitStoreFooter' | translate }}
+            <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+          </a>
+          <a
+            [href]="s.storeUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="store-detail__btn store-detail__btn--outline store-detail__btn--block"
+          >
+            {{ 'storeDetail.page.shopDeals' | translate }}
+          </a>
+        </footer>
+      </div>
+    </article>
+  } @else {
+    <article class="store-detail store-detail--not-found" role="main">
+      <div class="store-detail__hero-breadcrumb store-detail__hero-breadcrumb--simple">
+        <app-breadcrumb [items]="notFoundBreadcrumb" ariaLabelKey="storeDetail.page.breadcrumbAria" />
+      </div>
+      <div class="store-detail__inner store-detail__not-found-inner">
+        <h1 class="store-detail__not-found-title">{{ 'storeDetail.page.notFoundTitle' | translate }}</h1>
+        <p class="store-detail__not-found-desc">{{ 'storeDetail.page.notFoundDesc' | translate }}</p>
+        <a routerLink="/stores" class="store-detail__btn store-detail__btn--primary">
+          {{ 'storeDetail.page.backToStores' | translate }}
+        </a>
+      </div>
+    </article>
+  }
+</div>

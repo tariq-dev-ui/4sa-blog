@@ -7,12 +7,16 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 
 export interface FeaturedStore {
   id: string;
   name: string;
   imageUrl: string;
+  /** رابط المتجر الخارجي (للأزرار التي تفتح الموقع) */
   url: string;
+  /** إن وُجد، يوجّه «الاطلاع على الكوبونات» إلى صفحة المتجر داخل الموقع */
+  detailSlug?: string;
   couponsCount: number;
   offersCount: number;
 }
@@ -34,7 +38,7 @@ const AUTO_SCROLL_INTERVAL_MS = 4000;
 @Component({
   selector: 'app-major-stores-section',
   standalone: true,
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, RouterLink],
   templateUrl: './major-stores-section.html',
   styleUrl: './major-stores-section.scss',
 })
@@ -49,6 +53,7 @@ export class MajorStoresSection implements AfterViewInit, OnDestroy {
     name: 'اي هيرب',
     imageUrl: '/img/صورة البنر الرئيسي.jpeg',
     url: 'https://www.iherb.com',
+    detailSlug: 'iherb',
     couponsCount: 7,
     offersCount: 0,
   });

@@ -51,10 +51,27 @@
         <div class="featured-store__stats-box">
           {{ featuredStore().couponsCount }} {{ 'majorStores.coupons' | translate }} | {{ featuredStore().offersCount }} {{ 'majorStores.offersAvailable' | translate }}
         </div>
-        <a [href]="featuredStore().url" target="_blank" rel="noopener noreferrer" class="featured-store__cta">
-          {{ 'majorStores.viewCoupons' | translate }}
-          <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
-        </a>
+        @if (featuredStore().detailSlug) {
+          <a
+            [routerLink]="['/stores', featuredStore().detailSlug!]"
+            class="featured-store__cta"
+            [attr.aria-label]="'majorStores.viewCouponsAria' | translate : { name: featuredStore().name }"
+          >
+            {{ 'majorStores.viewCoupons' | translate }}
+            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+          </a>
+        } @else {
+          <a
+            [href]="featuredStore().url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="featured-store__cta"
+            [attr.aria-label]="'majorStores.viewCouponsAria' | translate : { name: featuredStore().name }"
+          >
+            {{ 'majorStores.viewCoupons' | translate }}
+            <i class="bi bi-box-arrow-up-left" aria-hidden="true"></i>
+          </a>
+        }
       </div>
     </article>
 

@@ -1,16 +1,9 @@
 import { DecimalPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
-interface FooterArticle {
-  slug: string;
-  titleKey: string;
-  categoryKey: string;
-  imageUrl?: string;
-}
-
 interface FooterReview {
+  id: string;
   name: string;
   date: string;
   quote: string;
@@ -19,30 +12,26 @@ interface FooterReview {
 
 @Component({
   selector: 'app-footer',
-  imports: [DecimalPipe, RouterLink, TranslatePipe],
+  imports: [DecimalPipe, TranslatePipe],
   templateUrl: './footer.html',
   styleUrl: './footer.scss',
 })
 export class Footer {
   readonly currentYear = new Date().getFullYear();
 
-  readonly appStoreUrl = '#';
-  readonly playStoreUrl = '#';
-  readonly giftBotUrl = '#';
-  readonly chromeExtensionUrl = '#';
-
-  readonly footerArticles: FooterArticle[] = [
-    { slug: 'sephora-2025', titleKey: 'sidebar.article1Title', categoryKey: 'sidebar.catBeauty', imageUrl: '/img/بنر رئيسي.jpeg' },
-    { slug: 'top-travel-countries', titleKey: 'sidebar.article2Title', categoryKey: 'sidebar.catTravel', imageUrl: '/img/بنر صغير بجوار البنر.png' },
-    { slug: 'thermal-pajama', titleKey: 'sidebar.article3Title', categoryKey: 'sidebar.catFashion', imageUrl: '/img/صورة البنر الرئيسي.jpeg' },
-    { slug: 'bath-body-2025', titleKey: 'sidebar.article4Title', categoryKey: 'sidebar.catBeauty', imageUrl: '/img/بنر الرئيسي.png' },
-  ];
-
   readonly reviews: FooterReview[] = [
-    { name: 'Gg Hh', date: '21-01-2026', quote: 'sidebar.review1' },
-    { name: 'السر الامين', date: '05-01-2026', quote: 'sidebar.review2' },
-    { name: 'Mohamed Sharif', date: '04-01-2026', quote: 'sidebar.review3' },
-    { name: 'خالد العطوي', date: '25-12-2025', quote: 'sidebar.review4' },
+    { id: 'r1', name: 'Gg Hh', date: '21-01-2026', quote: 'sidebar.review1' },
+    { id: 'r2', name: 'السر الامين', date: '05-01-2026', quote: 'sidebar.review2' },
+    { id: 'r3', name: 'Mohamed Sharif', date: '04-01-2026', quote: 'sidebar.review3' },
+    { id: 'r4', name: 'خالد العطوي', date: '25-12-2025', quote: 'sidebar.review4' },
+    { id: 'r5', name: 'نورة س.', date: '18-01-2026', quote: 'sidebar.review5' },
+    { id: 'r6', name: 'Fahad M.', date: '15-01-2026', quote: 'sidebar.review6' },
+    { id: 'r7', name: 'ريم أحمد', date: '12-01-2026', quote: 'sidebar.review7' },
+    { id: 'r8', name: 'Omar K.', date: '09-01-2026', quote: 'sidebar.review8' },
+    { id: 'r9', name: 'لينا م.', date: '07-01-2026', quote: 'sidebar.review9' },
+    { id: 'r10', name: 'Sultan A.', date: '03-01-2026', quote: 'sidebar.review10' },
+    { id: 'r11', name: 'هند ف.', date: '02-01-2026', quote: 'sidebar.review3' },
+    { id: 'r12', name: 'Yasser T.', date: '30-12-2025', quote: 'sidebar.review1' },
   ];
 
   readonly stats = {

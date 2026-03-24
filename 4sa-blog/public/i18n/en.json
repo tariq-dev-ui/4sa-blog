@@ -212,7 +212,8 @@
     "countryEG": "Egypt"
   },
   "footer": {
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved.",
+    "lowerAria": "Footer: newsletter, contact, and legal"
   },
   "articles": {
     "mainTitle": "Articles & Guides",
@@ -323,16 +324,25 @@
     "article3Title": "Men's thermal pajama – style and best places to buy",
     "article4Title": "Bath & Body 2025 sales – up to 80% off select products",
     "reviewsTitle": "Real reviews from 4SA app users",
+    "reviewsSubtitle": "Verified user feedback, shown in a continuous strip for easy browsing.",
     "review1": "Great app with all the sites, I recommend everyone to get it, it really lowers prices. Thanks to whoever came up with the idea",
     "review2": "Very nice app, more progress and success",
     "review3": "One of the best discount apps, offers are clear and updates are constant. Great experience 🌟🌟🌟🌟🌟",
     "review4": "Great and worth trying, really great",
+    "review5": "Excellent experience; coupons apply easily and the UI is very clear.",
+    "review6": "Saves time and money—I check deals daily before buying.",
+    "review7": "Huge store coverage and regular updates; highly recommended.",
+    "review8": "Practical and fast; I found discounts I didn’t know existed.",
+    "review9": "Responsive support and well-organized offers.",
+    "review10": "One of the best smart-shopping experiences in Saudi Arabia.",
     "contactTitle": "4SA customer service",
     "contactDesc": "If you find a code that doesn't work, have a code to add, or want to share feedback, contact us by email or join the 4SA community!",
     "telegram": "Telegram",
     "facebook": "Facebook",
     "instagram": "Instagram",
     "email": "Email",
+    "storeFeaturesTitle": "4SA™ platform highlights",
+    "storeFeaturesSubtitle": "Verified metrics reflecting our service scope, partner network, and the savings we deliver to our users.",
     "statCodes": "Discount coupons and offers available on 4SA™.",
     "statStores": "Stores offering coupons and deals on 4SA™.",
     "statSavers": "Monthly users on 4SA™.",

@@ -1,122 +1,119 @@
 <div class="footer-shell">
   <div class="footer-surface" role="region" [attr.aria-label]="'sidebar.ariaLabel' | translate">
     <div class="footer-inner">
-      <section class="footer-stats">
-        <div class="footer-stat">
-          <span class="footer-stat-value">{{ stats.totalCodes }}</span>
-          <span class="footer-stat-label">{{ 'sidebar.statCodes' | translate }}</span>
-        </div>
-        <div class="footer-stat">
-          <span class="footer-stat-value">{{ stats.totalStores }}</span>
-          <span class="footer-stat-label">{{ 'sidebar.statStores' | translate }}</span>
-        </div>
-        <div class="footer-stat">
-          <span class="footer-stat-value">{{ stats.totalSavers | number }}</span>
-          <span class="footer-stat-label">{{ 'sidebar.statSavers' | translate }}</span>
-        </div>
-        <div class="footer-stat">
-          <span class="footer-stat-value">{{ stats.averageDiscount }}</span>
-          <span class="footer-stat-label">{{ 'sidebar.statDiscount' | translate }}</span>
-        </div>
-      </section>
-
-      <div class="footer-grid">
-        <div class="footer-col">
-          <section class="footer-card">
-            <h3 class="footer-card-title">{{ 'sidebar.appTitle' | translate }}</h3>
-            <p class="footer-card-desc">{{ 'sidebar.appDesc' | translate }}</p>
-            <div class="footer-app-links">
-              <a [href]="appStoreUrl" target="_blank" rel="noopener noreferrer" class="footer-app-link">{{ 'sidebar.appStore' | translate }}</a>
-              <a [href]="playStoreUrl" target="_blank" rel="noopener noreferrer" class="footer-app-link">{{ 'sidebar.playStore' | translate }}</a>
-            </div>
-          </section>
-          <section class="footer-card footer-card--compact">
-            <h3 class="footer-card-title">{{ 'sidebar.chromeTitle' | translate }}</h3>
-            <p class="footer-card-desc">{{ 'sidebar.chromeDesc' | translate }}</p>
-            <a [href]="chromeExtensionUrl" target="_blank" rel="noopener noreferrer" class="footer-btn footer-btn-outline">{{ 'sidebar.addToChrome' | translate }}</a>
-          </section>
-          <section class="footer-card footer-card--compact">
-            <h3 class="footer-card-title">{{ 'sidebar.giftTitle' | translate }}</h3>
-            <p class="footer-card-desc">{{ 'sidebar.giftDesc' | translate }}</p>
-            <a [href]="giftBotUrl" target="_blank" rel="noopener noreferrer" class="footer-btn footer-btn-outline">{{ 'sidebar.tryNow' | translate }}</a>
-          </section>
-        </div>
-
-        <div class="footer-col">
-          <section class="footer-card">
-            <h3 class="footer-card-title">{{ 'sidebar.moreArticles' | translate }}</h3>
-            <div class="footer-articles-list">
-              @for (art of footerArticles; track art.slug) {
-                <a [routerLink]="['/posts', art.slug]" class="footer-article-link">
-                  <span class="footer-article-cat">{{ art.categoryKey | translate }}</span>
-                  <span class="footer-article-title">{{ art.titleKey | translate }}</span>
-                </a>
-              }
-            </div>
-            <a [routerLink]="['/posts']" class="footer-link-more">{{ 'articles.viewAll' | translate }}</a>
-          </section>
-        </div>
-
-        <div class="footer-col">
-          <section class="footer-card">
-            <h3 class="footer-card-title">{{ 'sidebar.newsletterTitle' | translate }}</h3>
-            <p class="footer-card-desc">{{ 'sidebar.newsletterDesc' | translate }}</p>
-            <form class="footer-newsletter-form" (ngSubmit)="onNewsletterSubmit()">
-              <input
-                type="email"
-                class="footer-input"
-                [placeholder]="'sidebar.emailPlaceholder' | translate"
-                aria-label="{{ 'sidebar.emailPlaceholder' | translate }}"
-              />
-              <button type="submit" class="footer-btn footer-btn-primary">{{ 'sidebar.subscribe' | translate }}</button>
-            </form>
-          </section>
-          <section class="footer-card footer-card--compact">
-            <h3 class="footer-card-title">{{ 'sidebar.contactTitle' | translate }}</h3>
-            <p class="footer-card-desc">{{ 'sidebar.contactDesc' | translate }}</p>
-            <div class="footer-contact-links">
-              <a [href]="telegramUrl" target="_blank" rel="noopener noreferrer" class="footer-contact-link" [attr.aria-label]="'sidebar.telegram' | translate">
-                <i class="bi bi-telegram" aria-hidden="true"></i>
-              </a>
-              <a [href]="facebookUrl" target="_blank" rel="noopener noreferrer" class="footer-contact-link" [attr.aria-label]="'sidebar.facebook' | translate">
-                <i class="bi bi-facebook" aria-hidden="true"></i>
-              </a>
-              <a [href]="instagramUrl" target="_blank" rel="noopener noreferrer" class="footer-contact-link" [attr.aria-label]="'sidebar.instagram' | translate">
-                <i class="bi bi-instagram" aria-hidden="true"></i>
-              </a>
-              <a [href]="contactEmail" class="footer-contact-link" [attr.aria-label]="'sidebar.email' | translate">
-                <i class="bi bi-envelope" aria-hidden="true"></i>
-              </a>
-            </div>
-          </section>
-        </div>
-      </div>
-
-      <section class="footer-card footer-reviews-wrap">
-        <h3 class="footer-card-title">{{ 'sidebar.reviewsTitle' | translate }}</h3>
-        <div class="footer-reviews">
-          @for (r of reviews; track r.date + r.name) {
-            <div class="footer-review">
-              <div class="footer-review-avatar">
-                <i class="bi bi-person-circle" aria-hidden="true"></i>
-              </div>
-              <div class="footer-review-body">
-                <strong class="footer-review-name">{{ r.name }}</strong>
-                <time class="footer-review-date">{{ r.date }}</time>
-                <p class="footer-review-quote">{{ r.quote | translate }}</p>
-              </div>
-            </div>
-          }
+      <section class="footer-features" aria-labelledby="footer-features-heading">
+        <header class="footer-features-head">
+          <h2 id="footer-features-heading" class="footer-features-title">{{ 'sidebar.storeFeaturesTitle' | translate }}</h2>
+          <p class="footer-features-subtitle">{{ 'sidebar.storeFeaturesSubtitle' | translate }}</p>
+        </header>
+        <div class="footer-features-grid">
+          <article class="footer-feature">
+            <p class="footer-feature-body">
+              <span class="footer-feature-value">{{ stats.totalCodes }}</span>
+              <span class="footer-feature-text">{{ 'sidebar.statCodes' | translate }}</span>
+            </p>
+          </article>
+          <article class="footer-feature">
+            <p class="footer-feature-body">
+              <span class="footer-feature-value">{{ stats.totalStores }}</span>
+              <span class="footer-feature-text">{{ 'sidebar.statStores' | translate }}</span>
+            </p>
+          </article>
+          <article class="footer-feature">
+            <p class="footer-feature-body">
+              <span class="footer-feature-value">{{ stats.totalSavers | number }}</span>
+              <span class="footer-feature-text">{{ 'sidebar.statSavers' | translate }}</span>
+            </p>
+          </article>
+          <article class="footer-feature">
+            <p class="footer-feature-body">
+              <span class="footer-feature-value">{{ stats.averageDiscount }}</span>
+              <span class="footer-feature-text">{{ 'sidebar.statDiscount' | translate }}</span>
+            </p>
+          </article>
         </div>
       </section>
 
-      <p class="footer-tagline">{{ 'sidebar.footerLine' | translate }}</p>
+      <section class="footer-features footer-features--reviews" aria-labelledby="footer-reviews-heading">
+        <header class="footer-features-head">
+          <h2 id="footer-reviews-heading" class="footer-features-title">{{ 'sidebar.reviewsTitle' | translate }}</h2>
+          <p class="footer-features-subtitle">{{ 'sidebar.reviewsSubtitle' | translate }}</p>
+        </header>
+        <div class="footer-reviews-marquee" role="presentation">
+          <div class="footer-reviews-track">
+            @for (r of reviews; track r.id) {
+              <article class="footer-review-card">
+                <div class="footer-review-card-inner">
+                  <div class="footer-review-avatar" aria-hidden="true">
+                    <i class="bi bi-person-circle"></i>
+                  </div>
+                  <div class="footer-review-body">
+                    <strong class="footer-review-name">{{ r.name }}</strong>
+                    <time class="footer-review-date">{{ r.date }}</time>
+                    <p class="footer-review-quote">{{ r.quote | translate }}</p>
+                  </div>
+                </div>
+              </article>
+            }
+            @for (r of reviews; track r.id + '-dup') {
+              <article class="footer-review-card" aria-hidden="true">
+                <div class="footer-review-card-inner">
+                  <div class="footer-review-avatar" aria-hidden="true">
+                    <i class="bi bi-person-circle"></i>
+                  </div>
+                  <div class="footer-review-body">
+                    <strong class="footer-review-name">{{ r.name }}</strong>
+                    <time class="footer-review-date">{{ r.date }}</time>
+                    <p class="footer-review-quote">{{ r.quote | translate }}</p>
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 
-  <div class="footer-bar">
-    <footer class="footer-legal">
-      <p class="copyright">&copy; {{ currentYear }} 4SA Blog. {{ 'footer.copyright' | translate }}</p>
-    </footer>
-  </div>
+  <footer class="footer-lower" [attr.aria-label]="'footer.lowerAria' | translate">
+    <div class="footer-lower-accent" aria-hidden="true"></div>
+    <div class="footer-lower-inner">
+      <div class="footer-lower-grid">
+        <section class="footer-lower-block">
+          <h3 class="footer-lower-heading">{{ 'sidebar.newsletterTitle' | translate }}</h3>
+          <p class="footer-lower-text">{{ 'sidebar.newsletterDesc' | translate }}</p>
+          <form class="footer-lower-form" (ngSubmit)="onNewsletterSubmit()">
+            <input
+              type="email"
+              class="footer-lower-input"
+              [placeholder]="'sidebar.emailPlaceholder' | translate"
+              [attr.aria-label]="'sidebar.emailPlaceholder' | translate"
+            />
+            <button type="submit" class="footer-lower-btn">{{ 'sidebar.subscribe' | translate }}</button>
+          </form>
+        </section>
+        <div class="footer-lower-divider" aria-hidden="true"></div>
+        <section class="footer-lower-block">
+          <h3 class="footer-lower-heading">{{ 'sidebar.contactTitle' | translate }}</h3>
+          <p class="footer-lower-text">{{ 'sidebar.contactDesc' | translate }}</p>
+          <div class="footer-lower-social">
+            <a [href]="telegramUrl" target="_blank" rel="noopener noreferrer" class="footer-lower-social-link" [attr.aria-label]="'sidebar.telegram' | translate">
+              <i class="bi bi-telegram" aria-hidden="true"></i>
+            </a>
+            <a [href]="facebookUrl" target="_blank" rel="noopener noreferrer" class="footer-lower-social-link" [attr.aria-label]="'sidebar.facebook' | translate">
+              <i class="bi bi-facebook" aria-hidden="true"></i>
+            </a>
+            <a [href]="instagramUrl" target="_blank" rel="noopener noreferrer" class="footer-lower-social-link" [attr.aria-label]="'sidebar.instagram' | translate">
+              <i class="bi bi-instagram" aria-hidden="true"></i>
+            </a>
+            <a [href]="contactEmail" class="footer-lower-social-link" [attr.aria-label]="'sidebar.email' | translate">
+              <i class="bi bi-envelope" aria-hidden="true"></i>
+            </a>
+          </div>
+        </section>
+      </div>
+      <p class="footer-lower-tagline">{{ 'sidebar.footerLine' | translate }}</p>
+      <p class="footer-lower-copy">&copy; {{ currentYear }} 4SA Blog. {{ 'footer.copyright' | translate }}</p>
+    </div>
+  </footer>
 </div>

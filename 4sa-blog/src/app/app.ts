@@ -14,13 +14,12 @@ import { filter } from 'rxjs/operators';
 import { Banner } from './layout/banner/banner';
 import { CategoriesSidebar } from './layout/categories-sidebar/categories-sidebar';
 import { Footer } from './layout/footer/footer';
-import { MainSidebar } from './layout/main-sidebar/main-sidebar';
 import { Navbar } from './layout/navbar/navbar';
 import { StoresStrip } from './layout/stores-strip/stores-strip';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, StoresStrip, MainSidebar, Footer],
+  imports: [RouterOutlet, Navbar, Banner, CategoriesSidebar, StoresStrip, Footer],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

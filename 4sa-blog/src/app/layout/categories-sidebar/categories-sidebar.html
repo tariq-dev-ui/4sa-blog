@@ -1,37 +1,59 @@
-<aside class="categories-drawer" aria-label="{{ 'sections.title' | translate }}">
-  <button
-    type="button"
-    class="drawer-arrow drawer-arrow-prev"
-    [class.hidden]="!canScrollPrev()"
-    (click)="scrollPrev()"
-    [attr.aria-label]="'sections.prev' | translate"
-  >
-    <i class="bi bi-chevron-left" aria-hidden="true"></i>
-  </button>
-  <div class="drawer-scroll" #drawerScroll (scroll)="updateScrollState()">
-    <ul class="drawer-list">
-      @for (cat of categories; track cat.slug || 'all') {
-        <li class="drawer-item">
-          <a
-            [routerLink]="cat.slug ? ['/categories', cat.slug] : ['/categories']"
-            class="drawer-link"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: !cat.slug }"
-          >
-            <i class="bi drawer-icon" [ngClass]="cat.icon" aria-hidden="true"></i>
-            <span class="drawer-text">{{ cat.labelKey | translate }}</span>
-          </a>
-        </li>
-      }
-    </ul>
-  </div>
-  <button
-    type="button"
-    class="drawer-arrow drawer-arrow-next"
-    [class.hidden]="!canScrollNext()"
-    (click)="scrollNext()"
-    [attr.aria-label]="'sections.next' | translate"
-  >
-    <i class="bi bi-chevron-right" aria-hidden="true"></i>
-  </button>
-</aside>
+<section class="categories-strip" [attr.aria-label]="'sections.title' | translate">
+  <nav class="categories-drawer">
+    <div class="categories-strip-arrows">
+      <button
+        type="button"
+        class="categories-arrow categories-arrow-prev"
+        [class.categories-arrow--disabled]="!canScrollPrev()"
+        [attr.aria-disabled]="!canScrollPrev()"
+        (click)="scrollPrev()"
+        [attr.aria-label]="'sections.prev' | translate"
+      >
+        <i
+          class="bi"
+          [class.bi-chevron-right]="isRtl()"
+          [class.bi-chevron-left]="!isRtl()"
+          aria-hidden="true"
+        ></i>
+      </button>
+    </div>
+
+    <div class="drawer-scroll" #drawerScroll (scroll)="updateScrollState()">
+      <ul class="drawer-list">
+        @for (cat of categories; track cat.slug || 'all') {
+          <li class="drawer-item">
+            <a
+              [routerLink]="cat.slug ? ['/categories', cat.slug] : ['/categories']"
+              class="drawer-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: !cat.slug }"
+            >
+              <span class="drawer-link-icon" aria-hidden="true">
+                <i class="bi drawer-icon" [ngClass]="cat.icon"></i>
+              </span>
+              <span class="drawer-text">{{ cat.labelKey | translate }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="categories-strip-arrows">
+      <button
+        type="button"
+        class="categories-arrow categories-arrow-next"
+        [class.categories-arrow--disabled]="!canScrollNext()"
+        [attr.aria-disabled]="!canScrollNext()"
+        (click)="scrollNext()"
+        [attr.aria-label]="'sections.next' | translate"
+      >
+        <i
+          class="bi"
+          [class.bi-chevron-left]="isRtl()"
+          [class.bi-chevron-right]="!isRtl()"
+          aria-hidden="true"
+        ></i>
+      </button>
+    </div>
+  </nav>
+</section>

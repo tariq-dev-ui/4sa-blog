@@ -38,15 +38,20 @@ export class CategoriesSidebar implements AfterViewInit {
     { slug: '', labelKey: 'sections.allCategories', icon: 'bi-grid-3x3-gap' },
   ];
 
-  /** إظهار سهم «السابق» عندما يمكن التمرير للخلف */
   canScrollPrev = signal(false);
-  /** إظهار سهم «التالي» عندما يمكن التمرير للأمام */
   canScrollNext = signal(false);
 
   private readonly scrollStep = 280;
 
+  /** لعكس اتجاه الشيفرونات مع موضع الأزرار في RTL */
+  isRtl(): boolean {
+    return typeof document !== 'undefined' && document.documentElement.dir === 'rtl';
+  }
+
   ngAfterViewInit(): void {
     this.updateScrollState();
+    setTimeout(() => this.updateScrollState(), 150);
+    setTimeout(() => this.updateScrollState(), 500);
   }
 
   @HostListener('window:resize')
@@ -58,7 +63,7 @@ export class CategoriesSidebar implements AfterViewInit {
     const el = this.drawerScrollRef?.nativeElement;
     if (!el) return;
     const { scrollLeft, scrollWidth, clientWidth } = el;
-    const isRtl = el.getAttribute('dir') === 'rtl' || document.documentElement.dir === 'rtl';
+    const isRtl = document.documentElement.dir === 'rtl';
     const maxScroll = scrollWidth - clientWidth;
 
     if (maxScroll <= 0) {
@@ -68,30 +73,28 @@ export class CategoriesSidebar implements AfterViewInit {
     }
 
     if (isRtl) {
-      this.canScrollPrev.set(scrollLeft > -maxScroll);
-      this.canScrollNext.set(scrollLeft < 0);
+      this.canScrollPrev.set(scrollLeft < -2);
+      this.canScrollNext.set(scrollLeft > -maxScroll + 2);
     } else {
-      this.canScrollPrev.set(scrollLeft > 0);
-      this.canScrollNext.set(scrollLeft < maxScroll - 1);
+      this.canScrollPrev.set(scrollLeft > 2);
+      this.canScrollNext.set(scrollLeft < maxScroll - 2);
     }
   }
 
   scrollPrev(): void {
+    if (!this.canScrollPrev()) return;
     const el = this.drawerScrollRef?.nativeElement;
     if (!el) return;
-    const step = el.getAttribute('dir') === 'rtl' || document.documentElement.dir === 'rtl'
-      ? this.scrollStep
-      : -this.scrollStep;
+    const step = document.documentElement.dir === 'rtl' ? this.scrollStep : -this.scrollStep;
     el.scrollBy({ left: step, behavior: 'smooth' });
     setTimeout(() => this.updateScrollState(), 350);
   }
 
   scrollNext(): void {
+    if (!this.canScrollNext()) return;
     const el = this.drawerScrollRef?.nativeElement;
     if (!el) return;
-    const step = el.getAttribute('dir') === 'rtl' || document.documentElement.dir === 'rtl'
-      ? -this.scrollStep
-      : this.scrollStep;
+    const step = document.documentElement.dir === 'rtl' ? -this.scrollStep : this.scrollStep;
     el.scrollBy({ left: step, behavior: 'smooth' });
     setTimeout(() => this.updateScrollState(), 350);
   }

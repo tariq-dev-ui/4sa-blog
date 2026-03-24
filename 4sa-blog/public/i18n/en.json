@@ -166,7 +166,11 @@
     }
   },
   "sections": {
-    "title": "Sections",
+    "blogHeading": "Blog sections",
+    "browseHint": "Categories scroll automatically; hover to pause and tap a category.",
+    "title": "Blog categories",
+    "showMore": "Show more categories",
+    "backToStart": "Back to first categories",
     "prev": "Previous sections",
     "next": "Next sections",
     "food": "Food",

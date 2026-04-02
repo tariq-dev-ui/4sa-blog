@@ -1,6 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { Categories } from './categories';
+
+class TestTranslateLoader implements TranslateLoader {
+  getTranslation(_lang: string) {
+    return of({});
+  }
+}
 
 describe('Categories', () => {
   let component: Categories;
@@ -8,7 +16,12 @@ describe('Categories', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Categories]
+      imports: [
+        Categories,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TestTranslateLoader },
+        }),
+      ],
     })
     .compileComponents();
 
